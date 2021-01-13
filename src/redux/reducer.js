@@ -7,6 +7,8 @@ const initialState = {
 
 function eventsReducer(state = initialState.events, action) {
     switch(action.type){
+        case actions.GET_EVENTS:
+            return action.payload
         default:
             return state
     }

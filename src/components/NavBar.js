@@ -5,7 +5,7 @@ class NavBar extends React.Component {
 
     render() {
         return(
-            <Menu fixed="top" inverted="true">
+            <Menu fixed="top" inverted={true}>
                 <Menu.Item 
                 name="goodFriend"
                 >
