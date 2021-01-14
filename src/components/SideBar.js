@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers } from '../redux/actions'
+import { NavLink } from 'react-router-dom'
 import {
     Menu,
     Segment,
@@ -11,11 +12,34 @@ import {
 
 class SideBar extends React.Component {
 
+    state = { activeItem: '' }
+
+    handleItemClick = (e, data) => {
+        console.log(data)
+        this.setState({ activeItem: data.name })
+    }
+
+
     componentDidMount() {
         this.props.fetchUsers()
     }
 
+    getInitials = () => {
+        return this.props.followedUsers.map(user => {
+            return (
+            <Menu.Item 
+                // icon="user outline" 
+                as={NavLink} to={`/users/${user.id}`}
+                key={user.id}
+            >
+                {user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase()}
+            </Menu.Item>
+            )
+        })
+    }
+
     render(){
+        console.log(this.state)
         return(
             <>
                 <Sidebar
@@ -30,9 +54,17 @@ class SideBar extends React.Component {
                     width='thin'
                 >
                     
-                    <Menu.Item >goodFriend</Menu.Item>
-                    <Menu.Item icon="user outline"></Menu.Item>
-                    <Menu.Item as='a'>Channels</Menu.Item>
+                    <Menu.Item 
+                        as={NavLink} exact to="/"
+                        name='home'
+                        active={this.state.activeItem === 'home'}
+                        onClick={this.handleItemClick}
+                    >
+                        goodFriend
+                    </Menu.Item>
+
+                    {this.getInitials()}
+
                 </Sidebar>     
             </>
         )

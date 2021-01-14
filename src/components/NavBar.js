@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu, Input, MenuItem } from 'semantic-ui-react'
 
 class NavBar extends React.Component {
+    
 
     render() {
         return(

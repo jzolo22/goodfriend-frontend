@@ -17,7 +17,7 @@ class HomeCalendar extends React.Component {
     }
 
     allEvents = () => {
-        return this.props.followedEvents[0].map(event => {
+        return this.props.followedEvents.map(event => {
             return {
                 title: event.title,
                 start: moment(event.date),
