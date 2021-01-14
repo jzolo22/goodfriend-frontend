@@ -17,7 +17,7 @@ class HomeCalendar extends React.Component {
     }
 
     allEvents = () => {
-        return this.props.events[0].map(event => {
+        return this.props.followedEvents[0].map(event => {
             return {
                 title: event.title,
                 start: moment(event.date),
@@ -41,12 +41,12 @@ class HomeCalendar extends React.Component {
   
 // this.props.events.length > 0 ? this.allEvents() : 
     render() {
-        console.log("props in homecalendar ", this.props.events)
+        console.log("props in homecalendar ", this.props.followedEvents)
         return (
             <div style={{height: "100%"}}>
             <Calendar
                 localizer={localizer}
-                events={this.props.events.length > 0 ? this.allEvents() : this.defaultEvent()}
+                events={this.props.followedEvents.length > 0 ? this.allEvents() : this.defaultEvent()}
                 // step={5}
                 // timeslots={3}
                 defaultView="month"
@@ -66,7 +66,7 @@ class HomeCalendar extends React.Component {
 }
 
 const msp = (state) => {
-    return {events: state.events}
+    return {followedEvents: state.followedEvents}
 }
 
 const mdp = (dispatch) => {

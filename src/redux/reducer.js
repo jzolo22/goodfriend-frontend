@@ -2,12 +2,22 @@ import { combineReducers } from 'redux'
 import * as actions from './actionTypes'
 
 const initialState = {
-    events: []
+    followedEvents: [],
+    followedUsers: []
 }
 
-function eventsReducer(state = initialState.events, action) {
+function eventsReducer(state = initialState.followedEvents, action) {
     switch(action.type){
-        case actions.GET_EVENTS:
+        case actions.GET_FOLLOWED_EVENTS:
+            return action.payload
+        default:
+            return state
+    }
+}
+
+function followedUserReducer(state = initialState.followedUsers, action) {
+    switch(action.type){
+        case actions.GET_FOLLOWED_USERS:
             return action.payload
         default:
             return state
@@ -15,7 +25,8 @@ function eventsReducer(state = initialState.events, action) {
 }
 
 const rootReducer = combineReducers({
-    events: eventsReducer
+    followedEvents: eventsReducer,
+    followedUsers: followedUserReducer
 })
 
 export default rootReducer

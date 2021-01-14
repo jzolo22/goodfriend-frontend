@@ -1,12 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { fetchUsers } from '../redux/actions'
 import {
-    Checkbox,
-    Grid,
-    Header,
-    Image,
     Menu,
-    Ref,
     Segment,
     Sidebar,
   } from 'semantic-ui-react'
@@ -15,12 +11,40 @@ import {
 
 class SideBar extends React.Component {
 
-    render(){
-        return(
-            
-        )
+    componentDidMount() {
+        this.props.fetchUsers()
     }
 
+    render(){
+        return(
+            <>
+                <Sidebar
+                    style={{paddingTop: "4px"}}
+                    as={Menu}
+                    animation='overlay'
+                    icon='labeled'
+                    inverted
+                    // onHide={() => setVisible(false)}
+                    vertical
+                    visible={true}
+                    width='thin'
+                >
+                    
+                    <Menu.Item >goodFriend</Menu.Item>
+                    <Menu.Item icon="user outline"></Menu.Item>
+                    <Menu.Item as='a'>Channels</Menu.Item>
+                </Sidebar>     
+            </>
+        )
+    }
 }
 
-export default SideBar
+const msp = (state) => {
+    return {followedUsers: state.followedUsers}
+}
+
+const mdp = (dispatch) => {
+    return {fetchUsers: () => dispatch(fetchUsers())}
+}
+
+export default connect(msp, mdp)(SideBar)
