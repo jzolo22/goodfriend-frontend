@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Calendar from './components/HomeCalendar'
 import NavBar from './components/NavBar'
 import SideBar from './components/SideBar'
+import LoginPage from './components/LoginPage'
 import './App.css';
 import UserProfile from './components/UserProfile'
 
@@ -21,8 +22,8 @@ class App extends React.Component {
           <Route path="/users/:id" render={(routerProps) => {
               const id = parseInt(routerProps.match.params.id)
               let user
-              if (this.props.followedUsers.length > 0) {
-                user = this.props.followedUsers.filter(user => user.id === id)
+              if (this.props.allUsers.length > 0) {
+                user = this.props.allUsers.filter(user => user.id === id)
                 return <UserProfile user={user}/>
               } else {
                 return <div style={{margin: "15% 47% 0%"}} class="ui segment">
@@ -35,7 +36,9 @@ class App extends React.Component {
                 
               }}/>
           <Route path="/" exact render={() => {
-                return <Calendar />
+                // if current user exists, return calendar, otherwise return Login/sign up component
+                return <LoginPage />
+                // return <Calendar />
               }}/>
         </Switch>
       </>
@@ -44,7 +47,10 @@ class App extends React.Component {
 }
 
 const msp = (state) => {
-  return {followedUsers: state.followedUsers}
+  return {
+    followedUsers: state.followedUsers,
+    allUsers: state.allUsers
+  }
 }
 
 export default connect(msp)(App);

@@ -12,6 +12,7 @@ class NavBar extends React.Component {
 
     componentDidMount(){
         this.props.fetchAllUsers()
+        // this.props.submitHandler(undefined)
     }
 
     matchingNames = (searchInput) => {
@@ -71,7 +72,10 @@ const msp = (state) => {
 }
 
 const mdp = (dispatch) => {
-    return {fetchAllUsers: () => dispatch(fetchAllUsers())}
+    return {
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        // submitHandler: (userObj) => dispatch(logIn(userObj))
+    }
 }
 
 export default connect(msp, mdp)(withRouter(NavBar))

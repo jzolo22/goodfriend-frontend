@@ -4,7 +4,8 @@ import * as actions from './actionTypes'
 const initialState = {
     followedEvents: [],
     followedUsers: [],
-    allUsers: []
+    allUsers: [],
+    currentUser: {}
 }
 
 function followedEventsReducer(state = initialState.followedEvents, action) {
@@ -34,10 +35,22 @@ function allUserReducer(state = initialState.allUsers, action){
     }
 }
 
+function currentUserReducer(state = initialState.currentUser, action) {
+    switch(action.type) {
+        case actions.LOG_IN:
+            return action.payload 
+        case actions.SIGN_UP:
+            return action.payload 
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     followedEvents: followedEventsReducer,
     followedUsers: followedUserReducer,
-    allUsers: allUserReducer
+    allUsers: allUserReducer,
+    currentUser: currentUserReducer
 })
 
 export default rootReducer
