@@ -16,7 +16,13 @@ class NavBar extends React.Component {
     }
 
     matchingNames = (searchInput) => {
-        let results = this.props.allUsers.filter(user => user.first_name.toLowerCase().includes(searchInput.toLowerCase()) || user.last_name.toLowerCase().includes(searchInput.toLowerCase()))
+        let results
+        if (this.props.allUsers.length > 0 ){
+            results = this.props.allUsers.filter(user => user.first_name.toLowerCase().includes(searchInput.toLowerCase()) || user.last_name.toLowerCase().includes(searchInput.toLowerCase()))
+        } else {
+            results = []
+        }
+        
 
         return results.map(user => {
             return ({

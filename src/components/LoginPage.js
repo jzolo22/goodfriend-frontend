@@ -14,12 +14,13 @@ class LoginPage extends React.Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
-    onSubmit = () => {
-        // this.props.signIn(this.state)
+    onSubmit = (e) => {
+        e.preventDefault()
+        this.props.signIn({user: this.state})
     }
 
     render(){
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div style={{marginTop: "15%", textAlign: "center"}}>
                 <h1>Log In</h1>
@@ -41,7 +42,9 @@ class LoginPage extends React.Component {
 }
 
 const mdp = (dispatch) => {
-    // return {signIn: (userObj) => dispatch(logIn(userObj))}
+    return {
+        signIn: (userObj) => dispatch(logIn(userObj))
+    }
 }
 
 export default connect(null, mdp)(LoginPage)
