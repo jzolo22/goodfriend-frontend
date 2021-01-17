@@ -60,7 +60,7 @@ class NavBar extends React.Component {
                 <Menu.Menu position='right'>
                 <Menu.Item>
                     <Search icon='search' 
-                        placeholder='first or last name' 
+                        placeholder={this.props.currentUser.id ? 'first or last name' : 'log in to search'}
                         value={this.state.search} 
                         results={this.matchingNames(this.state.search)} 
                         onSearchChange={this.handleSearch}
