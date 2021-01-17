@@ -13,7 +13,9 @@ const localizer = momentLocalizer(moment);
 class HomeCalendar extends React.Component {
 
     componentDidMount() {
-        this.props.fetchEvents()
+        if (this.props.currentUser.id) {
+            this.props.fetchEvents(this.props.currentUser.id)
+        }
     }
 
     allEvents = () => {
@@ -66,11 +68,14 @@ class HomeCalendar extends React.Component {
 }
 
 const msp = (state) => {
-    return {followedEvents: state.followedEvents}
+    return {
+        followedEvents: state.followedEvents,
+        currentUser: state.currentUser
+    }
 }
 
 const mdp = (dispatch) => {
-    return {fetchEvents: () => dispatch(getEvents())}
+    return {fetchEvents: (userId) => dispatch(getEvents(userId))}
 }
 
 export default connect(msp, mdp)(HomeCalendar)

@@ -45,7 +45,7 @@ class NavBar extends React.Component {
     
 
     render() {
-        console.log(this.matchingNames(this.state.search))
+        console.log("navbar props ", this.props)
         return(
             <Menu fixed="top" inverted={true}>
                 <Menu.Item 
@@ -74,7 +74,10 @@ class NavBar extends React.Component {
 }
 
 const msp = (state) => {
-    return {allUsers: state.allUsers}
+    return {
+        allUsers: state.allUsers,
+        currentUser: state.currentUser
+    }
 }
 
 const mdp = (dispatch) => {

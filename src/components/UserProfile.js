@@ -1,6 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import moment from 'moment'
 import { Icon } from 'semantic-ui-react'
+import { newFollow } from '../redux/actions'
 
 
 class UserProfile extends React.Component {
@@ -18,6 +20,13 @@ class UserProfile extends React.Component {
         }
     }
 
+    followClick = () => {
+        this.props.newFollow({
+            follower_id: this.props.currentUser.id,
+            followee_id: this.props.user[0].id
+        })
+    }
+
     render(){
         console.log(this.props)
         return(
@@ -32,9 +41,24 @@ class UserProfile extends React.Component {
                 <p><Icon name="heart"/> {this.props.user[0].partner_name} - <Icon size="small" fitted name="birthday cake"/> {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
                 </>
                 : null }
+            {this.props.user.id !== this.props.currentUser.id ? 
+                <button onClick={this.followClick}>Follow</button> : null
+            }
             </div>
         )
     }
 }
 
-export default UserProfile
+const msp = (state) => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+const mdp = (dispatch) => {
+    return {
+        newFollow: (followObj) => dispatch(newFollow(followObj))
+    }
+}
+
+export default connect(msp, mdp)(UserProfile)

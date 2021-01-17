@@ -37,8 +37,8 @@ function allUserReducer(state = initialState.allUsers, action){
 
 function currentUserReducer(state = initialState.currentUser, action) {
     switch(action.type) {
-        case actions.LOG_IN:
-            return action.payload 
+        case actions.SET_CURRENT_USER:
+            return action.payload
         case actions.SIGN_UP:
             return action.payload 
         default:

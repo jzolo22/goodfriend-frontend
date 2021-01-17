@@ -21,7 +21,10 @@ class SideBar extends React.Component {
 
 
     componentDidMount() {
-        this.props.fetchUsers()
+        // console.log("i'm fetching users")
+        // if (this.props.currentUser.id) {
+            this.props.fetchUsers(this.props.currentUser.id)
+        // } 
     }
 
     getInitials = () => {
@@ -39,7 +42,7 @@ class SideBar extends React.Component {
     }
 
     render(){
-        console.log(this.state)
+        console.log(this.props.currentUser.id)
         return(
             <>
                 <Sidebar
@@ -72,11 +75,14 @@ class SideBar extends React.Component {
 }
 
 const msp = (state) => {
-    return {followedUsers: state.followedUsers}
+    return {
+        followedUsers: state.followedUsers,
+        currentUser: state.currentUser
+    }
 }
 
 const mdp = (dispatch) => {
-    return {fetchUsers: () => dispatch(fetchUsers())}
+    return {fetchUsers: (userId) => dispatch(fetchUsers(userId))}
 }
 
 export default connect(msp, mdp)(SideBar)

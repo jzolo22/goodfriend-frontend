@@ -5,12 +5,21 @@ import Calendar from './components/HomeCalendar'
 import NavBar from './components/NavBar'
 import SideBar from './components/SideBar'
 import LoginPage from './components/LoginPage'
+import {checkLogin} from './redux/actions'
 import './App.css';
 import UserProfile from './components/UserProfile'
 
 class App extends React.Component {
 
-  
+  componentDidMount() {
+    const token = localStorage.getItem("jwtToken")
+    if (token) {
+      this.props.checkLogin(token)
+    } else {
+      // this.props.history.push('/')
+      // need to add withRouter
+    }
+  }
 
   render(){
     console.log(this.props)
@@ -36,9 +45,11 @@ class App extends React.Component {
                 
               }}/>
           <Route path="/" exact render={() => {
-                // if current user exists, return calendar, otherwise return Login/sign up component
-                return <LoginPage />
-                // return <Calendar />
+                if(this.props.currentUser.id){
+                  return <Calendar />
+                } else {
+                  return <LoginPage />
+                }
               }}/>
         </Switch>
       </>
@@ -49,8 +60,15 @@ class App extends React.Component {
 const msp = (state) => {
   return {
     followedUsers: state.followedUsers,
-    allUsers: state.allUsers
+    allUsers: state.allUsers,
+    currentUser: state.currentUser
   }
 }
 
-export default connect(msp)(App);
+const mdp = (dispatch) => {
+  return {
+    checkLogin: (token) => dispatch(checkLogin(token))
+  }
+}
+
+export default connect(msp, mdp)(App);
