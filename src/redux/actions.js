@@ -70,7 +70,7 @@ export const newFollow = (followObj) => {
             body: JSON.stringify(followObj)
         })
             .then(r => r.json())
-            .then(console.log)
+            .then(newFollow => dispatch({type: actions.ADD_FOLLOWER, payload: newFollow.follow.followee}))
     }
 }
 

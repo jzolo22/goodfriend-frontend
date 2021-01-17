@@ -21,10 +21,10 @@ class SideBar extends React.Component {
 
 
     componentDidMount() {
-        // console.log("i'm fetching users")
-        // if (this.props.currentUser.id) {
+        if (this.props.currentUser.id) {
+            // console.log("i'm fetching users")
             this.props.fetchUsers(this.props.currentUser.id)
-        // } 
+        } 
     }
 
     getInitials = () => {
@@ -42,7 +42,7 @@ class SideBar extends React.Component {
     }
 
     render(){
-        console.log(this.props.currentUser.id)
+        console.log(this.props.followedUsers)
         return(
             <>
                 <Sidebar

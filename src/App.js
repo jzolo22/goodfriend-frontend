@@ -26,7 +26,7 @@ class App extends React.Component {
     return (
       <>
       <NavBar />
-      <SideBar />
+      {this.props.currentUser.id ? <SideBar /> : null}
         <Switch>
           <Route path="/users/:id" render={(routerProps) => {
               const id = parseInt(routerProps.match.params.id)

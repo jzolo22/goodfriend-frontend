@@ -21,6 +21,9 @@ function followedUserReducer(state = initialState.followedUsers, action) {
     switch(action.type){
         case actions.GET_FOLLOWED_USERS:
             return action.payload
+        case actions.ADD_FOLLOWER:
+            console.log(action.payload)
+            return [action.payload, ...state]
         default:
             return state
     }

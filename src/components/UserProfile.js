@@ -41,7 +41,7 @@ class UserProfile extends React.Component {
                 <p><Icon name="heart"/> {this.props.user[0].partner_name} - <Icon size="small" fitted name="birthday cake"/> {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
                 </>
                 : null }
-            {this.props.user.id !== this.props.currentUser.id ? 
+            {this.props.user[0].id !== this.props.currentUser.id ? 
                 <button onClick={this.followClick}>Follow</button> : null
             }
             </div>
