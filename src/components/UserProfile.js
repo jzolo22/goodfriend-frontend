@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Icon } from 'semantic-ui-react'
-import { newFollow } from '../redux/actions'
+import { deleteFollow, newFollow } from '../redux/actions'
 
 
 class UserProfile extends React.Component {
@@ -33,10 +33,7 @@ class UserProfile extends React.Component {
     }
 
     unFollowClick = () => {
-        this.props.deleteFollow({
-            follower_id: this.props.currentUser.id,
-            followee_id: this.props.user[0].id
-        })
+        this.props.deleteFollow(this.props.currentUser.id, this.props.user[0].id)
     }
 
     alreadyFollowed = () => {
@@ -77,7 +74,8 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        newFollow: (followObj) => dispatch(newFollow(followObj))
+        newFollow: (followObj) => dispatch(newFollow(followObj)),
+        deleteFollow: (followerId, followeeId) => dispatch(deleteFollow(followerId, followeeId))
     }
 }
 

@@ -75,9 +75,14 @@ export const newFollow = (followObj) => {
 
 
 // need to find the follow id first, then send another fetch to delete that one specifically
-export const deleteFollow = (followObj) => {
+export const deleteFollow = (followerId, followeeId) => {
     return function(dispatch) {
-      fetch(`${url}follows`)
+      fetch(`${url}follows/${followerId}&${followeeId}`, {
+          method: "DELETE",
+          headers: myHeaders
+      })
+          .then(r => r.json())
+          .then(console.log)
     }
 }
 
