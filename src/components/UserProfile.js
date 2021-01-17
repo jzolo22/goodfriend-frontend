@@ -7,6 +7,10 @@ import { newFollow } from '../redux/actions'
 
 class UserProfile extends React.Component {
 
+    state={
+        clicked: true
+    }
+
     dateEnding = (num) => {
         switch (num) {
             case "1":
@@ -25,6 +29,19 @@ class UserProfile extends React.Component {
             follower_id: this.props.currentUser.id,
             followee_id: this.props.user[0].id
         })
+        this.setState({clicked: true})
+    }
+
+    unFollowClick = () => {
+        this.props.deleteFollow({
+            follower_id: this.props.currentUser.id,
+            followee_id: this.props.user[0].id
+        })
+    }
+
+    alreadyFollowed = () => {
+        let idArray = this.props.currentUser.you_follow.map(user => user.id)
+        return idArray.includes(this.props.user[0].id)
     }
 
     render(){
@@ -41,9 +58,12 @@ class UserProfile extends React.Component {
                 <p><Icon name="heart"/> {this.props.user[0].partner_name} - <Icon size="small" fitted name="birthday cake"/> {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
                 </>
                 : null }
-            {this.props.user[0].id !== this.props.currentUser.id ? 
+            {this.props.user[0].id !== this.props.currentUser.id && !this.alreadyFollowed() ? 
                 <button onClick={this.followClick}>Follow</button> : null
             }
+
+            {this.alreadyFollowed() ? 
+             <button onClick={this.unFollowClick}>Unfollow</button> : null}
             </div>
         )
     }

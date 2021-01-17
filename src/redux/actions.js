@@ -13,7 +13,6 @@ function setAuthorizationToken(token) {
 
 setAuthorizationToken(localStorage.jwtToken);
 
-// eventually will need to pass in a user ID based on who is logged in
 export const getEvents = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
@@ -71,6 +70,14 @@ export const newFollow = (followObj) => {
         })
             .then(r => r.json())
             .then(newFollow => dispatch({type: actions.ADD_FOLLOWER, payload: newFollow.follow.followee}))
+    }
+}
+
+
+// need to find the follow id first, then send another fetch to delete that one specifically
+export const deleteFollow = (followObj) => {
+    return function(dispatch) {
+      fetch(`${url}follows`)
     }
 }
 

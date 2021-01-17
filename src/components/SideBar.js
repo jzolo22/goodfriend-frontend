@@ -28,7 +28,8 @@ class SideBar extends React.Component {
     }
 
     getInitials = () => {
-        return this.props.followedUsers.map(user => {
+        let alphabetized = this.props.followedUsers.sort((a, b) => a.first_name.localeCompare(b.first_name))
+        return alphabetized.map(user => {
             return (
             <Menu.Item 
                 // icon="user outline" 
