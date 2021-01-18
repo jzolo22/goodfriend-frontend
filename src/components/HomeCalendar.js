@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getEvents } from '../redux/actions'
-import { Icon, Image, Item } from 'semantic-ui-react'
+import { Icon, Item } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
 
@@ -49,12 +49,10 @@ class HomeCalendar extends React.Component {
     render() {
         return (
             <>
-            <div style={{height: "100%"}}>
-            <Item style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                <Item.Content>
-                    <Item.Extra>
-                    <Icon size="big" color='black' name='calendar plus outline' /> 
-                    </Item.Extra>
+            <div style={{height: "100%", marginTop: "10%"}}>
+            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                <Item.Content style={{marginRight: "15%"}}>
+                    <Icon size="big" color='black' name='calendar plus outline' link={true} /> 
                 </Item.Content>
             </Item>
             <Calendar
