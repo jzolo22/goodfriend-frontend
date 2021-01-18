@@ -57,7 +57,8 @@ class UserProfile extends React.Component {
     }
 
     deleteEvent = (e) => {
-        console.log(e)
+        let eventId = parseInt(e.target.id)
+        this.props.deleteEvent(eventId)
     }
 
     eventDots = () => {
@@ -81,7 +82,7 @@ class UserProfile extends React.Component {
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
                                         <Icon style={{paddingLeft: "3px"}} name="edit outline" />  
-                                        <Icon name="trash alternate outline" onClick={this.deleteEvent} /> 
+                                        <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
                             </Typography>
                             <Typography>{event.description}</Typography>

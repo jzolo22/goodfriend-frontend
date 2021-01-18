@@ -23,6 +23,11 @@ function allEventsReducer(state = initialState.allEvents, action) {
     switch(action.type){
         case actions.GET_ALL_EVENTS:
             return action.payload
+        case actions.DELETE_EVENT:
+            let newArray = [...state]
+            let index = newArray.findIndex(event => event.id === action.payload)
+            newArray.splice(index, 1)
+            return newArray
         default:
             return state
     }
@@ -33,7 +38,6 @@ function followedUserReducer(state = initialState.followedUsers, action) {
         case actions.GET_FOLLOWED_USERS:
             return action.payload
         case actions.ADD_FOLLOWER:
-            console.log(action.payload)
             return [action.payload, ...state]
         case actions.DELETE_FOLLOW:
             let newArray = [...state]
