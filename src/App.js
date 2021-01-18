@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Calendar from './components/HomeCalendar'
 import NavBar from './components/NavBar'
@@ -8,6 +8,7 @@ import LoginPage from './components/LoginPage'
 import {checkLogin} from './redux/actions'
 import './App.css';
 import UserProfile from './components/UserProfile'
+import NewEventForm from './components/NewEventForm'
 
 class App extends React.Component {
 
@@ -16,8 +17,7 @@ class App extends React.Component {
     if (token) {
       this.props.checkLogin(token)
     } else {
-      // this.props.history.push('/')
-      // need to add withRouter
+      this.props.history.push('/')
     }
   }
 
@@ -41,9 +41,8 @@ class App extends React.Component {
                     </div>
                     </div><img src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" class="ui image"/></div>
               }
-
-                
               }}/>
+          <Route path="/events/new" render={() => <NewEventForm />}/>
           <Route path="/" exact render={() => {
                 if(this.props.currentUser.id){
                   return <Calendar />
@@ -71,4 +70,4 @@ const mdp = (dispatch) => {
   }
 }
 
-export default connect(msp, mdp)(App);
+export default connect(msp, mdp)(withRouter(App));
