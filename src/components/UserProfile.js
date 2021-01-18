@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { deleteFollow, newFollow } from '../redux/actions'
+import { NavLink } from 'react-router-dom'
 import moment from 'moment'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Item } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -65,7 +66,7 @@ class UserProfile extends React.Component {
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
-                            <Typography style={{fontWeight: "bold"}}>{event.title}</Typography>
+                            <Typography style={{fontWeight: "bold"}}>{event.title} {this.props.user[0].id === this.props.currentUser.id ? <> <Icon fitted name="edit outline"/> <Icon  fitted name="trash alternate outline"/> </> : null}</Typography>
                             <Typography>{event.description}</Typography>
                         </TimelineContent>
                     </TimelineItem>
@@ -75,7 +76,6 @@ class UserProfile extends React.Component {
     }
 
     render(){
-        console.log(this.props.user[0].own_events)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
@@ -98,10 +98,18 @@ class UserProfile extends React.Component {
             </div>
 
             <React.Fragment>
-      <Timeline align="alternate">
-        {this.eventDots()}
-      </Timeline>
-    </React.Fragment>
+                <Timeline align="alternate">
+                    {this.eventDots()}
+                </Timeline>
+            </React.Fragment>
+
+            {this.props.user[0].id === this.props.currentUser.id ? 
+            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                <Item.Content style={{textAlign: "center"}}>
+                    <Icon size="big" color='black' name='calendar plus outline' link={true} /> 
+                </Item.Content>
+            </Item>
+            : null }
            </>
         )
     }
