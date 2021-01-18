@@ -24,6 +24,11 @@ function followedUserReducer(state = initialState.followedUsers, action) {
         case actions.ADD_FOLLOWER:
             console.log(action.payload)
             return [action.payload, ...state]
+        case actions.DELETE_FOLLOW:
+            let newArray = [...state]
+            let index = newArray.findIndex(user => user.id === action.payload)
+            newArray.splice(index, 1)
+            return newArray
         default:
             return state
     }

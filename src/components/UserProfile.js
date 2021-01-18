@@ -37,8 +37,10 @@ class UserProfile extends React.Component {
     }
 
     alreadyFollowed = () => {
-        let idArray = this.props.currentUser.you_follow.map(user => user.id)
-        return idArray.includes(this.props.user[0].id)
+        if (this.props.currentUser.you_follow){
+            let idArray = this.props.currentUser.you_follow.map(user => user.id)
+            return idArray.includes(this.props.user[0].id)
+        }
     }
 
     render(){

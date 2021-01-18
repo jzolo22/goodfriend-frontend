@@ -1,7 +1,7 @@
 import * as actions from "./actionTypes";
 // import jwt from 'jsonwebtoken'
 
-const url = "http://localhost:4000/api/v1/";
+const url = "http://localhost:4000/api/v1";
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
@@ -16,7 +16,7 @@ setAuthorizationToken(localStorage.jwtToken);
 export const getEvents = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
-    fetch(`${url}users/${id}`, {
+    fetch(`${url}/users/${id}`, {
       headers: myHeaders,
     })
       .then((r) => r.json())
@@ -33,7 +33,7 @@ export const getEvents = (id) => {
 export const fetchUsers = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
-    fetch(`${url}users/${id}`, {
+    fetch(`${url}/users/${id}`, {
       headers: myHeaders,
     })
       .then((r) => r.json())
@@ -49,7 +49,7 @@ export const fetchUsers = (id) => {
 export const fetchAllUsers = () => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
-    fetch(`${url}users`, {
+    fetch(`${url}/users`, {
       headers: myHeaders,
     })
       .then((r) => r.json())
@@ -63,7 +63,7 @@ export const fetchAllUsers = () => {
 
 export const newFollow = (followObj) => {
     return function(dispatch) {
-        fetch(`${url}follows`, {
+        fetch(`${url}/follows`, {
             method: "POST",
             headers: myHeaders,
             body: JSON.stringify(followObj)
@@ -77,12 +77,11 @@ export const newFollow = (followObj) => {
 // need to find the follow id first, then send another fetch to delete that one specifically
 export const deleteFollow = (followerId, followeeId) => {
     return function(dispatch) {
-      fetch(`${url}follows/${followerId}&${followeeId}`, {
+      fetch(`${url}/follows/${followerId}&${followeeId}`, {
           method: "DELETE",
           headers: myHeaders
       })
-          .then(r => r.json())
-          .then(console.log)
+          .then(dispatch({type: actions.DELETE_FOLLOW, payload: followeeId}))
     }
 }
 
@@ -96,7 +95,7 @@ export const deleteFollow = (followerId, followeeId) => {
 // auth actions
 export const logIn = (userData) => {
   return function (dispatch) {
-    fetch(`${url}login`, {
+    fetch(`${url}/login`, {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(userData),
@@ -112,7 +111,7 @@ export const logIn = (userData) => {
 
 export const checkLogin = (token) => {
     return function (dispatch) {
-        fetch(`${url}profile`, {
+        fetch(`${url}/profile`, {
             method: "GET",
             headers: {Authorization: `Bearer ${token}`} 
         })
