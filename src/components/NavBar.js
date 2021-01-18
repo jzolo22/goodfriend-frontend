@@ -41,6 +41,7 @@ class NavBar extends React.Component {
 
     handleClick = (e, data) => {
         this.props.history.push(`/users/${data.result.id}`)
+        this.setState({search: ""})
     }
     
 
