@@ -13,23 +13,33 @@ function setAuthorizationToken(token) {
 
 setAuthorizationToken(localStorage.jwtToken);
 
-export const getEvents = (id) => {
+export const getFollowedEvents = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
     fetch(`${url}/users/${id}`, {
       headers: myHeaders,
     })
       .then((r) => r.json())
-      .then((userInfo) =>
+      .then((userInfo) => {
         dispatch({
           type: actions.GET_FOLLOWED_EVENTS,
-          payload: userInfo.followed_events.flat(),
+          payload: userInfo.followed_events.flat()
         })
+      }
       );
   };
 };
 
-// eventually will need to pass in a user ID based on who is logged in
+export const getEvents = () => {
+  return function(dispatch) {
+    fetch(`${url}/events`, {
+      headers: myHeaders
+    })
+      .then(r => r.json())
+      .then(console.log)
+  }
+}
+
 export const fetchUsers = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
@@ -96,6 +106,15 @@ export const newEvent = (eventObj) => {
 }
 
 
+export const deleteEvent = (eventId) => {
+  return function(dispatch) {
+    fetch(`${url}/events/${eventId}`, {
+        method: "DELETE",
+        headers: myHeaders
+    })
+        .then(dispatch({type: actions.DELETE_EVENT, payload: eventId}))
+  }
+}
 
 
 

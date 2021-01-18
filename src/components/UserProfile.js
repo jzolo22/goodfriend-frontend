@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteFollow, newFollow } from '../redux/actions'
+import { deleteFollow, newFollow, getEvents, deleteEvent } from '../redux/actions'
 import { NavLink } from 'react-router-dom'
 import moment from 'moment'
 import { Icon, Item } from 'semantic-ui-react'
@@ -18,6 +18,10 @@ class UserProfile extends React.Component {
 
     state={
         clicked: true
+    }
+
+    componentDidMount() {
+        this.props.getEvents()
     }
 
     dateEnding = (num) => {
@@ -52,9 +56,13 @@ class UserProfile extends React.Component {
         }
     }
 
+    deleteEvent = (e) => {
+        console.log(e)
+    }
+
     eventDots = () => {
-        if (this.props.user[0].own_events.length > 0) {
-            let sortedByDateEvents = this.props.user[0].own_events.sort((a, b) => new Date(a.date) - new Date(b.date))
+        if (this.props.ownEvents.length > 0) {
+            let sortedByDateEvents = this.props.ownEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
             return sortedByDateEvents.map(event => {
                 return (
                     <TimelineItem>
@@ -66,7 +74,15 @@ class UserProfile extends React.Component {
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
-                            <Typography style={{fontWeight: "bold"}}>{event.title} {this.props.user[0].id === this.props.currentUser.id ? <> <Icon fitted name="edit outline"/> <Icon  fitted name="trash alternate outline"/> </> : null}</Typography>
+                            <Typography 
+                                style={{fontWeight: "bold"}}>
+                                    {event.title} 
+                                    {this.props.user[0].id === this.props.currentUser.id ? 
+                                    <> 
+                                        <Icon fitted name="edit outline" /> 
+                                        <Icon fitted name="trash alternate outline" onClick={this.deleteEvent} /> 
+                                    </> : null}
+                            </Typography>
                             <Typography>{event.description}</Typography>
                         </TimelineContent>
                     </TimelineItem>
@@ -76,6 +92,7 @@ class UserProfile extends React.Component {
     }
 
     render(){
+        console.log(this.props)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
@@ -118,14 +135,17 @@ class UserProfile extends React.Component {
 const msp = (state) => {
     return {
         currentUser: state.currentUser,
-        followedUsers: state.followedUsers
+        followedUsers: state.followedUsers,
+        ownEvents: state.ownEvents
     }
 }
 
 const mdp = (dispatch) => {
     return {
         newFollow: (followObj) => dispatch(newFollow(followObj)),
-        deleteFollow: (followerId, followeeId) => dispatch(deleteFollow(followerId, followeeId))
+        deleteFollow: (followerId, followeeId) => dispatch(deleteFollow(followerId, followeeId)),
+        getEvents: () => dispatch(getEvents()),
+        deleteEvent: (eventId) => dispatch(deleteEvent(eventId))
     }
 }
 

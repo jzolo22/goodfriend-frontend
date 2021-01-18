@@ -3,6 +3,7 @@
 // then when using in other places: actions.BUG_ADDED
 
 export const GET_FOLLOWED_EVENTS = "getFollowedEvents"
+export const GET_OWN_EVENTS = "getOwnEvents"
 export const GET_FOLLOWED_USERS = "getFollowedUsers"
 export const GET_ALL_USERS = "getAllUsers"
 export const LOG_IN = "logIn"
@@ -11,3 +12,4 @@ export const SIGN_UP = "signUp"
 export const SET_CURRENT_USER = "setCurrentUser"
 export const ADD_FOLLOWER = "addFollower"
 export const DELETE_FOLLOW = "deleteFollow"
+export const DELETE_EVENT = "deleteEvent"
