@@ -60,7 +60,6 @@ export const fetchAllUsers = () => {
 };
 
 
-
 export const newFollow = (followObj) => {
     return function(dispatch) {
         fetch(`${url}/follows`, {
@@ -73,8 +72,6 @@ export const newFollow = (followObj) => {
     }
 }
 
-
-// need to find the follow id first, then send another fetch to delete that one specifically
 export const deleteFollow = (followerId, followeeId) => {
     return function(dispatch) {
       fetch(`${url}/follows/${followerId}&${followeeId}`, {
@@ -86,7 +83,17 @@ export const deleteFollow = (followerId, followeeId) => {
 }
 
 
-
+export const newEvent = (eventObj) => {
+  return function(dispatch){
+    fetch(`${url}/events`, {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(eventObj)
+    })
+      .then(r => r.json())
+      .then(console.log)
+  }
+}
 
 
 
