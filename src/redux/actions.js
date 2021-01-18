@@ -36,7 +36,7 @@ export const getEvents = () => {
       headers: myHeaders
     })
       .then(r => r.json())
-      .then(console.log)
+      .then(eventsArray => dispatch({type: actions.GET_ALL_EVENTS, payload: eventsArray}))
   }
 }
 

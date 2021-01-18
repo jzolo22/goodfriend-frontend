@@ -4,6 +4,7 @@
 
 export const GET_FOLLOWED_EVENTS = "getFollowedEvents"
 export const GET_OWN_EVENTS = "getOwnEvents"
+export const GET_ALL_EVENTS = "getAllEvents"
 export const GET_FOLLOWED_USERS = "getFollowedUsers"
 export const GET_ALL_USERS = "getAllUsers"
 export const LOG_IN = "logIn"

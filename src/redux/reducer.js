@@ -3,7 +3,7 @@ import * as actions from './actionTypes'
 
 const initialState = {
     followedEvents: [],
-    ownEvents: [],
+    allEvents: [],
     followedUsers: [],
     allUsers: [],
     currentUser: {}
@@ -18,10 +18,10 @@ function followedEventsReducer(state = initialState.followedEvents, action) {
     }
 }
 
-function ownEventsReducer(state = initialState.ownEvents, action) {
+
+function allEventsReducer(state = initialState.allEvents, action) {
     switch(action.type){
-        case actions.GET_OWN_EVENTS:
-            console.log("ownevents reducer ", action.payload)
+        case actions.GET_ALL_EVENTS:
             return action.payload
         default:
             return state
@@ -67,7 +67,7 @@ function currentUserReducer(state = initialState.currentUser, action) {
 
 const rootReducer = combineReducers({
     followedEvents: followedEventsReducer,
-    ownEvents: ownEventsReducer,
+    allEvents: allEventsReducer,
     followedUsers: followedUserReducer,
     allUsers: allUserReducer,
     currentUser: currentUserReducer
