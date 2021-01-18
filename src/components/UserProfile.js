@@ -1,8 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { deleteFollow, newFollow } from '../redux/actions'
 import moment from 'moment'
 import { Icon } from 'semantic-ui-react'
-import { deleteFollow, newFollow } from '../redux/actions'
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import TimelineContent from '@material-ui/lab/TimelineContent';
+import TimelineDot from '@material-ui/lab/TimelineDot';
 
 
 class UserProfile extends React.Component {
@@ -45,6 +51,7 @@ class UserProfile extends React.Component {
 
     render(){
         return(
+            <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
                 <p style={{fontSize: "30px", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p>
             {this.props.user[0].birthday ? 
@@ -63,6 +70,37 @@ class UserProfile extends React.Component {
             {this.alreadyFollowed() ? 
              <button onClick={this.unFollowClick}>Unfollow</button> : null}
             </div>
+            
+             <Timeline align="alternate">
+             <TimelineItem>
+               <TimelineSeparator>
+                 <TimelineDot />
+                 <TimelineConnector />
+               </TimelineSeparator>
+               <TimelineContent>Eat</TimelineContent>
+             </TimelineItem>
+             <TimelineItem>
+               <TimelineSeparator>
+                 <TimelineDot />
+                 <TimelineConnector />
+               </TimelineSeparator>
+               <TimelineContent>Code</TimelineContent>
+             </TimelineItem>
+             <TimelineItem>
+               <TimelineSeparator>
+                 <TimelineDot />
+                 <TimelineConnector />
+               </TimelineSeparator>
+               <TimelineContent>Sleep</TimelineContent>
+             </TimelineItem>
+             <TimelineItem>
+               <TimelineSeparator>
+                 <TimelineDot />
+               </TimelineSeparator>
+               <TimelineContent>Repeat</TimelineContent>
+             </TimelineItem>
+           </Timeline>
+           </>
         )
     }
 }
