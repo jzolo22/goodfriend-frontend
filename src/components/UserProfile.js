@@ -37,14 +37,13 @@ class UserProfile extends React.Component {
     }
 
     alreadyFollowed = () => {
-        if (this.props.currentUser.you_follow){
-            let idArray = this.props.currentUser.you_follow.map(user => user.id)
+        if (this.props.followedUsers){
+            let idArray = this.props.followedUsers.map(user => user.id)
             return idArray.includes(this.props.user[0].id)
         }
     }
 
     render(){
-        console.log(this.props)
         return(
             <div style={{textAlign: "center", paddingTop: "100px"}}>
                 <p style={{fontSize: "30px", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p>
@@ -70,7 +69,8 @@ class UserProfile extends React.Component {
 
 const msp = (state) => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        followedUsers: state.followedUsers
     }
 }
 
