@@ -1,9 +1,11 @@
 import React from 'react'
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getEvents } from '../redux/actions'
+import { Icon, Image, Item } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
 
@@ -45,9 +47,16 @@ class HomeCalendar extends React.Component {
   
 // this.props.events.length > 0 ? this.allEvents() : 
     render() {
-        console.log("props in homecalendar ", this.props)
         return (
+            <>
             <div style={{height: "100%"}}>
+            <Item style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                <Item.Content>
+                    <Item.Extra>
+                    <Icon size="big" color='black' name='calendar plus outline' /> 
+                    </Item.Extra>
+                </Item.Content>
+            </Item>
             <Calendar
                 localizer={localizer}
                 events={this.props.followedEvents.length > 0 ? this.allEvents() : this.defaultEvent()}
@@ -62,9 +71,10 @@ class HomeCalendar extends React.Component {
                 startAccessor="start"
                 endAccessor="end"
                 drilldownView="week"
-                style={{ margin: "15%", height: 500 }}
+                style={{ margin: "0% 15%", height: 500 }}
             />
             </div>
+            </>
         )
     }
 }

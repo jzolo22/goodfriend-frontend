@@ -22,8 +22,6 @@ class NavBar extends React.Component {
         } else {
             results = []
         }
-        
-
         return results.map(user => {
             return ({
                 id: user.id,
