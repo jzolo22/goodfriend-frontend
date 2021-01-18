@@ -9,6 +9,8 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
+import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
+import Typography from '@material-ui/core/Typography';
 
 
 class UserProfile extends React.Component {
@@ -49,7 +51,30 @@ class UserProfile extends React.Component {
         }
     }
 
+    eventDots = () => {
+        if (this.props.user[0].own_events.length > 0) {
+            return this.props.user[0].own_events.map(event => {
+                return (
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">{moment(event.date).format('MMM DD')}{this.dateEnding(event.date.slice(-1))}</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography style={{fontWeight: "bold"}}>{event.title}</Typography>
+                            <Typography>{event.description}</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                )
+            })
+        }
+    }
+
     render(){
+        console.log(this.props.user[0].own_events)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
@@ -70,36 +95,12 @@ class UserProfile extends React.Component {
             {this.alreadyFollowed() ? 
              <button onClick={this.unFollowClick}>Unfollow</button> : null}
             </div>
-            
-             <Timeline align="alternate">
-             <TimelineItem>
-               <TimelineSeparator>
-                 <TimelineDot />
-                 <TimelineConnector />
-               </TimelineSeparator>
-               <TimelineContent>Eat</TimelineContent>
-             </TimelineItem>
-             <TimelineItem>
-               <TimelineSeparator>
-                 <TimelineDot />
-                 <TimelineConnector />
-               </TimelineSeparator>
-               <TimelineContent>Code</TimelineContent>
-             </TimelineItem>
-             <TimelineItem>
-               <TimelineSeparator>
-                 <TimelineDot />
-                 <TimelineConnector />
-               </TimelineSeparator>
-               <TimelineContent>Sleep</TimelineContent>
-             </TimelineItem>
-             <TimelineItem>
-               <TimelineSeparator>
-                 <TimelineDot />
-               </TimelineSeparator>
-               <TimelineContent>Repeat</TimelineContent>
-             </TimelineItem>
-           </Timeline>
+
+            <React.Fragment>
+      <Timeline align="alternate">
+        {this.eventDots()}
+      </Timeline>
+    </React.Fragment>
            </>
         )
     }
