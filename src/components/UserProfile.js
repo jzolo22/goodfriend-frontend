@@ -77,11 +77,11 @@ class UserProfile extends React.Component {
                         <TimelineContent>
                             <Typography 
                                 style={{fontWeight: "bold"}}>
-                                    {event.title} 
+                                    {event.title } 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
-                                        <Icon fitted name="edit outline" /> 
-                                        <Icon fitted name="trash alternate outline" onClick={this.deleteEvent} /> 
+                                        <Icon style={{paddingLeft: "3px"}} name="edit outline" />  
+                                        <Icon name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
                             </Typography>
                             <Typography>{event.description}</Typography>
