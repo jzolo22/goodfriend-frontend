@@ -53,7 +53,8 @@ class UserProfile extends React.Component {
 
     eventDots = () => {
         if (this.props.user[0].own_events.length > 0) {
-            return this.props.user[0].own_events.map(event => {
+            let sortedByDateEvents = this.props.user[0].own_events.sort((a, b) => new Date(a.date) - new Date(b.date))
+            return sortedByDateEvents.map(event => {
                 return (
                     <TimelineItem>
                         <TimelineOppositeContent>
