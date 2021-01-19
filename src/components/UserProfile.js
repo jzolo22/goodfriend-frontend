@@ -40,7 +40,7 @@ class UserProfile extends React.Component {
                     <div style={{display: "flex", justifyContent: "center"}}>
                     🎂 <EditableLabel 
                         text={`${this.state.birthday}`}
-                        inputWidth='125px'
+                        inputWidth='75px'
                         inputHeight='25px'
                         inputMaxLength='50'
                         labelFontSize="20px"
@@ -61,7 +61,7 @@ class UserProfile extends React.Component {
                     <div style={{display: "flex", justifyContent: "center"}}> 💞 
                     <EditableLabel 
                         text={`${this.props.user[0].partner_name}`}
-                        inputWidth='90px'
+                        inputWidth='70px'
                         inputHeight='25px'
                         inputMaxLength='50'
                         labelFontSize="16px"
@@ -70,7 +70,7 @@ class UserProfile extends React.Component {
                     /> - 🎂 
                     <EditableLabel 
                         text={`${this.state.partner_birthday}`}
-                        inputWidth='90px'
+                        inputWidth='70px'
                         inputHeight='25px'
                         inputMaxLength='50'
                         labelFontSize="16px"
