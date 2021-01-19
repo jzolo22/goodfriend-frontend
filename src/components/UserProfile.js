@@ -14,12 +14,29 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 
+// const {first_name, last_name, birthday} = this.props.user[0]
 
 class UserProfile extends React.Component {
+
+    dateEnding = (num) => {
+            switch (num) {
+                case "1":
+                    return "st"
+                case "2":
+                    return "nd"
+                case "3":
+                    return "rd"
+                default:
+                    return "th"
+            }
+    }
 
     state = {
         first_name: this.props.user[0].first_name,
         last_name: this.props.user[0].last_name,
+        // birthday: `🎂 ${moment(this.props.user[0].birthday).format('MMM DD')}${this.dateEnding(this.props.user[0].birthday.slice(-1))}`,
+        partner_name: this.props.user[0].partner_name,
+        partner_birthday: this.props.user[0].partner_birthday
     }
 
 
@@ -27,18 +44,30 @@ class UserProfile extends React.Component {
         this.props.getEvents()
     }
 
-    dateEnding = (num) => {
-        switch (num) {
-            case "1":
-                return "st"
-            case "2":
-                return "nd"
-            case "3":
-                return "rd"
-            default:
-                return "th"
+
+    birthdayDisplay = () => {
+        if (this.props.user[0].birthday){
+            if(this.props.user[0].id === this.props.currentUser.id) {
+                return (
+                    <EditableLabel 
+                        text={`${this.state.birthday}`}
+                        inputWidth='125px'
+                        inputHeight='25px'
+                        inputMaxLength='50'
+                        labelFontWeight='bold'
+                        labelFontSize="20px"
+                        // onFocusOut={this.editedName}
+                    />)
+            } else {
+                return (
+                    <p>🎂 {moment(this.props.user[0].birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].birthday.slice(-1))}</p>
+            )
+            }
         }
     }
+
+    // <Icon name="birthday cake"/>
+    // <Icon name="heart"/> 
 
     followClick = () => {
         this.props.newFollow({
@@ -62,6 +91,7 @@ class UserProfile extends React.Component {
         let eventId = parseInt(e.target.id)
         this.props.deleteEvent(eventId)
     }
+
 
     editedName = (text) => {
         let userId = this.props.user[0].id
@@ -90,7 +120,7 @@ class UserProfile extends React.Component {
                         <TimelineContent>
                             <Typography 
                                 style={{fontWeight: "bold"}}>
-                                    {event.title } 
+                                    {event.title} 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
                                         {/* <Icon as={NavLink} to={`/events/new`} style={{paddingLeft: "3px"}} name="edit outline" />   */}
@@ -106,7 +136,7 @@ class UserProfile extends React.Component {
     }
 
     render(){
-        console.log(this.state)
+        console.log(this.props)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
@@ -122,13 +152,12 @@ class UserProfile extends React.Component {
                 />
                 :
                     <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p> }
-            {this.props.user[0].birthday ? 
-                <p><Icon name="birthday cake"/> {moment(this.props.user[0].birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].birthday.slice(-1))}</p>
-                : null }
+
+            {this.birthdayDisplay()}
 
             {this.props.user[0].partner_name ? 
                 <>
-                <p><Icon name="heart"/> {this.props.user[0].partner_name} - <Icon size="small" fitted name="birthday cake"/> {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
+                <p> 💞 {this.props.user[0].partner_name} -  🎂 {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
                 </>
                 : null }
             {this.props.user[0].id !== this.props.currentUser.id && !this.alreadyFollowed() ? 
