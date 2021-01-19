@@ -52,7 +52,7 @@ class HomeCalendar extends React.Component {
             <div style={{height: "100%", marginTop: "10%"}}>
             <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
                 <Item.Content style={{marginRight: "15%"}}>
-                    <Icon size="big" color='black' name='calendar plus outline' link={true} /> 
+                    <Icon size="big" color='blue' name='calendar plus outline' link={true} /> 
                 </Item.Content>
             </Item>
             <Calendar

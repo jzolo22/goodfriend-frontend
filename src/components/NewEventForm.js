@@ -44,14 +44,16 @@ class NewEventForm extends React.Component {
             <div style={{marginTop: "15%", textAlign: "center"}}>
 
             <Form onSubmit={this.onSubmit}>
-                <Form.Field>
+                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
                     <label>Title</label>
-                    <input style={{margin: "0% 40% 0% 40%"}} placeholder='Graduation, Promotion, Move-in' name="title" value={this.state.title} onChange={this.onChange}/>
+                    <input placeholder='Graduation, Promotion, Move-in' name="title" value={this.state.title} onChange={this.onChange}/>
                 </Form.Field>
                 
-                <Form.TextArea style={{margin: "0% 40% 0% 40%"}} label='Description' placeholder='Will be looking for jobs after graduation!' name="description" value={this.state.description} onChange={this.onChange}/>
+                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
+                     <Form.TextArea label='Description' placeholder='Will be looking for jobs after graduation!' name="description" value={this.state.description} onChange={this.onChange}/>
+                </Form.Field>
 
-                <Form.Field style={{margin: "0% 35% 3% 35%"}}>
+                <Form.Field style={{margin: "1% 35% 3% 35%"}}>
                     <label>Date</label>
                     <Calendar  onChange={this.dateSelect}/>
                 </Form.Field>
@@ -65,6 +67,18 @@ class NewEventForm extends React.Component {
         )
     }
 }
+
+{/* <form class="ui form" onSubmit={this.onSubmit}>
+                    <div style={{margin: "0% 40% 0% 40%"}} class="field">
+                        <label>Username</label>
+                        <input  type="text" name="username" placeholder="Username" value={this.state.username}onChange={this.onChange}></input>
+                    </div>
+                    <div style={{margin: "0% 40% 1% 40%"}} class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}></input>
+                    </div>
+                    <button class="ui button" type="submit">Submit</button>
+                </form> */}
 
 const msp = (state) => {
     return {
