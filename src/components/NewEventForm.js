@@ -68,17 +68,7 @@ class NewEventForm extends React.Component {
     }
 }
 
-{/* <form class="ui form" onSubmit={this.onSubmit}>
-                    <div style={{margin: "0% 40% 0% 40%"}} class="field">
-                        <label>Username</label>
-                        <input  type="text" name="username" placeholder="Username" value={this.state.username}onChange={this.onChange}></input>
-                    </div>
-                    <div style={{margin: "0% 40% 1% 40%"}} class="field">
-                        <label>Password</label>
-                        <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}></input>
-                    </div>
-                    <button class="ui button" type="submit">Submit</button>
-                </form> */}
+
 
 const msp = (state) => {
     return {

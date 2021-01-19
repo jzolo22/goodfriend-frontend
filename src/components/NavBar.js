@@ -47,7 +47,7 @@ class NavBar extends React.Component {
     render() {
         console.log("navbar props ", this.props)
         return(
-            <Menu fixed="top" inverted={true}>
+            <Menu fixed="top" inverted={true} size="mini">
                 <Menu.Item 
                 name="goodFriend"
                 >
