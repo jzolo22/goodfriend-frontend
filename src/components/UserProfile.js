@@ -128,10 +128,10 @@ class UserProfile extends React.Component {
         let year = this.props.user[0].birthday.split("-")[0]
         let newBirthday = `${month} ${day}, ${year}`
         let newBirthdayDate = new Date(newBirthday)
-        console.log(newBirthdayDate)
+
         this.setState({
-            birthday: newBirthdayDate,
-        }, () => this.props.editProfile(userId, this.state))
+            birthday: moment(newBirthdayDate).format('MMM Do'),
+        }, () => this.props.editProfile(userId, {birthday: newBirthdayDate}))
     }
 
     editedName = (text) => {
