@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { getFollowedEvents } from '../redux/actions'
+import { getFollowedEvents, fetchAllUsers } from '../redux/actions'
 import { Icon, Item } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
@@ -17,6 +17,7 @@ class HomeCalendar extends React.Component {
     componentDidMount() {
         if (this.props.currentUser.id) {
             this.props.fetchEvents(this.props.currentUser.id)
+            this.props.fetchAllUsers()
         }
     }
 
@@ -82,7 +83,10 @@ const msp = (state) => {
 }
 
 const mdp = (dispatch) => {
-    return {fetchEvents: (userId) => dispatch(getFollowedEvents(userId))}
+    return {
+        fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
+        fetchAllUsers: () => dispatch(fetchAllUsers())
+    }
 }
 
 export default connect(msp, mdp)(HomeCalendar)

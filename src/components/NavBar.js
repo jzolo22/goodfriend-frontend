@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { fetchAllUsers } from '../redux/actions'
+import { fetchAllUsers, checkLogin } from '../redux/actions'
 import { Menu, Search, Item, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
@@ -13,7 +13,6 @@ class NavBar extends React.Component {
 
     componentDidMount(){
         this.props.fetchAllUsers()
-        // this.props.submitHandler(undefined)
     }
 
     matchingNames = (searchInput) => {
@@ -87,7 +86,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         fetchAllUsers: () => dispatch(fetchAllUsers()),
-        // submitHandler: (userObj) => dispatch(logIn(userObj))
+        checkLogin: (token) => dispatch(checkLogin(token))
     }
 }
 

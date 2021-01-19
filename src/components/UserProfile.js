@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile } from '../redux/actions'
+import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
@@ -31,7 +32,6 @@ class UserProfile extends React.Component {
     componentDidMount() {
         this.props.getEvents()
     }
-
 
     ownBirthdayDisplay = () => {
         if (this.props.user[0].birthday){
@@ -182,7 +182,9 @@ class UserProfile extends React.Component {
                                     {event.title} 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
-                                        <Icon link={true} id={event.id} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>  
+                                        <EditEventForm eventId={event.id}/>
+                                        {/* {this.editEventClick(event.id)} */}
+                                        {/* <Icon link={true} id={event.id} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>   */}
                                         <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
                             </Typography>
@@ -194,14 +196,25 @@ class UserProfile extends React.Component {
         }
     }
 
-    editEventClick = (e) => {
-        console.log(e.target.id)
-        // return (
-        //     <Modal 
-        //         as={Form}
-        //     />
-        // )
-    }
+    // editEventClick = (eventId) => {
+    //     return (
+    //         <>
+    //             <Modal 
+    //                 trigger={<Icon link={true} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>}
+    //                 as={Form}
+    //                 onSubmit={this.submitEventUpdate}
+    //                 size="mini"
+    //             >
+    //                 <Modal.Content>
+    //                     <Form.Input label="Name" required type="text" placeholder="Your name" />
+    //                 </Modal.Content>
+    //                 <Modal.Actions>
+    //                     <Button type="submit" icon="save" content="Update" />
+    //                 </Modal.Actions>
+    //             </Modal>
+    //         </>
+    //     )
+    // }
 
     render(){
         console.log(this.props)
