@@ -22,7 +22,7 @@ class UserProfile extends React.Component {
     state = {
         first_name: this.props.user[0].first_name,
         last_name: this.props.user[0].last_name,
-        // birthday: `${moment(this.props.user[0].birthday).format('MMM DD')}${this.dateEnding(this.props.user[0].birthday.slice(-1))}`,
+        birthday: moment(this.props.user[0].birthday).format('MMM Do'),
         partner_name: this.props.user[0].partner_name,
         partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do')
     }
@@ -37,15 +37,15 @@ class UserProfile extends React.Component {
         if (this.props.user[0].birthday){
             if(this.props.user[0].id === this.props.currentUser.id) {
                 return (
-                    <EditableLabel 
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                    🎂 <EditableLabel 
                         text={`${this.state.birthday}`}
                         inputWidth='125px'
                         inputHeight='25px'
                         inputMaxLength='50'
-                        labelFontWeight='bold'
                         labelFontSize="20px"
-                        // onFocusOut={this.editedName}
-                    />)
+                        onFocusOut={this.editedBirthday}
+                    /></div>)
             } else {
                 return (
                     <p>🎂 {moment(this.props.user[0].birthday).format('MMM Do')}</p>
@@ -94,7 +94,6 @@ class UserProfile extends React.Component {
                         onFocusOut={this.editedPartnerName}
                     /></div>)
          }
-
         }
     }
 
@@ -122,6 +121,18 @@ class UserProfile extends React.Component {
         this.props.deleteEvent(eventId)
     }
 
+    editedBirthday = (text) => {
+        let userId = this.props.user[0].id
+        let month = text.split(" ")[0]
+        let day = text.split(" ")[1].replace(/\D+/g, '')
+        let year = this.props.user[0].birthday.split("-")[0]
+        let newBirthday = `${month} ${day}, ${year}`
+        let newBirthdayDate = new Date(newBirthday)
+        console.log(newBirthdayDate)
+        this.setState({
+            birthday: newBirthdayDate,
+        }, () => this.props.editProfile(userId, this.state))
+    }
 
     editedName = (text) => {
         let userId = this.props.user[0].id
@@ -139,6 +150,20 @@ class UserProfile extends React.Component {
         this.setState({
             partner_name: text,
         }, () => this.props.editProfile(userId, this.state))
+    }
+
+    editedPartnerBirthday = (text) => {
+        let userId = this.props.user[0].id
+        let month = text.split(" ")[0]
+        let day = text.split(" ")[1]
+        let year = this.props.user[0].partner_birthday.split(" ")
+        console.log(year)
+        console.log(month)
+        console.log(day)
+        // this.setState({
+        //     first_name: firstName,
+        //     last_name: lastName
+        // }, () => this.props.editProfile(userId, this.state))
     }
 
     eventDots = () => {
