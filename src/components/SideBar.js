@@ -63,6 +63,7 @@ class SideBar extends React.Component {
                         name='home'
                         active={this.state.activeItem === 'home'}
                         onClick={this.handleItemClick}
+                        style={{paddingBottom: "20px"}}
                     >
                         goodFriend
                     </Menu.Item>
