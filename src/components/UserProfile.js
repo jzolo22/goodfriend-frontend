@@ -121,18 +121,7 @@ class UserProfile extends React.Component {
         this.props.deleteEvent(eventId)
     }
 
-    editedBirthday = (text) => {
-        let userId = this.props.user[0].id
-        let month = text.split(" ")[0]
-        let day = text.split(" ")[1].replace(/\D+/g, '')
-        let year = this.props.user[0].birthday.split("-")[0]
-        let newBirthday = `${month} ${day}, ${year}`
-        let newBirthdayDate = new Date(newBirthday)
-
-        this.setState({
-            birthday: moment(newBirthdayDate).format('MMM Do'),
-        }, () => this.props.editProfile(userId, {birthday: newBirthdayDate}))
-    }
+    
 
     editedName = (text) => {
         let userId = this.props.user[0].id
@@ -141,7 +130,19 @@ class UserProfile extends React.Component {
         this.setState({
             first_name: firstName,
             last_name: lastName
-        }, () => this.props.editProfile(userId, this.state))
+        }, () => this.props.editProfile(userId, {first_name: firstName, last_name: lastName}))
+    }
+
+    editedBirthday = (text) => {
+        let userId = this.props.user[0].id
+        let month = text.split(" ")[0]
+        let day = text.split(" ")[1].replace(/\D+/g, '')
+        let year = this.props.user[0].birthday.split("-")[0]
+        let newBirthday = `${month} ${day}, ${year}`
+        let newBirthdayDate = new Date(newBirthday)
+        this.setState({
+            birthday: moment(newBirthdayDate).format('MMM Do'),
+        }, () => this.props.editProfile(userId, {birthday: newBirthdayDate}))
     }
 
     editedPartnerName = (text) => {
@@ -149,21 +150,19 @@ class UserProfile extends React.Component {
         console.log(text)
         this.setState({
             partner_name: text,
-        }, () => this.props.editProfile(userId, this.state))
+        }, () => this.props.editProfile(userId, {partner_name: text}))
     }
 
     editedPartnerBirthday = (text) => {
         let userId = this.props.user[0].id
         let month = text.split(" ")[0]
-        let day = text.split(" ")[1]
-        let year = this.props.user[0].partner_birthday.split(" ")
-        console.log(year)
-        console.log(month)
-        console.log(day)
-        // this.setState({
-        //     first_name: firstName,
-        //     last_name: lastName
-        // }, () => this.props.editProfile(userId, this.state))
+        let day = text.split(" ")[1].replace(/\D+/g, '')
+        let year = this.props.user[0].partner_birthday.split("-")[0]
+        let newBirthday = `${month} ${day}, ${year}`
+        let newBirthdayDate = new Date(newBirthday)
+        this.setState({
+            partner_birthday: moment(newBirthdayDate).format('MMM Do'),
+        }, () => this.props.editProfile(userId, {partner_birthday: newBirthdayDate}))
     }
 
     eventDots = () => {
