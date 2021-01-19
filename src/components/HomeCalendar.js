@@ -15,9 +15,7 @@ const localizer = momentLocalizer(moment);
 class HomeCalendar extends React.Component {
 
     componentDidMount() {
-        console.log("testing")
         if (this.props.currentUser.id) {
-            console.log("running events")
             this.props.fetchEvents(this.props.currentUser.id)
         }
     }
@@ -37,7 +35,7 @@ class HomeCalendar extends React.Component {
 
     defaultEvent = () => {
         return ([{
-            title: "today",
+            title: "No Events!",
             start: new Date(),
             end: new Date(),
             allDay: true,
@@ -45,7 +43,6 @@ class HomeCalendar extends React.Component {
         }])
     }
   
-// this.props.events.length > 0 ? this.allEvents() : 
     render() {
         return (
             <>
