@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { fetchAllUsers } from '../redux/actions'
-import { Menu, Input, MenuItem, Search } from 'semantic-ui-react'
+import { Menu, Search, Item, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 class NavBar extends React.Component {
@@ -52,9 +53,7 @@ class NavBar extends React.Component {
                 >
                     goodfriend
                 </Menu.Item>.
-                {/* <Menu.Item 
-                name="Calendar"
-                /> */}
+
 
                 <Menu.Menu position='right'>
                 <Menu.Item>
@@ -66,6 +65,12 @@ class NavBar extends React.Component {
                         onResultSelect={this.handleClick}
                     />
                 </Menu.Item>
+                <Menu.Item as={NavLink} to={`/users/${this.props.currentUser.id}`}>
+                    <Item.Content >
+                        <Icon size="big" name='user outline' link={true} /> 
+                    </Item.Content>
+                </Menu.Item>
+
                 </Menu.Menu>
             </Menu>
         )
