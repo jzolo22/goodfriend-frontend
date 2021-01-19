@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { newEvent } from '../redux/actions'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import Calendar from 'react-calendar'
@@ -36,6 +37,7 @@ class NewEventForm extends React.Component {
                 description: "",
                 annual: false
         })
+        this.props.history.push(`/users/${this.props.currentUser.id}`)
     }
 
     render() {
@@ -82,4 +84,4 @@ const mdp = (dispatch) => {
     }
 }
 
-export default connect(msp, mdp)(NewEventForm)
+export default connect(msp, mdp)(withRouter(NewEventForm))

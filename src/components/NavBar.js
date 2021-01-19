@@ -65,7 +65,7 @@ class NavBar extends React.Component {
                         onResultSelect={this.handleClick}
                     />
                 </Menu.Item>
-                <Menu.Item as={NavLink} to={`/users/${this.props.currentUser.id}`}>
+                <Menu.Item as={NavLink} to={this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
                     <Item.Content >
                         <Icon size="big" name='user outline' link={true} /> 
                     </Item.Content>

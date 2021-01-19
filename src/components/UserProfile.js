@@ -4,7 +4,7 @@ import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile } from '..
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item } from 'semantic-ui-react'
+import { Icon, Item, Modal, Form, Button } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -96,7 +96,6 @@ class UserProfile extends React.Component {
          }
         }
     }
-
   
     followClick = () => {
         this.props.newFollow({
@@ -119,9 +118,7 @@ class UserProfile extends React.Component {
     deleteEvent = (e) => {
         let eventId = parseInt(e.target.id)
         this.props.deleteEvent(eventId)
-    }
-
-    
+    }  
 
     editedName = (text) => {
         let userId = this.props.user[0].id
@@ -185,7 +182,7 @@ class UserProfile extends React.Component {
                                     {event.title} 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
-                                        <Icon link={true} id={event.id} style={{paddingLeft: "3px"}} name="edit outline" />  
+                                        <Icon link={true} id={event.id} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>  
                                         <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
                             </Typography>
@@ -195,6 +192,15 @@ class UserProfile extends React.Component {
                 )
             })
         }
+    }
+
+    editEventClick = (e) => {
+        console.log(e.target.id)
+        // return (
+        //     <Modal 
+        //         as={Form}
+        //     />
+        // )
     }
 
     render(){
@@ -218,11 +224,6 @@ class UserProfile extends React.Component {
             {this.ownBirthdayDisplay()}
             {this.partnerBirthdayDisplay()}
 
-            {/* {this.props.user[0].partner_name ? 
-                <>
-                <p> 💞 {this.props.user[0].partner_name} -  🎂 {moment(this.props.user[0].partner_birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].partner_birthday)}</p>
-                </>
-                : null } */}
             {this.props.user[0].id !== this.props.currentUser.id && !this.alreadyFollowed() ? 
                 <button onClick={this.followClick}>Follow</button> : null
             }
