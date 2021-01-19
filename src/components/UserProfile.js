@@ -16,9 +16,6 @@ import Typography from '@material-ui/core/Typography';
 
 class UserProfile extends React.Component {
 
-    state={
-        clicked: true
-    }
 
     componentDidMount() {
         this.props.getEvents()
@@ -42,7 +39,6 @@ class UserProfile extends React.Component {
             follower_id: this.props.currentUser.id,
             followee_id: this.props.user[0].id
         })
-        this.setState({clicked: true})
     }
 
     unFollowClick = () => {
@@ -94,7 +90,6 @@ class UserProfile extends React.Component {
     }
 
     render(){
-        console.log(this.props)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
