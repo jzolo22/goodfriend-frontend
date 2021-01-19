@@ -105,6 +105,18 @@ export const newEvent = (eventObj) => {
   }
 }
 
+export const editEvent = (eventId, eventObj) => {
+  return function(dispatch) {
+    fetch(`${url}/events/${eventId}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(eventObj)
+    })
+      .then(r => r.json())
+      .then(console.log)
+  }
+}
+
 
 export const deleteEvent = (eventId) => {
   return function(dispatch) {

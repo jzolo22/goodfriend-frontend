@@ -1,4 +1,5 @@
 import React from 'react'
+import { editEvent } from '../redux/actions'
 import { connect } from 'react-redux'
 import { Icon, Item, Modal, Form, Button, Checkbox } from 'semantic-ui-react'
 import Calendar from 'react-calendar'
@@ -32,6 +33,15 @@ class EditEventForm extends React.Component {
         this.setState((prevState) => ({annual: !prevState.annual}))
     }
 
+    onChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    submitEventUpdate = (e) => {
+        e.preventDefault()
+        this.props.editEvent(this.props.eventId, this.state)
+    }
+
     render() {
         console.log(this.state)
         return (
@@ -44,14 +54,15 @@ class EditEventForm extends React.Component {
                     style={{textAlign: "center"}}
                 >
                     <Modal.Content>
-                        <Form.Input label="Title" type="text" placeholder="title" value={this.state.title}/>
-                        <Form.Input label="Description" type="text" placeholder="Your name" value={this.state.description}/>
+                        <Form.Input label="Title" type="text" placeholder="title" name="title" value={this.state.title} onChange={this.onChange}/>
+                        <Form.Input label="Description" type="text" placeholder="additional details here" name="description" value={this.state.description} onChange={this.onChange}/>
                         <Form.Field >
                             <label>Date</label>
-                            <Calendar  onChange={this.dateSelect} />
+                            <Calendar  onChange={this.dateSelect} defaultValue={new Date(this.state.date)}/>
                         </Form.Field>
                         <Form.Field>
                             <Checkbox label='Annual Event' name="annual" value={this.state.annual} onChange={this.onCheck}/>
+                        
                         </Form.Field>
                     </Modal.Content>
                     <Modal.Actions style={{textAlign: "center"}}>
@@ -70,8 +81,10 @@ const msp = (state) => {
     }
 }
 
-// const mdp = () ={
-//     // will need a PATCH to events/:id action
-// }
+const mdp = (dispatch) => {
+    return {
+        editEvent: (eventId, eventObj) => dispatch(editEvent(eventId, eventObj))
+    }
+}
 
-export default connect(msp)(EditEventForm)
+export default connect(msp, mdp)(EditEventForm)
