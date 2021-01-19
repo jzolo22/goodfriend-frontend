@@ -125,7 +125,7 @@ class UserProfile extends React.Component {
             {this.props.user[0].id === this.props.currentUser.id ? 
             <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
                 <Item.Content style={{textAlign: "center"}}>
-                    <Icon size="big" color='black' name='calendar plus outline' link={true} /> 
+                    <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
                 </Item.Content>
             </Item>
             : null }
