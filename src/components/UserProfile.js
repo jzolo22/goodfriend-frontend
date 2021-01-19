@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteFollow, newFollow, getEvents, deleteEvent } from '../redux/actions'
+import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile } from '../redux/actions'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
@@ -63,8 +63,14 @@ class UserProfile extends React.Component {
         this.props.deleteEvent(eventId)
     }
 
-    edited = (text) => {
-        console.log(text)
+    editedName = (text) => {
+        let userId = this.props.user[0].id
+        let firstName = text.split(" ")[0]
+        let lastName = text.split(" ")[1]
+        this.setState({
+            first_name: firstName,
+            last_name: lastName
+        }, () => this.props.editProfile(userId, this.state))
     }
 
     eventDots = () => {
@@ -100,6 +106,7 @@ class UserProfile extends React.Component {
     }
 
     render(){
+        console.log(this.state)
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
@@ -111,8 +118,9 @@ class UserProfile extends React.Component {
                     inputMaxLength='50'
                     labelFontWeight='bold'
                     labelFontSize="30px"
-                    onFocusOut={this.edited}
-                /> :
+                    onFocusOut={this.editedName}
+                />
+                :
                     <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p> }
             {this.props.user[0].birthday ? 
                 <p><Icon name="birthday cake"/> {moment(this.props.user[0].birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].birthday.slice(-1))}</p>
@@ -162,7 +170,8 @@ const mdp = (dispatch) => {
         newFollow: (followObj) => dispatch(newFollow(followObj)),
         deleteFollow: (followerId, followeeId) => dispatch(deleteFollow(followerId, followeeId)),
         getEvents: () => dispatch(getEvents()),
-        deleteEvent: (eventId) => dispatch(deleteEvent(eventId))
+        deleteEvent: (eventId) => dispatch(deleteEvent(eventId)),
+        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj))
     }
 }
 

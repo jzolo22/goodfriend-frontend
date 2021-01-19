@@ -116,6 +116,18 @@ export const deleteEvent = (eventId) => {
   }
 }
 
+export const editProfile = (userId, userObj) => {
+  return function (dispatch) {
+    fetch(`${url}/users/${userId}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify(userObj)
+    })
+      .then(r => r.json())
+      .then(console.log)
+  }
+}
+
 
 
 // auth actions
