@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { deleteFollow, newFollow, getEvents, deleteEvent } from '../redux/actions'
 import { NavLink } from 'react-router-dom'
+import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
 import { Icon, Item } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
@@ -15,6 +16,11 @@ import Typography from '@material-ui/core/Typography';
 
 
 class UserProfile extends React.Component {
+
+    state = {
+        first_name: this.props.user[0].first_name,
+        last_name: this.props.user[0].last_name,
+    }
 
 
     componentDidMount() {
@@ -57,6 +63,10 @@ class UserProfile extends React.Component {
         this.props.deleteEvent(eventId)
     }
 
+    edited = (text) => {
+        console.log(text)
+    }
+
     eventDots = () => {
         if (this.props.user[0].own_events.length > 0) {
             let usersEvents = this.props.allEvents.filter(event => event.user_id === this.props.user[0].id)
@@ -77,7 +87,7 @@ class UserProfile extends React.Component {
                                     {event.title } 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
-                                        <Icon style={{paddingLeft: "3px"}} name="edit outline" />  
+                                        {/* <Icon as={NavLink} to={`/events/new`} style={{paddingLeft: "3px"}} name="edit outline" />   */}
                                         <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
                             </Typography>
@@ -93,7 +103,17 @@ class UserProfile extends React.Component {
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
-                <p style={{fontSize: "30px", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p>
+            {this.props.user[0].id === this.props.currentUser.id ? 
+                <EditableLabel 
+                    text={`${this.state.first_name} ${this.state.last_name}`}
+                    inputWidth='125px'
+                    inputHeight='25px'
+                    inputMaxLength='50'
+                    labelFontWeight='bold'
+                    labelFontSize="30px"
+                    onFocusOut={this.edited}
+                /> :
+                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p> }
             {this.props.user[0].birthday ? 
                 <p><Icon name="birthday cake"/> {moment(this.props.user[0].birthday).format('MMM DD')}{this.dateEnding(this.props.user[0].birthday.slice(-1))}</p>
                 : null }
