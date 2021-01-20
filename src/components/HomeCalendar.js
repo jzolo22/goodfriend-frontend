@@ -71,21 +71,14 @@ class HomeCalendar extends React.Component {
         })
     }
 
-    // renderEvents = () => {
-    //     if(this.props.followedEvents.length > 0){
-    //         if(!this.state.clicked) {
-    //             this.allEvents()
-    //         } else if (this.state.clicked) {
 
-    //         }
-    //     } else {
-    //         this.defaultEvent()
-    //     }
-    // }
   
     render() {
-        const filteredEvents = this.props.followedEvents.filter(event => event.user_id !== parseInt(this.state.eventId))
+        const { newArray } = this.props.followedEvents
+        const filteredEvents = newArray.filter(event => event.user_id !== parseInt(this.state.eventId))
+
         console.log(filteredEvents)
+
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
