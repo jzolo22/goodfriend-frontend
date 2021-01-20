@@ -87,7 +87,7 @@ class HomeCalendar extends React.Component {
                 {this.props.followedEvents.length > 0 && this.state.eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
-                    </Label> : null }
+                    </Label> : <Label style={{height: "fit-content"}}>click heads to toggle events off calendar</Label> }
                     {this.makeAvatars()}
                     
                     <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
