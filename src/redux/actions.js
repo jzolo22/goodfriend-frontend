@@ -176,6 +176,17 @@ export const checkLogin = (token) => {
     }
 }
 
+export const newUser = (userObj) => {
+  console.log(userObj)
+  return function(dispatch) {
+    fetch(`${url}/users`, {
+      method: "POST",
+      body: userObj
+    })
+    .catch(console.log)
+  }
+}
+
 export const logOut = () => {
   return function(dispatch) {
     localStorage.removeItem("jwtToken")

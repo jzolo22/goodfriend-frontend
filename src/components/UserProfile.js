@@ -5,7 +5,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Modal, Form, Button } from 'semantic-ui-react'
+import { Icon, Item, Modal, Form, Button, Image } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -202,7 +202,11 @@ class UserProfile extends React.Component {
         return(
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
+            {this.props.user[0].profile_picture ? 
+                <Image style={{display: "block", marginLeft: "auto", marginRight: "auto"}} src={this.props.user[0].profile_picture.url} circular size="mini"/>
+                : null }
             {this.props.user[0].id === this.props.currentUser.id ? 
+            <>
                 <EditableLabel 
                     text={`${this.props.user[0].first_name} ${this.props.user[0].last_name}`}
                     inputWidth='125px'
@@ -211,7 +215,7 @@ class UserProfile extends React.Component {
                     labelFontWeight='bold'
                     labelFontSize="30px"
                     onFocusOut={this.editedName}
-                />
+                /> </>
                 :
                     <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{this.props.user[0].first_name} {this.props.user[0].last_name}</p> }
 

@@ -65,8 +65,9 @@ class HomeCalendar extends React.Component {
         return this.props.followedUsers.map(user => {
             return (
                 (<Item style={{paddingBottom: "2%"}}>
-                        <Item.Content style={{marginRight: "15%"}}>
-                            <Icon circular size="large" color='blue' name='user' link={true} id={user.id} onClick={this.onClick}/> 
+                        <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
+                            {/* <Image src={} size={small}/> */}
+                            <Icon circular size="large" color='blue' name='user' link={true} id={user.id} /> 
                         </Item.Content>
                     </Item>)
             )
@@ -79,7 +80,7 @@ class HomeCalendar extends React.Component {
 
     render() {
         let filteredEvents = this.props.followedEvents.filter(event => !this.state.eventIds.includes(event.user_id))
-      
+      console.log(this.props.followedUsers)
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>

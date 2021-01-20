@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { newUser } from '../redux/actions'
 import { Form, Button, Checkbox } from 'semantic-ui-react'
 
 
@@ -15,7 +17,7 @@ class SignUpForm extends React.Component {
         partner_birthday: "",
         venmo_handle: "",
         flowers: false,
-        profile_picture: ""
+        profile_picture: null
     }
 
     onChange = (e) => {
@@ -25,10 +27,27 @@ class SignUpForm extends React.Component {
     onCheckboxChange = (e) => {
         this.setState((prevState) => ({flowers: !prevState.flowers}))
     }
+    
+    onUpload = (e) => {
+        this.setState({profile_picture: e.target.files[0]})
+    }
 
     onSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state)
+        const formData = new FormData()
+        formData.append('user[first_name]', this.state.first_name)
+        formData.append('user[last_name]', this.state.last_name)
+        formData.append('user[username]', this.state.username)
+        formData.append('user[password]', this.state.password)
+        formData.append('user[birthday]', this.state.first_name)
+        formData.append('user[address]', this.state.address)
+        formData.append('user[partner_name]', this.state.partner_name)
+        formData.append('user[partner_birthday]', this.state.partner_birthday)
+        formData.append('user[venmo_handle]', this.state.venmo_handle)
+        formData.append('user[flowers]', this.state.flowers)
+        formData.append('user[profile_picture]', this.state.profile_picture)
+        console.log(formData)
+        this.props.newUser(formData)
     }
 
     render() {
@@ -63,6 +82,14 @@ class SignUpForm extends React.Component {
                             value={this.state.birthday} 
                             onChange={this.onChange}/>
                     </Form.Field>
+                    <Form.Field >
+                        <Form.Input 
+                            label='Address' 
+                            // placeholder='put the format here' 
+                            name="address" 
+                            value={this.state.address} 
+                            onChange={this.onChange}/>
+                    </Form.Field>
                 </Form.Group>
 
             <Form.Group inline widths="equal" style={{margin: "3% 15% 0% 15%"}}>
@@ -84,10 +111,12 @@ class SignUpForm extends React.Component {
                 <Form.Field >
                      <Form.Input 
                         label='Upload a profile picture' 
+                        type="file"
+                        accept="image/*"
+                        multiple={false}
                         // placeholder='$ gifts are the best gifts' 
                         name="profile_picture" 
-                        value={this.state.profile_picture} 
-                        // onChange={this.onChange}
+                        onChange={this.onUpload}
                         />
                 </Form.Field>
             </Form.Group>
@@ -139,4 +168,10 @@ class SignUpForm extends React.Component {
     }
 }
 
-export default SignUpForm
+const mdp = (dispatch) => {
+    return {
+        newUser: (newUserObj) => dispatch(newUser(newUserObj))
+    }
+}
+
+export default connect(null, mdp)(SignUpForm)
