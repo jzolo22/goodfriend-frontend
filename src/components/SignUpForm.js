@@ -65,7 +65,7 @@ class SignUpForm extends React.Component {
                     </Form.Field>
                 </Form.Group>
 
-            <Form.Group inline widths="equal" style={{margin: "3% 12% 0% 12%"}}>
+            <Form.Group inline widths="equal" style={{margin: "3% 15% 0% 15%"}}>
                 <Form.Field >
                      <Form.Input 
                         label='Venmo Handle' 
@@ -111,7 +111,9 @@ class SignUpForm extends React.Component {
                         onChange={this.onChange}/>
                 </Form.Field>
             </Form.Group>
-                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
+
+            <Form.Group widths="equal" style={{margin: "3% 20% 3% 20%"}}>
+                <Form.Field >
                      <Form.Input 
                         label='Partner Name' 
                         placeholder='plants & pets count too...' 
@@ -119,7 +121,7 @@ class SignUpForm extends React.Component {
                         value={this.state.partner_name} 
                         onChange={this.onChange}/>
                 </Form.Field>
-                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
+                <Form.Field >
                      <Form.Input 
                         label='Partner Birthday' 
                         // placeholder='Will be looking for jobs after graduation!' 
@@ -127,10 +129,10 @@ class SignUpForm extends React.Component {
                         value={this.state.partner_birthday} 
                         onChange={this.onChange}/>
                 </Form.Field>
-              
+            </Form.Group>
 
                 
-                <Button type='submit'>Submit New Event</Button>
+                <Button type='submit'>Sign Up</Button>
             </Form>
             </div>
         )
