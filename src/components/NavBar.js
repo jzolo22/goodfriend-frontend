@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { fetchAllUsers, checkLogin } from '../redux/actions'
+import { fetchAllUsers, checkLogin, logOut } from '../redux/actions'
 import { Menu, Search, Item, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
@@ -41,6 +41,11 @@ class NavBar extends React.Component {
         this.props.history.push(`/users/${data.result.id}`)
         this.setState({search: ""})
     }
+
+    logOut = () => {
+        this.props.logOut()
+        this.props.history.push('/')
+    }
     
 
     render() {
@@ -70,6 +75,11 @@ class NavBar extends React.Component {
                     </Item.Content>
                 </Menu.Item>
 
+                {this.props.currentUser.id ? 
+                    <Menu.Item onClick={this.logOut}>
+                        Log Out
+                    </Menu.Item>
+                : null }
                 </Menu.Menu>
             </Menu>
         )
@@ -86,7 +96,8 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         fetchAllUsers: () => dispatch(fetchAllUsers()),
-        checkLogin: (token) => dispatch(checkLogin(token))
+        checkLogin: (token) => dispatch(checkLogin(token)),
+        logOut: () => dispatch(logOut())
     }
 }
 

@@ -23,6 +23,8 @@ function allEventsReducer(state = initialState.allEvents, action) {
     switch(action.type){
         case actions.GET_ALL_EVENTS:
             return action.payload
+        case actions.ADD_EVENT:
+            return [...state, action.payload]
         case actions.UPDATE_EVENT:
             let updatedArray = [...state]
             let indexOfUpdated = updatedArray.findIndex(event => event.id === action.payload.id)
@@ -69,6 +71,8 @@ function currentUserReducer(state = initialState.currentUser, action) {
             return action.payload
         case actions.SIGN_UP:
             return action.payload 
+        case actions.LOG_OUT:
+            return action.payload
         default:
             return state
     }

@@ -101,9 +101,11 @@ export const newEvent = (eventObj) => {
         body: JSON.stringify(eventObj)
     })
       .then(r => r.json())
-      .then(console.log)
+      .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
   }
 }
+
+// newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent})
 
 export const editEvent = (eventId, eventObj) => {
   return function(dispatch) {
@@ -168,4 +170,11 @@ export const checkLogin = (token) => {
             .then(r => r.json())
             .then((user) => dispatch({type: actions.SET_CURRENT_USER, payload: user.user}))
     }
+}
+
+export const logOut = () => {
+  return function(dispatch) {
+    localStorage.removeItem("jwtToken")
+    dispatch({type: actions.LOG_OUT, payload: null})
+  }
 }
