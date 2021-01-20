@@ -154,9 +154,13 @@ export const logIn = (userData) => {
     })
       .then((r) => r.json())
       .then((userData) => {
+        if (userData.id) {
         const token = userData.jwt;
         localStorage.setItem("jwtToken", token);
         return dispatch({type: actions.SET_CURRENT_USER, payload: userData.user})
+      } else {
+        window.alert("Please try again. The username or password was incorrect.")
+      }
       });
   };
 };
