@@ -23,10 +23,15 @@ function allEventsReducer(state = initialState.allEvents, action) {
     switch(action.type){
         case actions.GET_ALL_EVENTS:
             return action.payload
+        case actions.UPDATE_EVENT:
+            let updatedArray = [...state]
+            let indexOfUpdated = updatedArray.findIndex(event => event.id === action.payload.id)
+            updatedArray[indexOfUpdated] = action.payload
+            return updatedArray
         case actions.DELETE_EVENT:
             let newArray = [...state]
-            let index = newArray.findIndex(event => event.id === action.payload)
-            newArray.splice(index, 1)
+            let indexOfDeleted = newArray.findIndex(event => event.id === action.payload)
+            newArray.splice(indexOfDeleted, 1)
             return newArray
         default:
             return state

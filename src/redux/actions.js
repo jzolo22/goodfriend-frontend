@@ -113,7 +113,7 @@ export const editEvent = (eventId, eventObj) => {
       body: JSON.stringify(eventObj)
     })
       .then(r => r.json())
-      .then(console.log)
+      .then(updatedEvent => dispatch({type: actions.UPDATE_EVENT, payload: updatedEvent}))
   }
 }
 

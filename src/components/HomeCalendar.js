@@ -5,14 +5,20 @@ import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getFollowedEvents, fetchAllUsers } from '../redux/actions'
-import { Icon, Item } from 'semantic-ui-react'
+import { Icon, Item, Label } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
 
 moment.locale("en-US");
 const localizer = momentLocalizer(moment);
 
+
+
 class HomeCalendar extends React.Component {
+
+    state = {
+        clicked: false
+    }
 
     componentDidMount() {
         if (this.props.currentUser.id) {
@@ -43,19 +49,72 @@ class HomeCalendar extends React.Component {
             resourceId: 1
         }])
     }
+
+    onClick = () => {
+        // if (e) {
+        //     let filtered = this.props.followedEvents.filter(event => event.user_id !== parseInt(e.target.id))
+        //     return filtered.map(event => {
+        //         return {
+        //             title: event.title,
+        //             start: moment(event.date),
+        //             end: moment(event.date),
+        //             allDay: true,
+        //             resourceId: 10,
+        //             tooltipAccessor: event.title,
+        //         }
+        //     })
+        // } else {
+            this.allEvents()
+        // }
+        
+    }
+
+
+
+    makeAvatars = () => {
+        return this.props.followedUsers.map(user => {
+            return (
+                (<Item style={{paddingBottom: "2%"}}>
+                        <Item.Content style={{marginRight: "15%"}}>
+                            <Icon circular size="large" color='blue' name='user' link={true} id={user.id} onClick={this.onClick}/> 
+                        </Item.Content>
+                    </Item>)
+            )
+        })
+    }
+
+    // renderEvents = () => {
+    //     if(this.props.followedEvents.length > 0){
+    //         if(!this.state.clicked) {
+    //             this.allEvents()
+    //         } else if (this.state.clicked) {
+
+    //         }
+    //     } else {
+    //         this.defaultEvent()
+    //     }
+    // }
   
     render() {
+        console.log("followed events in calendar ", this.props.followedEvents)
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
-            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                <Item.Content style={{marginRight: "15%"}}>
-                    <Icon size="big" color='blue' name='calendar plus outline' link={true} /> 
-                </Item.Content>
-            </Item>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    {this.makeAvatars()}
+                    
+                    <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
+                        <Item.Content style={{marginRight: "10%"}}>
+                        {/* <Icon circular size="big" color='blue' name='user' link={true} />  */}
+                        <Icon size="big" color='blue' name='calendar plus outline' link={true} /> 
+                    </Item.Content>
+                    </Item>
+                </div>
+                
             <Calendar
                 localizer={localizer}
                 events={this.props.followedEvents.length > 0 ? this.allEvents() : this.defaultEvent()}
+                // events={this.eventAttempt(null)}
                 // step={5}
                 // timeslots={3}
                 defaultView="month"
@@ -78,7 +137,8 @@ class HomeCalendar extends React.Component {
 const msp = (state) => {
     return {
         followedEvents: state.followedEvents,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        followedUsers: state.followedUsers
     }
 }
 

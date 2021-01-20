@@ -14,3 +14,5 @@ export const SET_CURRENT_USER = "setCurrentUser"
 export const ADD_FOLLOWER = "addFollower"
 export const DELETE_FOLLOW = "deleteFollow"
 export const DELETE_EVENT = "deleteEvent"
+export const UPDATE_EVENT = "updateEvent"
+

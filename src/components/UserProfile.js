@@ -196,25 +196,6 @@ class UserProfile extends React.Component {
         }
     }
 
-    // editEventClick = (eventId) => {
-    //     return (
-    //         <>
-    //             <Modal 
-    //                 trigger={<Icon link={true} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>}
-    //                 as={Form}
-    //                 onSubmit={this.submitEventUpdate}
-    //                 size="mini"
-    //             >
-    //                 <Modal.Content>
-    //                     <Form.Input label="Name" required type="text" placeholder="Your name" />
-    //                 </Modal.Content>
-    //                 <Modal.Actions>
-    //                     <Button type="submit" icon="save" content="Update" />
-    //                 </Modal.Actions>
-    //             </Modal>
-    //         </>
-    //     )
-    // }
 
     render(){
         console.log(this.props)
