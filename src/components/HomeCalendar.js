@@ -84,9 +84,10 @@ class HomeCalendar extends React.Component {
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
+                {this.props.followedEvents.length > 0 && this.state.eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
-                    </Label>
+                    </Label> : null }
                     {this.makeAvatars()}
                     
                     <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
