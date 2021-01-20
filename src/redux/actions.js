@@ -154,7 +154,7 @@ export const logIn = (userData) => {
     })
       .then((r) => r.json())
       .then((userData) => {
-        if (userData.id) {
+        if (userData.user.id && userData.jwt) {
         const token = userData.jwt;
         localStorage.setItem("jwtToken", token);
         return dispatch({type: actions.SET_CURRENT_USER, payload: userData.user})
