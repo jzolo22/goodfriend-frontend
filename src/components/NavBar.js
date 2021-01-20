@@ -62,14 +62,14 @@ class NavBar extends React.Component {
                 <Menu.Menu position='right'>
                 <Menu.Item>
                     <Search icon='search' 
-                        placeholder={this.props.currentUser.id ? 'first or last name' : 'log in to search'}
+                        placeholder={this.props.currentUser && this.props.currentUser.id ? 'first or last name' : 'log in to search'}
                         value={this.state.search} 
                         results={this.matchingNames(this.state.search)} 
                         onSearchChange={this.handleSearch}
                         onResultSelect={this.handleClick}
                     />
                 </Menu.Item>
-                <Menu.Item as={NavLink} to={this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
+                <Menu.Item as={NavLink} to={this.props.currentUser && this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
                     <Item.Content >
                         <Icon size="big" name='user outline' link={true} /> 
                     </Item.Content>

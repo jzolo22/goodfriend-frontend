@@ -179,6 +179,6 @@ export const checkLogin = (token) => {
 export const logOut = () => {
   return function(dispatch) {
     localStorage.removeItem("jwtToken")
-    dispatch({type: actions.LOG_OUT, payload: null})
+    dispatch({type: actions.LOG_OUT, payload: {}})
   }
 }

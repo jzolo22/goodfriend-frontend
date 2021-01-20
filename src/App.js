@@ -26,7 +26,7 @@ class App extends React.Component {
     return (
       <>
       <NavBar />
-      {this.props.currentUser.id ? <SideBar /> : null}
+      {this.props.currentUser && this.props.currentUser.id ? <SideBar /> : null}
         <Switch>
           <Route path="/users/:id" render={(routerProps) => {
               const id = parseInt(routerProps.match.params.id)
@@ -44,7 +44,7 @@ class App extends React.Component {
               }}/>
           <Route path="/events/new" render={() => <NewEventForm />}/>
           <Route path="/" exact render={() => {
-                if(this.props.currentUser.id){
+                if(this.props.currentUser && this.props.currentUser.id){
                   return <Calendar />
                 } else {
                   return <LoginPage />
