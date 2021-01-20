@@ -15,7 +15,7 @@ const localizer = momentLocalizer(moment);
 class HomeCalendar extends React.Component {
 
     state = {
-        eventId: ""
+        eventIds: []
     }
 
     componentDidMount() {
@@ -49,8 +49,14 @@ class HomeCalendar extends React.Component {
     }
 
     onClick = (e) => {
-        if (e) {
-            this.setState({eventId: parseInt(e.target.id)})
+        if (this.state.eventIds.includes(parseInt(e.target.id))) {
+            console.log("already on list")
+            let updatedList = [...this.state.eventIds]
+            let indexOfDeleted = updatedList.findIndex(eventId => eventId === parseInt(e.target.id))
+            updatedList.splice(indexOfDeleted, 1)
+            this.setState({eventIds: updatedList})
+        } else {
+            this.setState({eventIds: [...this.state.eventIds, parseInt(e.target.id)]})
         }
         
     }
@@ -67,33 +73,24 @@ class HomeCalendar extends React.Component {
         })
     }
 
-    // addBirthdays = () => {
-    //     // this.props.followedEvents.filter(event => event.title)
-    //     this.props.followedUsers.map(user => {
-    //         this.props.newEvent({
-    //             user_id: user.id,
-    //             date: user.birthday,
-    //             title: `${user.first_name}'s Birthday!`,
-    //             description: "",
-    //             annual: true
-    //         })
-    //     })
-    // }
+    selectAll = () => {
+        this.setState({eventIds: []})
+    }
 
-  
     render() {
-        const filteredEvents = this.props.followedEvents.filter(event => event.user_id !== parseInt(this.state.eventId))
-
-        console.log(filteredEvents)
+        let filteredEvents = this.props.followedEvents.filter(event => !this.state.eventIds.includes(event.user_id))
+      
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
                 <div style={{display: "flex", justifyContent: "center"}}>
+                    <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
+                        <Icon name="checkmark" link={true} />Select All
+                    </Label>
                     {this.makeAvatars()}
                     
                     <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
-                        <Item.Content style={{marginRight: "10%"}}>
-                        {/* <Icon circular size="big" color='blue' name='user' link={true} />  */}
+                        <Item.Content style={{marginRight: "5%", paddingLeft: "300px"}}>
                         <Icon size="big" color='blue' name='calendar plus outline' link={true} /> 
                     </Item.Content>
                     </Item>
