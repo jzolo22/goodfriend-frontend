@@ -17,7 +17,7 @@ const localizer = momentLocalizer(moment);
 class HomeCalendar extends React.Component {
 
     state = {
-        clicked: false
+        eventId: ""
     }
 
     componentDidMount() {
@@ -50,22 +50,10 @@ class HomeCalendar extends React.Component {
         }])
     }
 
-    onClick = () => {
-        // if (e) {
-        //     let filtered = this.props.followedEvents.filter(event => event.user_id !== parseInt(e.target.id))
-        //     return filtered.map(event => {
-        //         return {
-        //             title: event.title,
-        //             start: moment(event.date),
-        //             end: moment(event.date),
-        //             allDay: true,
-        //             resourceId: 10,
-        //             tooltipAccessor: event.title,
-        //         }
-        //     })
-        // } else {
-            this.allEvents()
-        // }
+    onClick = (e) => {
+        if (e) {
+            this.setState({eventId: parseInt(e.target.id)})
+        }
         
     }
 
@@ -96,7 +84,8 @@ class HomeCalendar extends React.Component {
     // }
   
     render() {
-        console.log("followed events in calendar ", this.props.followedEvents)
+        const filteredEvents = this.props.followedEvents.filter(event => event.user_id !== parseInt(this.state.eventId))
+        console.log(filteredEvents)
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
@@ -113,7 +102,17 @@ class HomeCalendar extends React.Component {
                 
             <Calendar
                 localizer={localizer}
-                events={this.props.followedEvents.length > 0 ? this.allEvents() : this.defaultEvent()}
+                events={this.props.followedEvents.length > 0 ?  
+                filteredEvents.map(event => {
+                    return {
+                        title: event.title,
+                        start: moment(event.date),
+                        end: moment(event.date),
+                        allDay: true,
+                        resourceId: 10,
+                        tooltipAccessor: event.title,
+                    }}) : this.defaultEvent()}
+                
                 // events={this.eventAttempt(null)}
                 // step={5}
                 // timeslots={3}
