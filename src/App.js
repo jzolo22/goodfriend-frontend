@@ -9,6 +9,7 @@ import {checkLogin} from './redux/actions'
 import './App.css';
 import UserProfile from './components/UserProfile'
 import NewEventForm from './components/NewEventForm'
+import SignUpForm from './components/SignUpForm'
 
 class App extends React.Component {
 
@@ -28,7 +29,8 @@ class App extends React.Component {
       <NavBar />
       {this.props.currentUser && this.props.currentUser.id ? <SideBar /> : null}
         <Switch>
-          <Route path="/users/:id" render={(routerProps) => {
+        <Route exact path="/users/new" render={() => <SignUpForm />}/>
+        <Route path="/users/:id" render={(routerProps) => {
               const id = parseInt(routerProps.match.params.id)
               let user
               if (this.props.allUsers.length > 0) {

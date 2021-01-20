@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { logIn } from '../redux/actions'
 
 class LoginPage extends React.Component {
@@ -35,6 +36,10 @@ class LoginPage extends React.Component {
                     </div>
                     <button class="ui button" type="submit">Submit</button>
                 </form>
+                <h3>or</h3>
+                <NavLink to={'/users/new'}>
+                    Sign Up
+                </NavLink>
             </div>
         
         )
