@@ -204,7 +204,7 @@ class UserProfile extends React.Component {
             <div style={{textAlign: "center", paddingTop: "100px"}}>
             {this.props.user[0].id === this.props.currentUser.id ? 
                 <EditableLabel 
-                    text={`${this.state.first_name} ${this.state.last_name}`}
+                    text={`${this.props.user[0].first_name} ${this.props.user[0].last_name}`}
                     inputWidth='125px'
                     inputHeight='25px'
                     inputMaxLength='50'

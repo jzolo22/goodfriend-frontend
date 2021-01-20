@@ -4,15 +4,13 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { getFollowedEvents, fetchAllUsers } from '../redux/actions'
+import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
 import { Icon, Item, Label } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
 
 moment.locale("en-US");
 const localizer = momentLocalizer(moment);
-
-
 
 class HomeCalendar extends React.Component {
 
@@ -35,7 +33,7 @@ class HomeCalendar extends React.Component {
                 end: moment(event.date),
                 allDay: true,
                 resourceId: 10,
-                tooltipAccessor: event.title,
+                tooltip: event.title,
             }
         })
     }
@@ -57,8 +55,6 @@ class HomeCalendar extends React.Component {
         
     }
 
-
-
     makeAvatars = () => {
         return this.props.followedUsers.map(user => {
             return (
@@ -71,14 +67,24 @@ class HomeCalendar extends React.Component {
         })
     }
 
+    // addBirthdays = () => {
+    //     // this.props.followedEvents.filter(event => event.title)
+    //     this.props.followedUsers.map(user => {
+    //         this.props.newEvent({
+    //             user_id: user.id,
+    //             date: user.birthday,
+    //             title: `${user.first_name}'s Birthday!`,
+    //             description: "",
+    //             annual: true
+    //         })
+    //     })
+    // }
 
   
     render() {
-        const { newArray } = this.props.followedEvents
-        const filteredEvents = newArray.filter(event => event.user_id !== parseInt(this.state.eventId))
+        const filteredEvents = this.props.followedEvents.filter(event => event.user_id !== parseInt(this.state.eventId))
 
         console.log(filteredEvents)
-
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
@@ -137,7 +143,8 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
-        fetchAllUsers: () => dispatch(fetchAllUsers())
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        newEvent: (eventObj) => dispatch(newEvent(eventObj))
     }
 }
 
