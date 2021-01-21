@@ -14,14 +14,7 @@ import { Icon, Item, Label, Image } from 'semantic-ui-react'
 
 moment.locale("en-US");
 BigCalendar.momentLocalizer(moment)
-// const localizer = momentLocalizer(moment);
 
-// const ColoredDateCellWrapper = ({ children }) =>
-//   React.cloneElement(React.Children.only(children), {
-//     style: {
-//       backgroundColor: 'red',
-//     },
-//   })
 
 class HomeCalendar extends React.Component {
 
@@ -103,9 +96,28 @@ class HomeCalendar extends React.Component {
     }
 
     render() {
-        console.log(this.props.followedEvents)
         let filteredEvents = this.props.followedEvents.filter(event => !this.state.eventIds.includes(event.user_id))
-      console.log(this.props.followedUsers)
+        let filteredEventsForCal = filteredEvents.map(event => {
+            return {
+                title: event.title,
+                bgColor: "purple",
+                start: moment(event.date),
+                end: moment(event.date),
+                allDay: true,
+                resourceId: event.user_id,
+                tooltipAccessor: event.title,
+            }})
+        let ownEventsForCal = this.props.currentUser.own_events.map(event => {
+            return {
+                title: event.title,
+                bgColor: "pink",
+                start: moment(event.date),
+                end: moment(event.date),
+                allDay: true,
+                resourceId: event.user_id,
+                tooltipAccessor: event.title,
+            }
+        })
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
@@ -127,15 +139,8 @@ class HomeCalendar extends React.Component {
                 // selectable
                 // localizer={localizer}
                 events={this.props.followedEvents.length > 0 ?  
-                filteredEvents.map(event => {
-                    return {
-                        title: event.title,
-                        start: moment(event.date),
-                        end: moment(event.date),
-                        allDay: true,
-                        resourceId: event.user_id,
-                        tooltipAccessor: event.title,
-                    }}) : this.defaultEvent()}
+                    filteredEventsForCal.concat(ownEventsForCal)
+                    : this.defaultEvent()}
                 
                 // events={this.eventAttempt(null)}
                 // step={5}
