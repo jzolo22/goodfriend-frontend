@@ -23,9 +23,10 @@ class HomeCalendar extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.currentUser.id) {
-            this.props.fetchEvents(this.props.currentUser.id)
-            this.props.fetchAllUsers()
+        const { currentUser, fetchEvents, fetchAllUsers } = this.props
+        if (currentUser.id) {
+            fetchEvents(currentUser.id)
+            fetchAllUsers()
         }
     }
 
@@ -53,30 +54,33 @@ class HomeCalendar extends React.Component {
     }
 
     onClick = (e) => {
-        if (this.state.eventIds.includes(parseInt(e.target.id))) {
+        const { eventIds } = this.state
+        if (eventIds.includes(parseInt(e.target.id))) {
             console.log("already on list")
-            let updatedList = [...this.state.eventIds]
+            let updatedList = [...eventIds]
             let indexOfDeleted = updatedList.findIndex(eventId => eventId === parseInt(e.target.id))
             updatedList.splice(indexOfDeleted, 1)
             this.setState({eventIds: updatedList})
         } else {
-            this.setState({eventIds: [...this.state.eventIds, parseInt(e.target.id)]})
+            this.setState({eventIds: [...eventIds, parseInt(e.target.id)]})
         }
         
     }
 
     makeAvatars = () => {
-        let avatarArray = this.props.followedUsers.map(user => user.id)
-        avatarArray.push(this.props.currentUser.id)
-        if (this.props.allUsers.length > 0) {
-            let followedUserAvatars = this.props.allUsers.filter(user => avatarArray.includes(user.id))
+        const { currentUser, followedUsers, allUsers } = this.props
+        const { eventIds } = this.state
+        let avatarArray = followedUsers.map(user => user.id)
+        avatarArray.push(currentUser.id)
+        if (allUsers.length > 0) {
+            let followedUserAvatars = allUsers.filter(user => avatarArray.includes(user.id))
         return followedUserAvatars.map(user => {
             return (
                 (<Item style={{paddingBottom: "2%"}}>
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
                             {user.profile_picture ?
                             <Image 
-                                disabled={this.state.eventIds.includes(user.id) ? true : false}
+                                disabled={eventIds.includes(user.id) ? true : false}
                                 src={user.profile_picture.url} 
                                 circular 
                                 size="tiny" 
@@ -84,7 +88,7 @@ class HomeCalendar extends React.Component {
                                 id={user.id}/> 
                             :
                             <Icon 
-                                disabled={this.state.eventIds.includes(user.id) ? true : false} 
+                                disabled={eventIds.includes(user.id) ? true : false} 
                                 circular 
                                 size="big" 
                                 color='blue' 
@@ -108,14 +112,15 @@ class HomeCalendar extends React.Component {
     }
 
     render() {
-        console.log(this.state)
-        let allCalEvents = this.props.followedEvents.concat(this.props.currentUser.own_events)
-        let filteredEvents = allCalEvents.filter(event => !this.state.eventIds.includes(event.user_id))
-        console.log(filteredEvents)
+        const { currentUser, followedEvents } = this.props
+        const { eventIds } = this.state
+        console.log(followedEvents)
+        let allCalEvents = followedEvents.concat(currentUser.own_events)
+        let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
                 title: event.title,
-                bgColor: event.user_id === this.props.currentUser.id ? "pink" : "purple",
+                bgColor: event.user_id === currentUser.id ? "pink" : "purple",
                 start: moment(event.date),
                 end: moment(event.date),
                 allDay: true,
@@ -128,7 +133,7 @@ class HomeCalendar extends React.Component {
             <>
             <div style={{height: "100%", marginTop: "7%"}}>
                 <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%"}}>
-                {this.props.followedEvents.length > 0 && this.state.eventIds.length > 0 ? 
+                {followedEvents.length > 0 && eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
                     </Label> : <Label style={{height: "fit-content"}}>click heads to toggle events off calendar</Label> }
@@ -145,7 +150,7 @@ class HomeCalendar extends React.Component {
                 // selectable
                 // localizer={localizer}
 
-                events={this.props.followedEvents.length > 0 ?  
+                events={followedEvents.length > 0 || currentUser.own_events.length > 0?  
                     filteredEventsForCal
                     : this.defaultEvent()}
                 
