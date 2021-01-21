@@ -19,7 +19,7 @@ BigCalendar.momentLocalizer(moment)
 class HomeCalendar extends React.Component {
 
     state = {
-        eventIds: []
+        eventIds: [],
     }
 
     componentDidMount() {
@@ -60,7 +60,6 @@ class HomeCalendar extends React.Component {
             updatedList.splice(indexOfDeleted, 1)
             this.setState({eventIds: updatedList})
         } else {
-            console.log(e.target.id)
             this.setState({eventIds: [...this.state.eventIds, parseInt(e.target.id)]})
         }
         
@@ -76,16 +75,28 @@ class HomeCalendar extends React.Component {
                 (<Item style={{paddingBottom: "2%"}}>
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
                             {user.profile_picture ?
-                            <Image src={user.profile_picture.url} circular size="tiny" link={true} id={user.id}/> 
+                            <Image 
+                                disabled={this.state.eventIds.includes(user.id) ? true : false}
+                                src={user.profile_picture.url} 
+                                circular 
+                                size="tiny" 
+                                link={true} 
+                                id={user.id}/> 
                             :
-                            <Icon circular size="big" color='blue' name='user' link={true} id={user.id} /> 
+                            <Icon 
+                                disabled={this.state.eventIds.includes(user.id) ? true : false} 
+                                circular 
+                                size="big" 
+                                color='blue' 
+                                name='user' 
+                                link={true} 
+                                id={user.id} /> 
                             }
                         </Item.Content>
                     </Item>)
             )
         })
         }
-        
     }
 
     onSelectEvent = (e) => {
@@ -112,23 +123,11 @@ class HomeCalendar extends React.Component {
                 tooltipAccessor: event.title,
             }})
 
-        // let ownEventsForCal = this.props.currentUser.own_events.map(event => {
-        //     return {
-        //         title: event.title,
-        //         bgColor: "pink",
-        //         start: moment(event.date),
-        //         end: moment(event.date),
-        //         allDay: true,
-        //         resourceId: event.user_id,
-        //         tooltipAccessor: event.title,
-        //     }
-        // })
-        
-        
+
         return (
             <>
-            <div style={{height: "100%", marginTop: "10%"}}>
-                <div style={{display: "flex", justifyContent: "center"}}>
+            <div style={{height: "100%", marginTop: "7%"}}>
+                <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%"}}>
                 {this.props.followedEvents.length > 0 && this.state.eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
@@ -136,7 +135,7 @@ class HomeCalendar extends React.Component {
                     {this.makeAvatars()}
                     
                     <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
-                        <Item.Content style={{marginRight: "5%", paddingLeft: "300px"}}>
+                        <Item.Content style={{marginRight: "5%", paddingLeft: "200px"}}>
                         <Icon size="big" color='blue' name='calendar plus outline' link={true} /> 
                     </Item.Content>
                     </Item>
