@@ -56,6 +56,7 @@ class HomeCalendar extends React.Component {
             updatedList.splice(indexOfDeleted, 1)
             this.setState({eventIds: updatedList})
         } else {
+            console.log(e.target.id)
             this.setState({eventIds: [...this.state.eventIds, parseInt(e.target.id)]})
         }
         
@@ -70,7 +71,7 @@ class HomeCalendar extends React.Component {
                 (<Item style={{paddingBottom: "2%"}}>
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
                             {user.profile_picture ?
-                            <Image src={user.profile_picture.url} circular size="tiny" link={true}/> 
+                            <Image src={user.profile_picture.url} circular size="tiny" link={true} id={user.id}/> 
                             :
                             <Icon circular size="big" color='blue' name='user' link={true} id={user.id} /> 
                             }
@@ -87,6 +88,7 @@ class HomeCalendar extends React.Component {
     }
 
     render() {
+        console.log(this.props.followedEvents)
         let filteredEvents = this.props.followedEvents.filter(event => !this.state.eventIds.includes(event.user_id))
       console.log(this.props.followedUsers)
         return (
