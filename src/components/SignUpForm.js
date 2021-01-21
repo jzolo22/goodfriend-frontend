@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { newUser } from '../redux/actions'
 import { Form, Button, Checkbox } from 'semantic-ui-react'
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 
 
 class SignUpForm extends React.Component {
@@ -17,7 +19,15 @@ class SignUpForm extends React.Component {
         partner_birthday: "",
         venmo_handle: "",
         flowers: false,
-        profile_picture: null
+        profile_picture: null,
+        src: null,
+        crop: {
+            unit: "%",
+            width: 30,
+            aspect: 1/1
+        },
+        croppedImageUrl: null,
+        croppedImage: null
     }
 
     onChange = (e) => {
@@ -29,7 +39,71 @@ class SignUpForm extends React.Component {
     }
     
     onUpload = (e) => {
-        this.setState({profile_picture: e.target.files[0]})
+        // this.setState({profile_picture: e.target.files[0]})
+        const fileReader = new FileReader()
+        fileReader.onloadend = () => {
+            this.setState({src: fileReader.result})
+        }
+        fileReader.readAsDataURL(e.target.files[0])
+    }
+
+    onImageLoaded = (image) => {
+        this.imageRef = image
+    }
+
+    onCropChange = (crop) => {
+        this.setState({crop})
+    }
+
+    onCropComplete = (crop) => {
+        if (this.imageRef && crop.width && crop.height) {
+            const croppedImageUrl = this.getCroppedImg(this.imageRef, crop)
+            this.setState({ croppedImageUrl })
+        }
+    }
+
+    getCroppedImg(image, crop) {
+        const canvas = document.createElement('canvas');
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+        canvas.width = crop.width;
+        canvas.height = crop.height;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(
+            image,
+            crop.x * scaleX,
+            crop.y * scaleY,
+            crop.width * scaleX,
+            crop.height * scaleY,
+            0,
+            0,
+            crop.width,
+            crop.height
+          );
+
+        const reader = new FileReader()
+        canvas.toBlob(blob => {
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                this.dataURLtoFile(reader.result, 'cropped.jpg')
+            }
+        })
+    }
+
+    dataURLtoFile(dataurl, filename) {
+        let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        let croppedImage = new File([u8arr], filename, {type:mime});
+        this.setState({croppedImage: croppedImage }) 
     }
 
     onSubmit = (e) => {
@@ -45,13 +119,14 @@ class SignUpForm extends React.Component {
         formData.append('user[partner_birthday]', this.state.partner_birthday)
         formData.append('user[venmo_handle]', this.state.venmo_handle)
         formData.append('user[flowers]', this.state.flowers)
-        formData.append('user[profile_picture]', this.state.profile_picture)
+        formData.append('user[profile_picture]', this.state.croppedImage)
         console.log(formData)
         this.props.newUser(formData)
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.imageRef)
+        const { src, crop, croppedImageUrl } = this.state
         return(
             <div style={{marginTop: "15%", textAlign: "center"}}>
 
@@ -108,17 +183,7 @@ class SignUpForm extends React.Component {
                         value={this.state.flowers} 
                         onChange={this.onCheckboxChange}/>
                 </Form.Field>
-                <Form.Field >
-                     <Form.Input 
-                        label='Upload a profile picture' 
-                        type="file"
-                        accept="image/*"
-                        multiple={false}
-                        // placeholder='$ gifts are the best gifts' 
-                        name="profile_picture" 
-                        onChange={this.onUpload}
-                        />
-                </Form.Field>
+                
             </Form.Group>
 
             <Form.Group widths="equal" style={{margin: "3% 10% 0% 10%"}}>
@@ -160,6 +225,30 @@ class SignUpForm extends React.Component {
                 </Form.Field>
             </Form.Group>
 
+            <Form.Field style={{margin: "3% 38% 3% 38%"}}>
+                     <Form.Input 
+                        label='Upload a profile picture' 
+                        type="file"
+                        accept="image/*"
+                        multiple={false}
+                        // placeholder='$ gifts are the best gifts' 
+                        name="profile_picture" 
+                        onChange={this.onUpload}
+                        />
+                        {src && (
+                            <ReactCrop
+                                src={src}
+                                crop={crop}
+                                ruleOfThirds
+                                onImageLoaded={this.onImageLoaded}
+                                onComplete={this.onCropComplete}
+                                onChange={this.onCropChange}
+                            />
+                            )}
+                        {croppedImageUrl && (
+                        <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
+                        )}
+                </Form.Field>
                 
                 <Button type='submit'>Sign Up</Button>
             </Form>
