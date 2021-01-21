@@ -154,6 +154,7 @@ export const logIn = (userData) => {
     })
       .then((r) => r.json())
       .then((userData) => {
+        console.log(userData)
         if (userData.user.id && userData.jwt) {
         const token = userData.jwt;
         localStorage.setItem("jwtToken", token);

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
-import { Icon, Item, Label } from 'semantic-ui-react'
+import { Icon, Item, Label, Image } from 'semantic-ui-react'
 // @import 'react-big-calendar/lib/sass/styles';
 
 
@@ -62,12 +62,17 @@ class HomeCalendar extends React.Component {
     }
 
     makeAvatars = () => {
-        return this.props.followedUsers.map(user => {
+        let avatarArray = this.props.followedUsers.map(user => user.id)
+        let followedUserAvatars = this.props.allUsers.filter(user => avatarArray.includes(user.id))
+        return followedUserAvatars.map(user => {
             return (
                 (<Item style={{paddingBottom: "2%"}}>
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
-                            {/* <Image src={} size={small}/> */}
-                            <Icon circular size="large" color='blue' name='user' link={true} id={user.id} /> 
+                            {user.profile_picture ?
+                            <Image src={user.profile_picture.url} circular size="tiny"/> 
+                            :
+                            <Icon circular size="big" color='blue' name='user' link={true} id={user.id} /> 
+                            }
                         </Item.Content>
                     </Item>)
             )
@@ -135,7 +140,8 @@ const msp = (state) => {
     return {
         followedEvents: state.followedEvents,
         currentUser: state.currentUser,
-        followedUsers: state.followedUsers
+        followedUsers: state.followedUsers,
+        allUsers: state.allUsers
     }
 }
 
