@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { newUser } from '../redux/actions'
-import { Form, Button, Checkbox } from 'semantic-ui-react'
+import { Form, Button, Checkbox, Message } from 'semantic-ui-react'
 import moment from 'moment'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -117,7 +117,7 @@ class SignUpForm extends React.Component {
         formData.append('user[birthday]', this.state.first_name)
         formData.append('user[address]', this.state.address)
         formData.append('user[partner_name]', this.state.partner_name)
-        formData.append('user[partner_birthday]', this.state.partner_birthday)
+        formData.append('user[partner_birthday]', new Date(this.state.partner_birthday))
         formData.append('user[venmo_handle]', this.state.venmo_handle)
         formData.append('user[flowers]', this.state.flowers)
         formData.append('user[profile_picture]', this.state.croppedImage)
@@ -126,29 +126,30 @@ class SignUpForm extends React.Component {
     }
 
     render() {
-        console.log(this.imageRef)
         const { src, crop, croppedImageUrl } = this.state
         return(
             <div style={{marginTop: "15%", textAlign: "center"}}>
 
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.onSubmit} success>
                 <Form.Group widths='equal' style={{margin: "1% 10% 0% 10%"}}>
-                    <Form.Field >
+                    <Form.Field required>
                         <Form.Input 
                             label='First Name' 
                             // placeholder='Will be looking for jobs after graduation!' 
                             name="first_name" 
                             value={this.state.first_name} 
-                            onChange={this.onChange}/>
+                            onChange={this.onChange}
+                            required/>
                     </Form.Field>
                     
-                    <Form.Field >
+                    <Form.Field required>
                         <Form.Input 
                             label='Last Name' 
                             // placeholder='Will be looking for jobs after graduation!' 
                             name="last_name" 
                             value={this.state.last_name} 
-                            onChange={this.onChange}/>
+                            onChange={this.onChange}
+                            required/>
                     </Form.Field>
                     <Form.Field >
                         <Form.Input 
@@ -161,17 +162,17 @@ class SignUpForm extends React.Component {
                     <Form.Field >
                         <Form.Input 
                             label='Address' 
-                            // placeholder='put the format here' 
+                            placeholder='if you like gifts by mail!' 
                             name="address" 
                             value={this.state.address} 
                             onChange={this.onChange}/>
                     </Form.Field>
                 </Form.Group>
 
-            <Form.Group inline widths="equal" style={{margin: "3% 15% 0% 15%"}}>
+            <Form.Group inline widths="equal" style={{margin: "3% 12% 0% 12%"}}>
                 <Form.Field >
                      <Form.Input 
-                        label='Venmo Handle' 
+                        label='Venmo Handle   @' 
                         placeholder='$ gifts are the best gifts' 
                         name="venmo_handle" 
                         value={this.state.venmo_handle} 
@@ -194,7 +195,8 @@ class SignUpForm extends React.Component {
                         placeholder={this.state.first_name !== "" ? `${this.state.first_name.toLowerCase()}${this.state.last_name.toLowerCase()} perhaps?` : ""} 
                         name="username" 
                         value={this.state.username} 
-                        onChange={this.onChange}/>
+                        onChange={this.onChange}
+                        required/>
                 </Form.Field>
                 <Form.Field >
                      <Form.Input
@@ -203,7 +205,8 @@ class SignUpForm extends React.Component {
                         placeholder='something nice and secure' 
                         name="password" 
                         value={this.state.password} 
-                        onChange={this.onChange}/>
+                        onChange={this.onChange}
+                        required/>
                 </Form.Field>
             </Form.Group>
 
@@ -219,7 +222,7 @@ class SignUpForm extends React.Component {
                 <Form.Field >
                      <Form.Input 
                         label='Partner Birthday' 
-                        // placeholder='Will be looking for jobs after graduation!' 
+                        placeholder={moment(new Date()).format('MMMM DD, YYYY')}
                         name="partner_birthday" 
                         value={this.state.partner_birthday} 
                         onChange={this.onChange}/>
@@ -250,7 +253,7 @@ class SignUpForm extends React.Component {
                         <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
                         )}
                 </Form.Field>
-                
+                {/* <Message success header="Success!" content="Head back to the login page to sign in"/> */}
                 <Button type='submit'>Sign Up</Button>
             </Form>
             </div>
@@ -261,6 +264,7 @@ class SignUpForm extends React.Component {
 const mdp = (dispatch) => {
     return {
         newUser: (newUserObj) => dispatch(newUser(newUserObj))
+        // addEvent: (eventObj) => dispatch()
     }
 }
 
