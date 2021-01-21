@@ -28,7 +28,7 @@ class NavBar extends React.Component {
                 id: user.id,
                 title: user.first_name,
                 description: user.last_name,
-                image: "https://thumbs.dreamstime.com/b/avatar-icon-black-round-avatar-flat-symbol-isolated-white-background-avatar-simple-icon-avatar-abstract-icon-black-vector-124920467.jpg"
+                image: user.profile_picture ? user.profile_picture.url  : "https://thumbs.dreamstime.com/b/avatar-icon-black-round-avatar-flat-symbol-isolated-white-background-avatar-simple-icon-avatar-abstract-icon-black-vector-124920467.jpg"
             })
         })
     }

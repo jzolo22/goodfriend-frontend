@@ -69,7 +69,7 @@ class HomeCalendar extends React.Component {
                 (<Item style={{paddingBottom: "2%"}}>
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
                             {user.profile_picture ?
-                            <Image src={user.profile_picture.url} circular size="tiny"/> 
+                            <Image src={user.profile_picture.url} circular size="tiny" link={true}/> 
                             :
                             <Icon circular size="big" color='blue' name='user' link={true} id={user.id} /> 
                             }
