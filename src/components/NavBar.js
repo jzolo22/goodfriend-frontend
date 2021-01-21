@@ -5,6 +5,7 @@ import { fetchAllUsers, checkLogin, logOut } from '../redux/actions'
 import { Menu, Search, Item, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
+
 class NavBar extends React.Component {
 
     state = {
