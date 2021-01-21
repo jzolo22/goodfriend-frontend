@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { newUser } from '../redux/actions'
 import { Form, Button, Checkbox } from 'semantic-ui-react'
+import moment from 'moment'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -152,7 +153,7 @@ class SignUpForm extends React.Component {
                     <Form.Field >
                         <Form.Input 
                             label='Birthday' 
-                            placeholder='put the format here' 
+                            placeholder={moment(new Date()).format('MMMM DD, YYYY')} 
                             name="birthday" 
                             value={this.state.birthday} 
                             onChange={this.onChange}/>
