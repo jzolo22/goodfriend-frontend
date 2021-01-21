@@ -150,20 +150,18 @@ class HomeCalendar extends React.Component {
                     filteredEventsForCal
                     : this.defaultEvent()}
                 
-                // events={this.eventAttempt(null)}
-                // step={5}
-                // timeslots={3}
                 defaultView="month"
                 views={["month", "week"]}
                 // min={new Date(2020, 0, 1, 8, 0)} // 8.00 AM
                 // max={new Date(2020, 0, 1, 17, 0)} // Max will be 6.00 PM!
                 defaultDate={new Date()}
                 popup={true}
+                // popupOffset={{x: 30, y: 20}}
                 startAccessor="start"
                 endAccessor="end"
                 drilldownView="week"
                 onSelectEvent={this.onSelectEvent}
-                style={{ margin: "0% 15%", height: 500 }}
+                style={{ margin: "0% 10% 0% 18%", height: 600 }}
             />
             </div>
             </>
