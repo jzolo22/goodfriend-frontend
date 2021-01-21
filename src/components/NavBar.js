@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { fetchAllUsers, checkLogin, logOut } from '../redux/actions'
-import { Menu, Search, Item, Icon } from 'semantic-ui-react'
+import { Menu, Search, Item, Icon, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 
@@ -72,7 +72,12 @@ class NavBar extends React.Component {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to={this.props.currentUser && this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
                     <Item.Content >
-                        <Icon size="big" name='user outline' link={true} /> 
+                        {this.props.currentUser.profile_picture ? 
+                            <Image src={this.props.currentUser.profile_picture.url} circular size="mini"/> :
+                            <>
+                                <Icon size="big" name='user outline' link={true} /> My profile
+                            </>
+                        }
                     </Item.Content>
                 </Menu.Item>
 

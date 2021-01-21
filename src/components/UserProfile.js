@@ -203,7 +203,7 @@ class UserProfile extends React.Component {
             <>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
             {this.props.user[0].profile_picture ? 
-                <Image style={{display: "block", marginLeft: "auto", marginRight: "auto"}} src={this.props.user[0].profile_picture.url}  size="small"/>
+                <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={this.props.user[0].profile_picture.url} circular size="small"/>
                 : null }
             {this.props.user[0].id === this.props.currentUser.id ? 
             <>
