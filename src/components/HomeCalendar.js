@@ -63,7 +63,8 @@ class HomeCalendar extends React.Component {
 
     makeAvatars = () => {
         let avatarArray = this.props.followedUsers.map(user => user.id)
-        let followedUserAvatars = this.props.allUsers.filter(user => avatarArray.includes(user.id))
+        if (this.props.allUsers.length > 0) {
+            let followedUserAvatars = this.props.allUsers.filter(user => avatarArray.includes(user.id))
         return followedUserAvatars.map(user => {
             return (
                 (<Item style={{paddingBottom: "2%"}}>
@@ -77,6 +78,8 @@ class HomeCalendar extends React.Component {
                     </Item>)
             )
         })
+        }
+        
     }
 
     selectAll = () => {

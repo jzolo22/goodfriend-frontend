@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { newUser } from '../redux/actions'
 import { Form, Button, Checkbox, Message } from 'semantic-ui-react'
 import moment from 'moment'
@@ -114,15 +115,28 @@ class SignUpForm extends React.Component {
         formData.append('user[last_name]', this.state.last_name)
         formData.append('user[username]', this.state.username)
         formData.append('user[password]', this.state.password)
-        formData.append('user[birthday]', this.state.first_name)
+        formData.append('user[birthday]', new Date (this.state.birthday))
         formData.append('user[address]', this.state.address)
         formData.append('user[partner_name]', this.state.partner_name)
         formData.append('user[partner_birthday]', new Date(this.state.partner_birthday))
         formData.append('user[venmo_handle]', this.state.venmo_handle)
         formData.append('user[flowers]', this.state.flowers)
         formData.append('user[profile_picture]', this.state.croppedImage)
-        console.log(formData)
-        this.props.newUser(formData)
+
+        if (this.state.birthday) {
+            const birthday = {
+                user_id: "",
+                title: `${this.state.first_name}'s birthday!`,
+                date: new Date (this.state.birthday),
+                annual: true
+            }
+            this.props.newUser(formData, this.props.history, birthday)
+        } else {
+            this.props.newUser(formData, this.props.history)
+        }
+        
+        // console.log(this.props.history)
+        // console.log(this.props)
     }
 
     render() {
@@ -231,6 +245,7 @@ class SignUpForm extends React.Component {
 
             <Form.Field style={{margin: "3% 38% 3% 38%"}}>
                      <Form.Input 
+                        required
                         label='Upload a profile picture' 
                         type="file"
                         accept="image/*"
@@ -263,9 +278,9 @@ class SignUpForm extends React.Component {
 
 const mdp = (dispatch) => {
     return {
-        newUser: (newUserObj) => dispatch(newUser(newUserObj))
+        newUser: (newUserObj, history, newEvent) => dispatch(newUser(newUserObj, history, newEvent))
         // addEvent: (eventObj) => dispatch()
     }
 }
 
-export default connect(null, mdp)(SignUpForm)
+export default connect(null, mdp)(withRouter(SignUpForm))

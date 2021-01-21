@@ -177,12 +177,34 @@ export const checkLogin = (token) => {
     }
 }
 
-export const newUser = (userObj) => {
-  console.log(userObj)
+export const newUser = (userObj, history, newEvent=null) => {
+  console.log(newEvent)
   return function(dispatch) {
     fetch(`${url}/users`, {
       method: "POST",
       body: userObj
+    })
+    .then(r => r.json())
+    .then(newUser => {
+        if (newUser.user && newUser.jwt) {
+        const token = newUser.jwt;
+        localStorage.setItem("jwtToken", token);
+        dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
+        console.log(history)
+        history.push('/')
+        if (newEvent){
+          newEvent["user_id"] = newUser.user.id
+          fetch(`${url}/events`, {
+            method: "POST",
+            headers: myHeaders,
+            body: JSON.stringify(newEvent)
+        })
+          .then(r => r.json())
+          .then(console.log)
+        }
+      } else {
+        window.alert("Please try again. That username was already taken.")
+      }
     })
     .catch(console.log)
   }
