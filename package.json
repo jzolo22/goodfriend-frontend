@@ -10,8 +10,10 @@
     "browser-router": "^0.2.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-big-calendar": "^0.30.0",
+    "react-big-calendar-like-google": "^0.0.3",
     "react-calendar": "^3.3.0",
     "react-dom": "^17.0.1",
     "react-image-crop": "^8.6.6",
@@ -49,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.12.12",
     "@craco/craco": "^6.0.0",
     "@semantic-ui-react/craco-less": "^1.2.1",
     "semantic-ui-less": "^2.4.1"
