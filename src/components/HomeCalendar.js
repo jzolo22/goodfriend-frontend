@@ -68,6 +68,7 @@ class HomeCalendar extends React.Component {
 
     makeAvatars = () => {
         let avatarArray = this.props.followedUsers.map(user => user.id)
+        avatarArray.push(this.props.currentUser.id)
         if (this.props.allUsers.length > 0) {
             let followedUserAvatars = this.props.allUsers.filter(user => avatarArray.includes(user.id))
         return followedUserAvatars.map(user => {
@@ -96,28 +97,34 @@ class HomeCalendar extends React.Component {
     }
 
     render() {
-        let filteredEvents = this.props.followedEvents.filter(event => !this.state.eventIds.includes(event.user_id))
+        console.log(this.state)
+        let allCalEvents = this.props.followedEvents.concat(this.props.currentUser.own_events)
+        let filteredEvents = allCalEvents.filter(event => !this.state.eventIds.includes(event.user_id))
+        console.log(filteredEvents)
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
                 title: event.title,
-                bgColor: "purple",
+                bgColor: event.user_id === this.props.currentUser.id ? "pink" : "purple",
                 start: moment(event.date),
                 end: moment(event.date),
                 allDay: true,
                 resourceId: event.user_id,
                 tooltipAccessor: event.title,
             }})
-        let ownEventsForCal = this.props.currentUser.own_events.map(event => {
-            return {
-                title: event.title,
-                bgColor: "pink",
-                start: moment(event.date),
-                end: moment(event.date),
-                allDay: true,
-                resourceId: event.user_id,
-                tooltipAccessor: event.title,
-            }
-        })
+
+        // let ownEventsForCal = this.props.currentUser.own_events.map(event => {
+        //     return {
+        //         title: event.title,
+        //         bgColor: "pink",
+        //         start: moment(event.date),
+        //         end: moment(event.date),
+        //         allDay: true,
+        //         resourceId: event.user_id,
+        //         tooltipAccessor: event.title,
+        //     }
+        // })
+        
+        
         return (
             <>
             <div style={{height: "100%", marginTop: "10%"}}>
@@ -138,8 +145,9 @@ class HomeCalendar extends React.Component {
             <BigCalendar
                 // selectable
                 // localizer={localizer}
+
                 events={this.props.followedEvents.length > 0 ?  
-                    filteredEventsForCal.concat(ownEventsForCal)
+                    filteredEventsForCal
                     : this.defaultEvent()}
                 
                 // events={this.eventAttempt(null)}
