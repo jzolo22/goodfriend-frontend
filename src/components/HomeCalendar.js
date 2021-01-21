@@ -1,16 +1,27 @@
 import React from 'react'
-import { Calendar, momentLocalizer } from "react-big-calendar";
+// import { Calendar, momentLocalizer } from "react-big-calendar";
+import BigCalendar from 'react-big-calendar-like-google';
+import 'react-big-calendar-like-google/lib/css/react-big-calendar.css'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+// import "react-big-calendar/lib/css/react-big-calendar.css";
+// @import 'react-big-calendar/lib/sass/styles';
+
 import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
 import { Icon, Item, Label, Image } from 'semantic-ui-react'
-// @import 'react-big-calendar/lib/sass/styles';
 
 
 moment.locale("en-US");
-const localizer = momentLocalizer(moment);
+BigCalendar.momentLocalizer(moment)
+// const localizer = momentLocalizer(moment);
+
+// const ColoredDateCellWrapper = ({ children }) =>
+//   React.cloneElement(React.Children.only(children), {
+//     style: {
+//       backgroundColor: 'red',
+//     },
+//   })
 
 class HomeCalendar extends React.Component {
 
@@ -83,6 +94,10 @@ class HomeCalendar extends React.Component {
         
     }
 
+    onSelectEvent = (e) => {
+        this.props.history.push(`/users/${e.resourceId}`)
+    }
+
     selectAll = () => {
         this.setState({eventIds: []})
     }
@@ -108,8 +123,9 @@ class HomeCalendar extends React.Component {
                     </Item>
                 </div>
                 
-            <Calendar
-                localizer={localizer}
+            <BigCalendar
+                // selectable
+                // localizer={localizer}
                 events={this.props.followedEvents.length > 0 ?  
                 filteredEvents.map(event => {
                     return {
@@ -117,7 +133,7 @@ class HomeCalendar extends React.Component {
                         start: moment(event.date),
                         end: moment(event.date),
                         allDay: true,
-                        resourceId: 10,
+                        resourceId: event.user_id,
                         tooltipAccessor: event.title,
                     }}) : this.defaultEvent()}
                 
@@ -133,6 +149,7 @@ class HomeCalendar extends React.Component {
                 startAccessor="start"
                 endAccessor="end"
                 drilldownView="week"
+                onSelectEvent={this.onSelectEvent}
                 style={{ margin: "0% 15%", height: 500 }}
             />
             </div>
@@ -158,4 +175,4 @@ const mdp = (dispatch) => {
     }
 }
 
-export default connect(msp, mdp)(HomeCalendar)
+export default connect(msp, mdp)(withRouter(HomeCalendar))
