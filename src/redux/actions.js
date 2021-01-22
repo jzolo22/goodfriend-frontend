@@ -189,20 +189,28 @@ export const newUser = (userObj, history, newEvent=null) => {
     .then(r => r.json())
     .then(newUser => {
         if (newUser.user && newUser.jwt) {
-        const token = newUser.jwt;
-        localStorage.setItem("jwtToken", token);
-        dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
-        console.log(history)
-        history.push('/')
-        if (newEvent){
-          newEvent["user_id"] = newUser.user.id
-          fetch(`${url}/events`, {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(newEvent)
-        })
-          .then(r => r.json())
-          .then(console.log)
+          const token = newUser.jwt;
+          localStorage.setItem("jwtToken", token);
+          dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
+          history.push('/')
+          
+            fetch(`${url}/wishlists`, {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify({user_id: newUser.user.id})
+            })  
+              .then(r => r.json())
+              .then(console.log)
+
+          if (newEvent){
+              newEvent["user_id"] = newUser.user.id
+              fetch(`${url}/events`, {
+                method: "POST",
+                headers: myHeaders,
+                body: JSON.stringify(newEvent)
+            })
+              .then(r => r.json())
+              .then(console.log)
         }
       } else {
         window.alert("Please try again. That username was already taken.")
