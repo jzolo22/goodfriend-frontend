@@ -24,12 +24,15 @@ class Wishlist extends React.Component {
                     return (
                         <>
                             <Checkbox 
+                                style={{display: "block"}}
                                 label={`${item.name}`} 
                                 defaultChecke={item.purchased ? true : false}
                             />
-                            <List.Item 
-                                content={<a href={item.link}>~link~</a>}
-                            />
+                            {item.link ? 
+                                <List.Item
+                                    content={<a target="_blank" href={item.link}>~link~</a>}
+                                />
+                            : null }
                         </>
                     )}
             })
@@ -44,7 +47,8 @@ class Wishlist extends React.Component {
                 <h3>Wishlist</h3>
                 {this.wishlistItems()}
 
-                <AddItem user={this.props.user}/>
+                {this.props.user.id === this.props.currentUser.id ? 
+                    <AddItem user={this.props.user}/> : null }
             </Container>
         )
     }
@@ -52,7 +56,8 @@ class Wishlist extends React.Component {
 
 const msp = (state) => {
     return {
-        items: state.items
+        items: state.items,
+        currentUser: state.currentUser
     }
 }
 

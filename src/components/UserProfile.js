@@ -285,6 +285,7 @@ const Container = styled.div`
     display: flex;
     text-align: center;
     padding-top: 100px;
+    margin-left: 25%;
 `;
 
 // const WishlistContainer = styled.div`
@@ -292,5 +293,4 @@ const Container = styled.div`
 // `;
 
 const ProfileContainer = styled.div`
-    width: 80%
 `;
