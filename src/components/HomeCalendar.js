@@ -133,7 +133,7 @@ class HomeCalendar extends React.Component {
         return (
             <>
             <div style={{height: "100%", marginTop: "7%"}}>
-                <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%"}}>
+                <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%", paddingBottom: "0%"}}>
                 {followedEvents.length > 0 && eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
@@ -166,7 +166,7 @@ class HomeCalendar extends React.Component {
                 endAccessor="end"
                 drilldownView="week"
                 onSelectEvent={this.onSelectEvent}
-                style={{ margin: "0% 10% 0% 18%", height: 600 }}
+                style={{ margin: "0% 10% 0% 18%", height: 525, width: 900, paddingTop: "0" }}
             />
             </div>
             </>
