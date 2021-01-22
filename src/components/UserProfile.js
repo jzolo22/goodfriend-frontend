@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile } from '../redux/actions'
+import Wishlist from './Wishlist'
 import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
@@ -203,6 +204,7 @@ class UserProfile extends React.Component {
         const { user, currentUser } = this.props
         return(
             <>
+            <Wishlist user={user[0]}/>
             <div style={{textAlign: "center", paddingTop: "100px"}}>
             {user[0].profile_picture ? 
                 <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
