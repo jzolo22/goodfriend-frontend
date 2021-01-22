@@ -83,6 +83,8 @@ function itemsReducer(state = initialState.items, action) {
     switch(action.type) {
         case actions.ADD_ITEM:
             return [...state, action.payload]
+        case actions.ALL_ITEMS:
+            return action.payload
         default:
             return state
     }

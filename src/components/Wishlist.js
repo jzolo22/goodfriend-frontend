@@ -17,26 +17,28 @@ class Wishlist extends React.Component {
     }
 
     wishlistItems = () => {
-        const wishlistItems = this.props.user.wishlist_items
-        return wishlistItems.map(item => {
-            if (!item.purchased) {
-                return (
-                    <>
-                        <Checkbox 
-                            label={`${item.name}`} 
-                        />
-                        <List.Item 
-                            icon='linkify'
-                            content={<a href={item.link}>Link!</a>}
-                        />
-                    </>
-                )}
-        })
+        if (this.props.items.length > 0) {
+            const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
+            return usersWishlistItems.map(item => {
+                if (!item.purchased) {
+                    return (
+                        <>
+                            <Checkbox 
+                                label={`${item.name}`} 
+                            />
+                            <List.Item 
+                                icon='linkify'
+                                content={<a href={item.link}>Link!</a>}
+                            />
+                        </>
+                    )}
+            })
+        }
     }
 
 
     render() {
-        console.log(this.state)
+        console.log(this.props)
         return (
             <Container>
                 <h3>Wishlist</h3>

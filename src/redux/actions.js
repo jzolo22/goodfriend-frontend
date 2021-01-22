@@ -162,7 +162,7 @@ export const getItems = () => {
       headers: myHeaders,
     })
       .then(r => r.json())
-      .then(console.log)
+      .then(itemsArray => dispatch({type: actions.ALL_ITEMS, payload: itemsArray}))
   }
 }
 
