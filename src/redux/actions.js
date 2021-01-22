@@ -158,7 +158,9 @@ export const addItem = (itemObj) => {
 
 export const getItems = () => {
   return function(dispatch) {
-    fetch(`${url}/items`)
+    fetch(`${url}/items`, {
+      headers: myHeaders,
+    })
       .then(r => r.json())
       .then(console.log)
   }

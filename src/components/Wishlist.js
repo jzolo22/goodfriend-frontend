@@ -3,7 +3,7 @@ import { Checkbox, List } from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';
-import { getItems } from '..redux/actions'
+import { getItems } from '../redux/actions'
 
 
 class Wishlist extends React.Component {
