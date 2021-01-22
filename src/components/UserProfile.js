@@ -204,7 +204,7 @@ class UserProfile extends React.Component {
         const { user, currentUser } = this.props
         return(
             <>
-            <Wishlist user={user[0]}/>
+            {/* <Wishlist user={user[0]}/> */}
             <div style={{textAlign: "center", paddingTop: "100px"}}>
             {user[0].profile_picture ? 
                 <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
