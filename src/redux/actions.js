@@ -134,11 +134,31 @@ export const deleteEvent = (eventId) => {
 
 export const editProfile = (userId, userObj) => {
   return function (dispatch) {
-    fetch(`${url}/users/${userId}`, {
-      method: "PATCH",
-      headers: myHeaders,
-      body: JSON.stringify(userObj)
-    })
+      fetch(`${url}/users/${userId}`, {
+        method: "PATCH",
+        headers: myHeaders,
+        body: JSON.stringify(userObj)
+      })
+        .then(r => r.json())
+        .then(console.log)
+  }
+}
+
+export const addItem = (itemObj) => {
+  return function(dispatch) {
+      fetch(`${url}/items`, {
+          method: "POST",
+          headers: myHeaders, 
+          body: JSON.stringify(itemObj)
+      })
+          .then(r => r.json())
+          .then(itemObj => dispatch({type: actions.ADD_ITEM, payload: itemObj}))
+  }
+}
+
+export const getItems = () => {
+  return function(dispatch) {
+    fetch(`${url}/items`)
       .then(r => r.json())
       .then(console.log)
   }
@@ -193,7 +213,7 @@ export const newUser = (userObj, history, newEvent=null) => {
           localStorage.setItem("jwtToken", token);
           dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
           history.push('/')
-          
+
             fetch(`${url}/wishlists`, {
               method: "POST",
               headers: myHeaders,

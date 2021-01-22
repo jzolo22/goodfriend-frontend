@@ -1,38 +1,69 @@
 import React from 'react'
-// import { Divider, Header, Segment,  } from 'semantic-ui-react'
+import { Checkbox, List } from 'semantic-ui-react'
 import styled from "styled-components";
+import { connect } from 'react-redux'
+import AddItem from './AddItem';
+import { getItems } from '..redux/actions'
 
 
 class Wishlist extends React.Component {
 
     state = {
-        wishlist_id: this.props.user.wishlist.id,
-        name: "",
-        link: ""
+        itemIds: []
+    }
+
+    componentDidMount() {
+        this.props.getItems()
     }
 
     wishlistItems = () => {
         const wishlistItems = this.props.user.wishlist_items
         return wishlistItems.map(item => {
-            return <li>{item.name}-{item.link}</li>
+            if (!item.purchased) {
+                return (
+                    <>
+                        <Checkbox 
+                            label={`${item.name}`} 
+                        />
+                        <List.Item 
+                            icon='linkify'
+                            content={<a href={item.link}>Link!</a>}
+                        />
+                    </>
+                )}
         })
     }
 
+
     render() {
-        console.log(this.props.user)
+        console.log(this.state)
         return (
             <Container>
-            <h3>Wishlist</h3>
-            {this.wishlistItems()}
+                <h3>Wishlist</h3>
+                {this.wishlistItems()}
+
+                <AddItem user={this.props.user}/>
             </Container>
         )
     }
 }
 
-export default Wishlist
+const msp = (state) => {
+    return {
+        items: state.items
+    }
+}
+
+const mdp = (dispatch) => {
+    return {
+        getItems: () => dispatch(getItems())
+    }
+}
+
+export default connect(msp, mdp)(Wishlist)
 
 const Container = styled.div`
-    display: flex;
+    display: block;
 `;
 
 

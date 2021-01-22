@@ -252,7 +252,9 @@ class UserProfile extends React.Component {
             : null }
             </div>
 
-            <Wishlist user={user[0]}/>
+            <div>   
+                <Wishlist user={user[0]}/>
+            </div> 
 
            </Container>
         )
@@ -283,4 +285,12 @@ const Container = styled.div`
     display: flex;
     text-align: center;
     padding-top: 100px;
+`;
+
+// const WishlistContainer = styled.div`
+//     width: 20%
+// `;
+
+const ProfileContainer = styled.div`
+    width: 80%
 `;

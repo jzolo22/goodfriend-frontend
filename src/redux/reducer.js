@@ -6,7 +6,8 @@ const initialState = {
     allEvents: [],
     followedUsers: [],
     allUsers: [],
-    currentUser: {}
+    currentUser: {},
+    items: []
 }
 
 function followedEventsReducer(state = initialState.followedEvents, action) {
@@ -78,12 +79,24 @@ function currentUserReducer(state = initialState.currentUser, action) {
     }
 }
 
+function itemsReducer(state = initialState.items, action) {
+    switch(action.type) {
+        case actions.ADD_ITEM:
+            return [...state, action.payload]
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     followedEvents: followedEventsReducer,
     allEvents: allEventsReducer,
     followedUsers: followedUserReducer,
     allUsers: allUserReducer,
-    currentUser: currentUserReducer
+    currentUser: currentUserReducer,
+    items: itemsReducer
 })
+
+
 
 export default rootReducer
