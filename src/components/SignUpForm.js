@@ -134,9 +134,7 @@ class SignUpForm extends React.Component {
         } else {
             this.props.newUser(formData, this.props.history)
         }
-        
-        // console.log(this.props.history)
-        // console.log(this.props)
+  
     }
 
     render() {
@@ -186,9 +184,9 @@ class SignUpForm extends React.Component {
             <Form.Group inline widths="equal" style={{margin: "3% 12% 0% 12%"}}>
                 <Form.Field >
                      <Form.Input 
-                        label='Venmo Handle   @' 
-                        placeholder='$ gifts are the best gifts' 
-                        name="venmo_handle" 
+                        label='Venmo Handle' 
+                        placeholder={`@${this.state.first_name}-${this.state.last_name}`} 
+                        name="venmo_handle"
                         value={this.state.venmo_handle} 
                         onChange={this.onChange}/>
                 </Form.Field>

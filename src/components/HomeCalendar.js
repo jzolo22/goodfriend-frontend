@@ -112,10 +112,11 @@ class HomeCalendar extends React.Component {
     }
 
     render() {
-        const { currentUser, followedEvents } = this.props
+        const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
         console.log(followedEvents)
-        let allCalEvents = followedEvents.concat(currentUser.own_events)
+        let usersEvents = allEvents.filter(event => event.user_id === currentUser.id)
+        let allCalEvents = followedEvents.concat(usersEvents)
         let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
@@ -178,7 +179,8 @@ const msp = (state) => {
         followedEvents: state.followedEvents,
         currentUser: state.currentUser,
         followedUsers: state.followedUsers,
-        allUsers: state.allUsers
+        allUsers: state.allUsers, 
+        allEvents: state.allEvents
     }
 }
 
