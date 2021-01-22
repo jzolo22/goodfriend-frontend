@@ -18,14 +18,12 @@ class SideBar extends React.Component {
     }
 
     handleItemClick = (e, data) => {
-        console.log(data)
         this.setState({ activeItem: data.name })
     }
 
 
     componentDidMount() {
         if (this.props.currentUser.id) {
-            // console.log("i'm fetching users")
             this.props.fetchUsers(this.props.currentUser.id)
         } 
     }

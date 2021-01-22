@@ -6,7 +6,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Modal, Form, Button, Image } from 'semantic-ui-react'
+import { Icon, Item, Image } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -15,6 +15,8 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
+import styled from "styled-components";
+
 
 // const {first_name, last_name, birthday} = this.props.user[0]
 
@@ -203,9 +205,9 @@ class UserProfile extends React.Component {
         console.log(this.props)
         const { user, currentUser } = this.props
         return(
-            <>
-            {/* <Wishlist user={user[0]}/> */}
-            <div style={{textAlign: "center", paddingTop: "100px"}}>
+            <Container>
+            <div >
+                <div>
             {user[0].profile_picture ? 
                 <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
                 : null }
@@ -248,7 +250,11 @@ class UserProfile extends React.Component {
                 </Item.Content>
             </Item>
             : null }
-           </>
+            </div>
+
+            <Wishlist user={user[0]}/>
+
+           </Container>
         )
     }
 }
@@ -272,3 +278,9 @@ const mdp = (dispatch) => {
 }
 
 export default connect(msp, mdp)(UserProfile)
+
+const Container = styled.div`
+    display: flex;
+    text-align: center;
+    padding-top: 100px;
+`;
