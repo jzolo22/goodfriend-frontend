@@ -12,7 +12,10 @@ import {
 
 class SideBar extends React.Component {
 
-    state = { activeItem: '' }
+    state = { 
+        activeItem: '',
+        hovered: false
+    }
 
     handleItemClick = (e, data) => {
         console.log(data)
@@ -35,15 +38,20 @@ class SideBar extends React.Component {
                 // icon="user outline" 
                 as={NavLink} to={`/users/${user.id}`}
                 key={user.id}
+                onMouseEnter={() => this.setState({hovered: true})}
+                onMouseLeave={() => this.setState({hovered: false})}
             >
-                {user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase()}
+                {this.state.hovered ? 
+                    `${user.first_name} ${user.last_name}`
+                    : 
+                    user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase()}
             </Menu.Item>
             )
         })
     }
 
     render(){
-        console.log(this.props.followedUsers)
+        console.log(this.state)
         return(
             <>
                 <Sidebar
