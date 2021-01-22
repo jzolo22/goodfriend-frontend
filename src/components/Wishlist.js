@@ -25,10 +25,10 @@ class Wishlist extends React.Component {
                         <>
                             <Checkbox 
                                 label={`${item.name}`} 
+                                defaultChecke={item.purchased ? true : false}
                             />
                             <List.Item 
-                                icon='linkify'
-                                content={<a href={item.link}>Link!</a>}
+                                content={<a href={item.link}>~link~</a>}
                             />
                         </>
                     )}
@@ -66,6 +66,7 @@ export default connect(msp, mdp)(Wishlist)
 
 const Container = styled.div`
     display: block;
+    border: solid pink;
 `;
 
 

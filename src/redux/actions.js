@@ -152,7 +152,7 @@ export const addItem = (itemObj) => {
           body: JSON.stringify(itemObj)
       })
           .then(r => r.json())
-          .then(itemObj => dispatch({type: actions.ADD_ITEM, payload: itemObj}))
+          .then(itemObj => dispatch({type: actions.ADD_ITEM, payload: itemObj.item}))
   }
 }
 
