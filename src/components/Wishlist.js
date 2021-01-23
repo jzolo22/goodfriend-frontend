@@ -56,9 +56,11 @@ class Wishlist extends React.Component {
                             </>
                             : null }
                             {item.image_link ? 
-                                <StyledImage src={item.image_link} 
-                                /> 
-                                : null}
+                                <StyledImage src={item.image_link} /> 
+                                : 
+                                <StyledImage src={"https://www.nashvillewraps.com/blog/wp-content/uploads/2014/02/Wedding-editorial1.jpg"} /> 
+                                
+                            }
                         </>
                     )
             })
@@ -67,7 +69,7 @@ class Wishlist extends React.Component {
 
 
     render() {
-
+        console.log(this.props)
         return (
             <>
                 <h3>Wishlist</h3>
@@ -107,6 +109,7 @@ const Container = styled.div`
     border: solid black 2px;
     background-color: black;
     flex-wrap: wrap;
+    margin-bottom: 0%;
 `;
 
 const StyledImage = styled.img`
