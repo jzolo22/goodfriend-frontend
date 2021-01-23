@@ -252,9 +252,9 @@ class UserProfile extends React.Component {
             : null }
             </div>
 
-            <div>   
+            <WishlistContainer>   
                 <Wishlist user={user[0]}/>
-            </div> 
+            </WishlistContainer> 
 
            </Container>
         )
@@ -283,14 +283,15 @@ export default connect(msp, mdp)(UserProfile)
 
 const Container = styled.div`
     display: flex;
+    flex-direction: column;
     text-align: center;
     padding-top: 100px;
     margin-left: 25%;
 `;
 
-// const WishlistContainer = styled.div`
-//     width: 20%
-// `;
+const WishlistContainer = styled.div`
+    margin-right: 10%
+`;
 
 const ProfileContainer = styled.div`
 `;

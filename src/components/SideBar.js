@@ -6,6 +6,8 @@ import {
     Menu,
     Segment,
     Sidebar,
+    Grid, 
+    Icon
   } from 'semantic-ui-react'
 
 
@@ -14,7 +16,8 @@ class SideBar extends React.Component {
 
     state = { 
         activeItem: '',
-        userIds: []
+        userIds: [],
+        visible: false
     }
 
     handleItemClick = (e, data) => {
@@ -74,31 +77,40 @@ class SideBar extends React.Component {
     render(){
         return(
             <>
-                <Sidebar
-                    style={{paddingTop: "4px"}}
-                    as={Menu}
-                    animation='overlay'
-                    icon='labeled'
-                    inverted
-                    // onHide={() => setVisible(false)}
-                    vertical
-                    visible={true}
-                    width='thin'
-                >
-                    
-                    <Menu.Item 
-                        as={NavLink} exact to="/"
-                        name='home'
-                        active={this.state.activeItem === 'home'}
-                        onClick={this.handleItemClick}
-                        style={{paddingBottom: "20px"}}
+            <Grid columns={1}>
+                <Grid.Column>
+                    <Sidebar.Pushable as={Segment}>
+                    <Sidebar
+                        as={Menu}
+                        animation='overlay'
+                        icon='labeled'
+                        inverted
+                        // onHide={() => setVisible(false)}
+                        vertical
+                        visible={this.props.visible}
+                        width='wide'
+                        style={{maxWidth: "225px"}}
                     >
-                        goodFriend
-                    </Menu.Item>
+                        
+                        <Menu.Item 
+                            // as={NavLink} exact to="/"
+                            name='home'
+                            active={this.state.activeItem === 'home'}
+                            onClick={this.props.toggleOff}
+                        >
+                           <Icon 
+                                link={true}
+                                name="bars" 
+                                size="big"
+                            />
+                        </Menu.Item>
 
-                    {this.getInitials()}
+                        {this.getInitials()}
 
-                </Sidebar>     
+                    </Sidebar> 
+                    </Sidebar.Pushable>
+                </Grid.Column>
+            </Grid>    
             </>
         )
     }

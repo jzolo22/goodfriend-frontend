@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { fetchAllUsers, checkLogin, logOut } from '../redux/actions'
+import SideBar from './SideBar'
 import { Menu, Search, Item, Icon, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
@@ -9,7 +10,8 @@ import { withRouter } from 'react-router-dom'
 class NavBar extends React.Component {
 
     state = {
-        search: ""
+        search: "",
+        visible: false
     }
 
     componentDidMount(){
@@ -47,14 +49,29 @@ class NavBar extends React.Component {
         this.props.logOut()
         this.props.history.push('/')
     }
-    
+
+    turnOff = () => {
+        this.setState({visible: false})
+    }
 
     render() {
-        console.log("navbar props ", this.props)
         return(
+        <>
+        {this.props.currentUser && this.props.currentUser.id ? <SideBar visible={this.state.visible} toggleOff={this.turnOff}/> : null}
+            
             <Menu fixed="top" inverted={true} size="mini">
+                <Menu.Item
+                >
+                    <Icon 
+                        name="bars" 
+                        size="big"
+                        link={true}
+                        onClick={() => this.setState((prevState) => ({visible: !prevState.visible}))}
+                    />
+                    
+                </Menu.Item>
                 <Menu.Item as={NavLink} to={"/"}
-                name="goodFriend"
+                    name="goodFriend"
                 >
                     goodfriend
                 </Menu.Item>.
@@ -88,6 +105,7 @@ class NavBar extends React.Component {
                 : null }
                 </Menu.Menu>
             </Menu>
+        </>
         )
     }
 }
