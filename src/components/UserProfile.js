@@ -6,7 +6,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Image, Transition } from 'semantic-ui-react'
+import { Icon, Item, Image, Transition, Button } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -235,6 +235,11 @@ class UserProfile extends React.Component {
             {this.ownBirthdayDisplay()}
             {this.partnerBirthdayDisplay()}
 
+            <Button onClick={this.toggleVisibility}>
+                {this.state.visible ? "See Wishlist" : "See Timeline"}
+            </Button>
+
+
             {/* <Image 
                 inline={true} 
                 centered={true} 
@@ -256,7 +261,6 @@ class UserProfile extends React.Component {
                     <button onClick={this.unFollowClick}>Unfollow</button> : null}
         </Container>
 
-                <button onClick={this.toggleVisibility}>{this.state.visible ? "See Wishlist" : "See Timeline"}</button>
         <Transition.Group animation="slide left" duration="500">
             {this.state.visible && (
                 <StyledTimeline>
@@ -276,8 +280,6 @@ class UserProfile extends React.Component {
             </WishlistContainer> 
             )}
         </Transition.Group>
-
-
         
     </>
         )
@@ -319,5 +321,5 @@ const ProfileContainer = styled.div`
 `;
 
 const StyledTimeline = styled.div`
-    display: block;
+    // display: block;
 `;
