@@ -11,6 +11,7 @@ import UserProfile from './components/UserProfile'
 import NewEventForm from './components/NewEventForm'
 import SignUpForm from './components/SignUpForm'
 import { Dimmer, Loader } from 'semantic-ui-react'
+import Footer from './components/Footer'
 
 class App extends React.Component {
 
@@ -53,6 +54,7 @@ class App extends React.Component {
                 }
               }}/>
         </Switch>
+        <Footer />
       </>
     );
   }
