@@ -37,39 +37,28 @@ class Wishlist extends React.Component {
             return usersWishlistItems.map(item => {
                     return (
                         <>
-                            <Checkbox 
-                                id={item.id}
-                                style={{display: "block"}}
-                                label={
-                                    <label 
-                                            style={{ textDecoration : item.purchased ? 'line-through' : 'none' }}>
-                                                {item.name}
-                                            {this.props.user.id === this.props.currentUser.id 
-                                            ?
-                                                <Icon 
-                                                    link={true} 
-                                                    id={item.id} 
-                                                    name="trash alternate outline" 
-                                                    onClick={this.deleteItem} 
-                                                    inline
-                                                /> 
-                                            : 
-                                            null }
-                                    </label>} 
-
-                                onClick={this.checkItem}
-                                checked={item.purchased ? true : false}
-                                value={item.purchased ? true : false}
-                            />
+                                {/* {this.props.user.id === this.props.currentUser.id 
+                                ?
+                                    <Icon 
+                                        link={true} 
+                                        id={item.id} 
+                                        name="trash alternate outline" 
+                                        onClick={this.deleteItem} 
+                                        inline
+                                /> : null} */}
+                               
 
                             {item.link ? 
                             <>
-                                <List.Item
+                                {/* <List.Item
                                     content={<a target="_blank" rel="noreferrer" href={item.link}>~link~</a>}
-                                />
+                                /> */}
                             </>
                             : null }
-                            {item.image_link ? <Image src={item.image_link} size="small"/> : null}
+                            {item.image_link ? 
+                                <StyledImage src={item.image_link} 
+                                /> 
+                                : null}
                         </>
                     )
             })
@@ -80,13 +69,15 @@ class Wishlist extends React.Component {
     render() {
 
         return (
-            <Container>
+            <>
                 <h3>Wishlist</h3>
-                {this.wishlistItems()}
+                <Container>
+                    {this.wishlistItems()}
+                </Container>
 
                 {this.props.user.id === this.props.currentUser.id ? 
-                    <AddItem user={this.props.user}/> : null }
-            </Container>
+                        <AddItem user={this.props.user}/> : null }
+            </>
         )
     }
 }
@@ -110,6 +101,16 @@ const mdp = (dispatch) => {
 export default connect(msp, mdp)(Wishlist)
 
 const Container = styled.div`
-    display: block;
+    display: flex;
+    justify-content: space-around;
     border: solid pink;
+`;
+
+const StyledImage = styled.img`
+    border: solid black;
+    size: 30%;
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto; 
 `;
