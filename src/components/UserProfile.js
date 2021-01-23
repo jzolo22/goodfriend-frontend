@@ -6,7 +6,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Image } from 'semantic-ui-react'
+import { Icon, Item, Image, Transition } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -28,7 +28,8 @@ class UserProfile extends React.Component {
         last_name: this.props.user[0].last_name,
         birthday: moment(this.props.user[0].birthday).format('MMM Do'),
         partner_name: this.props.user[0].partner_name,
-        partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do')
+        partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do'),
+        visible: true
     }
 
 
@@ -204,10 +205,13 @@ class UserProfile extends React.Component {
         }
     }
 
+    toggleVisibility = () => {
+        this.setState((prevState) => ({visible: !prevState.visible}))
+    }
 
     render(){
-        console.log(this.props)
         const { user, currentUser } = this.props
+
         return(
         <>
         <Container>
@@ -252,27 +256,29 @@ class UserProfile extends React.Component {
                     <button onClick={this.unFollowClick}>Unfollow</button> : null}
         </Container>
 
-            <StyledTimeline>
-                <React.Fragment>
-                    <Timeline align="alternate">
-                        {this.eventDots()}
-                    </Timeline>
-                </React.Fragment>
-            </StyledTimeline>
+                <button onClick={this.toggleVisibility}>{this.state.visible ? "See Wishlist" : "See Timeline"}</button>
+        <Transition.Group animation="slide left" duration="500">
+            {this.state.visible && (
+                <StyledTimeline>
+                    <React.Fragment>
+                        <Timeline align="alternate">
+                            {this.eventDots()}
+                        </Timeline>
+                    </React.Fragment>
+                </StyledTimeline>
+            )}
+        </Transition.Group>
 
-                {user[0].id === currentUser.id ? 
-                    <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                        <Item.Content style={{textAlign: "center"}}>
-                            <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
-                        </Item.Content>
-                    </Item>
-                    : 
-                    null }
-            
-
-            <WishlistContainer>   
-                <Wishlist user={user[0]}/>
+        <Transition.Group animation="slide left" duration="500">
+            {!this.state.visible && (
+               <WishlistContainer>   
+                    <Wishlist user={user[0]}/>
             </WishlistContainer> 
+            )}
+        </Transition.Group>
+
+
+        
     </>
         )
     }
@@ -306,7 +312,7 @@ const Container = styled.div`
 
 const WishlistContainer = styled.div`
     text-align: center;
-    padding: 0% 40%
+    padding: 0% 35%
 `;
 
 const ProfileContainer = styled.div`
