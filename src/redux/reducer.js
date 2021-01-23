@@ -90,6 +90,11 @@ function itemsReducer(state = initialState.items, action) {
             let index = newArray.findIndex(item => item.id === action.payload)
             newArray.splice(index, 1)
             return newArray
+        case actions.UPDATE_ITEM:
+            let updatedArray = [...state]
+            let updatedIndex = updatedArray.findIndex(item => item.id === action.payload.id)
+            updatedArray[updatedIndex] = action.payload
+            return updatedArray
         default:
             return state
     }

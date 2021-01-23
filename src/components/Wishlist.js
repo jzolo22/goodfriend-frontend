@@ -3,13 +3,13 @@ import { Checkbox, List, Icon } from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';
-import { getItems, deleteItem } from '../redux/actions'
+import { getItems, deleteItem, purchaseItem, returnItem } from '../redux/actions'
 
 
 class Wishlist extends React.Component {
 
     state = {
-        itemIds: []
+        itemIds: [],
     }
 
     componentDidMount() {
@@ -20,6 +20,16 @@ class Wishlist extends React.Component {
         this.props.deleteItem(parseInt(e.target.id))
     }
 
+    checkItem = (e) => {
+        console.log(e.target.value)
+        let id = parseInt(e.target.id)
+        if (!e.target.value) {
+            this.props.purchaseItem(id)
+        } else {
+            this.props.returnItem(id)
+        }
+    }
+
     wishlistItems = () => {
         if (this.props.items.length > 0) {
             const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
@@ -27,6 +37,7 @@ class Wishlist extends React.Component {
                     return (
                         <>
                             <Checkbox 
+                                id={item.id}
                                 style={{display: "block"}}
                                 label={<label>{item.name}{this.props.user.id === this.props.currentUser.id ?
                                     <Icon 
@@ -38,7 +49,9 @@ class Wishlist extends React.Component {
                                     /> 
                                 : 
                                 null }</label>} 
-                                defaultChecked={item.purchased ? true : false}
+                                onClick={this.checkItem}
+                                checked={item.purchased ? true : false}
+                                value={item.purchased ? true : false}
                             />
 
                             {item.link ? 
@@ -56,7 +69,6 @@ class Wishlist extends React.Component {
 
 
     render() {
-        console.log(this.props)
         return (
             <Container>
                 <h3>Wishlist</h3>
@@ -79,7 +91,9 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         getItems: () => dispatch(getItems()),
-        deleteItem: (id) => dispatch(deleteItem(id))
+        deleteItem: (id) => dispatch(deleteItem(id)),
+        purchaseItem: (id) => dispatch(purchaseItem(id)),
+        returnItem: (id) => dispatch(returnItem(id))
     }
 }
 

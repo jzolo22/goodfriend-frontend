@@ -185,7 +185,29 @@ export const deleteItem = (id) => {
   }
 }
 
+export const purchaseItem = (id) => {
+  return function(dispatch) {
+    fetch(`${url}/items/${id}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify({purchased: true})
+    })
+      .then(r => r.json())
+      .then(updatedItem => dispatch({type: actions.UPDATE_ITEM, payload: updatedItem}))
+  }
+}
 
+export const returnItem = (id) => {
+  return function(dispatch) {
+    fetch(`${url}/items/${id}`, {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify({purchased: false})
+    })
+      .then(r => r.json())
+      .then(updatedItem => dispatch({type: actions.UPDATE_ITEM, payload: updatedItem}))
+  }
+}
 
 
 // ------------------------------------------------ User Acct. Actions ------------------------------------------------ //
