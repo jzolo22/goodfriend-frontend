@@ -42,14 +42,17 @@ class UserProfile extends React.Component {
             if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}>
-                    🎂 <EditableLabel 
-                        text={`${this.state.birthday}`}
-                        inputWidth='75px'
-                        inputHeight='25px'
-                        inputMaxLength='50'
-                        labelFontSize="20px"
-                        onFocusOut={this.editedBirthday}
-                    /></div>)
+                        <Image inline={true} centered={true} src={"https://www.pinclipart.com/picdir/middle/67-672440_birthdays-family-icon-vector-birthday-cake-clipart.png"} circular={true} size="mini"/>
+                         <EditableLabel 
+                            text={`${this.state.birthday}`}
+                            inputWidth='75px'
+                            inputHeight='25px'
+                            inputMaxLength='50'
+                            labelFontSize="20px"
+                            onFocusOut={this.editedBirthday}
+                        />
+                    </div>
+                )
             } else {
                 return (
                     <p>🎂 {moment(user[0].birthday).format('MMM Do')}</p>
@@ -59,12 +62,13 @@ class UserProfile extends React.Component {
     }
 
     partnerBirthdayDisplay = () => {
-        if(this.props.user[0].partner_name && this.props.user[0].partner_birthday) {
-            if(this.props.user[0].id === this.props.currentUser.id) {
+        const { user, currentUser } = this.props
+        if(user[0].partner_name && user[0].partner_birthday) {
+            if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}> 💞 
                     <EditableLabel 
-                        text={`${this.props.user[0].partner_name}`}
+                        text={`${user[0].partner_name}`}
                         inputWidth='70px'
                         inputHeight='25px'
                         inputMaxLength='50'
@@ -82,14 +86,14 @@ class UserProfile extends React.Component {
                         onFocusOut={this.editedPartnerBirthday}
                     /> </div>)
             }else {
-               return ( <p> 💞 {this.props.user[0].partner_name} -  🎂 {moment(this.props.user[0].partner_birthday).format('MMM Do')}</p>)
+               return ( <p> 💞 {user[0].partner_name} -  🎂 {moment(user[0].partner_birthday).format('MMM Do')}</p>)
             }
-        } else if (this.props.user[0].partner_name) {
-            if(this.props.user[0].id === this.props.currentUser.id) {
+        } else if (user[0].partner_name) {
+            if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}> 💞 
                     <EditableLabel 
-                        text={`${this.props.user[0].partner_name}`}
+                        text={`${user[0].partner_name}`}
                         inputWidth='90px'
                         inputHeight='25px'
                         inputMaxLength='50'
@@ -205,9 +209,8 @@ class UserProfile extends React.Component {
         console.log(this.props)
         const { user, currentUser } = this.props
         return(
-            <Container>
-            <div >
-                <div>
+        <>
+        <Container>
             {user[0].profile_picture ? 
                 <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
                 : null }
@@ -227,36 +230,50 @@ class UserProfile extends React.Component {
 
             {this.ownBirthdayDisplay()}
             {this.partnerBirthdayDisplay()}
-            <Image inline={true} centered={true} style={{textAlign: "center"}} src={"https://p7.hiclipart.com/preview/907/985/79/venmo-square-cash-payment-paypal-public-writer.jpg"} circular={true} size="mini"/> {user[0].venmo_handle ? user[0].venmo_handle : null}
 
-            {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
-                <button onClick={this.followClick}>Follow</button> : null
-            }
+            {/* <Image 
+                inline={true} 
+                centered={true} 
+                style={{textAlign: "center"}} 
+                src={"https://p7.hiclipart.com/preview/141/282/535/5bbb8b02e74ba.jpg"} 
+                circular={true} 
+                size="mini"
+            /> 
+            {user[0].venmo_handle ? 
+                user[0].venmo_handle 
+                :
+                null} */}
 
-            {this.alreadyFollowed() ? 
-             <button onClick={this.unFollowClick}>Unfollow</button> : null}
-            </div>
+                {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
+                    <button onClick={this.followClick}>Follow</button> : null
+                }
 
-            <React.Fragment>
-                <Timeline align="alternate">
-                    {this.eventDots()}
-                </Timeline>
-            </React.Fragment>
+                {this.alreadyFollowed() ? 
+                    <button onClick={this.unFollowClick}>Unfollow</button> : null}
+        </Container>
 
-            {user[0].id === currentUser.id ? 
-            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                <Item.Content style={{textAlign: "center"}}>
-                    <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
-                </Item.Content>
-            </Item>
-            : null }
-            </div>
+            <StyledTimeline>
+                <React.Fragment>
+                    <Timeline align="alternate">
+                        {this.eventDots()}
+                    </Timeline>
+                </React.Fragment>
+            </StyledTimeline>
+
+                {user[0].id === currentUser.id ? 
+                    <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                        <Item.Content style={{textAlign: "center"}}>
+                            <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
+                        </Item.Content>
+                    </Item>
+                    : 
+                    null }
+            
 
             <WishlistContainer>   
                 <Wishlist user={user[0]}/>
             </WishlistContainer> 
-
-           </Container>
+    </>
         )
     }
 }
@@ -282,16 +299,19 @@ const mdp = (dispatch) => {
 export default connect(msp, mdp)(UserProfile)
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
     text-align: center;
     padding-top: 100px;
-    margin-left: 25%;
+    justify-content: center;
 `;
 
 const WishlistContainer = styled.div`
-    margin-right: 10%
+    text-align: center;
+    padding: 0% 40%
 `;
 
 const ProfileContainer = styled.div`
+`;
+
+const StyledTimeline = styled.div`
+    display: block;
 `;
