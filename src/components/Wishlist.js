@@ -6,6 +6,7 @@ import AddItem from './AddItem';
 import { getItems, deleteItem, purchaseItem, returnItem } from '../redux/actions'
 
 
+
 class Wishlist extends React.Component {
 
     state = {
@@ -32,6 +33,7 @@ class Wishlist extends React.Component {
     wishlistItems = () => {
         if (this.props.items.length > 0) {
             const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
+            usersWishlistItems.sort((a, b) => a.purchased - b.purchased)
             return usersWishlistItems.map(item => {
                     return (
                         <>

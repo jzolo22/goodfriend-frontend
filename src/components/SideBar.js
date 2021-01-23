@@ -72,7 +72,6 @@ class SideBar extends React.Component {
     }
 
     render(){
-        console.log(this.state)
         return(
             <>
                 <Sidebar
