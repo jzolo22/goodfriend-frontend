@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, List } from 'semantic-ui-react'
+import { Checkbox, List, Icon } from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';
@@ -20,21 +20,32 @@ class Wishlist extends React.Component {
         if (this.props.items.length > 0) {
             const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
             return usersWishlistItems.map(item => {
-                if (!item.purchased) {
                     return (
                         <>
                             <Checkbox 
                                 style={{display: "block"}}
-                                label={`${item.name}`} 
-                                defaultChecke={item.purchased ? true : false}
+                                label={<label>{item.name}{this.props.user.id === this.props.currentUser.id ?
+                                    <Icon 
+                                        link={true} 
+                                        id={item.id} 
+                                        name="trash alternate outline" 
+                                        onClick={this.deleteEvent} 
+                                        inline
+                                    /> 
+                                : 
+                                null }</label>} 
+                                defaultChecked={item.purchased ? true : false}
                             />
+
                             {item.link ? 
+                            <>
                                 <List.Item
-                                    content={<a target="_blank" href={item.link}>~link~</a>}
+                                    content={<a target="_blank" rel="noreferrer" href={item.link}>~link~</a>}
                                 />
+                            </>
                             : null }
                         </>
-                    )}
+                    )
             })
         }
     }
@@ -73,16 +84,3 @@ const Container = styled.div`
     display: block;
     border: solid pink;
 `;
-
-
-{/* <Segment style={{margin: "10% 20% 0%", }}>
-                <Header as="h3">
-                    Wishlist!
-                </Header>
-
-                <Divider clearing />
-            </Segment>
-
-            <Segment vertical>
-                test
-            </Segment> */}

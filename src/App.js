@@ -38,7 +38,7 @@ class App extends React.Component {
                 return <UserProfile user={user}/>
               } else {
                 return <div style={{margin: "15% 47% 0%"}} class="ui segment">
-                  <div class="ui active transition visible dimmer">
+                  <div class="ui active transition">
                     <div class="content"><div class="ui loader"></div>
                     </div>
                     </div><img src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" class="ui image"/></div>
