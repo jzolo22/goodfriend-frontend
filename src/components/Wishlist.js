@@ -21,9 +21,8 @@ class Wishlist extends React.Component {
     }
 
     checkItem = (e) => {
-        console.log(e.target.value)
         let id = parseInt(e.target.id)
-        if (!e.target.value) {
+        if (e.target.value === "false") {
             this.props.purchaseItem(id)
         } else {
             this.props.returnItem(id)
@@ -39,16 +38,23 @@ class Wishlist extends React.Component {
                             <Checkbox 
                                 id={item.id}
                                 style={{display: "block"}}
-                                label={<label>{item.name}{this.props.user.id === this.props.currentUser.id ?
-                                    <Icon 
-                                        link={true} 
-                                        id={item.id} 
-                                        name="trash alternate outline" 
-                                        onClick={this.deleteItem} 
-                                        inline
-                                    /> 
-                                : 
-                                null }</label>} 
+                                label={
+                                    <label 
+                                            style={{ textDecoration : item.purchased ? 'line-through' : 'none' }}>
+                                                {item.name}
+                                            {this.props.user.id === this.props.currentUser.id 
+                                            ?
+                                                <Icon 
+                                                    link={true} 
+                                                    id={item.id} 
+                                                    name="trash alternate outline" 
+                                                    onClick={this.deleteItem} 
+                                                    inline
+                                                /> 
+                                            : 
+                                            null }
+                                    </label>} 
+
                                 onClick={this.checkItem}
                                 checked={item.purchased ? true : false}
                                 value={item.purchased ? true : false}
