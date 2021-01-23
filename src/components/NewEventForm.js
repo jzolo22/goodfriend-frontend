@@ -43,19 +43,19 @@ class NewEventForm extends React.Component {
     render() {
         console.log(this.state)
         return (
-            <div style={{marginTop: "15%", textAlign: "center"}}>
+            <div style={{marginTop: "7%", textAlign: "center"}}>
 
-            <Form onSubmit={this.onSubmit}>
-                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
+            <Form onSubmit={this.onSubmit} style={{margin: "1% 35% 5% 40%", paddingBottom: "5%"}}>
+                <Form.Field >
                     <label>Title</label>
                     <input placeholder='Graduation, Promotion, Move-in' name="title" value={this.state.title} onChange={this.onChange}/>
                 </Form.Field>
                 
-                <Form.Field style={{margin: "1% 40% 0% 40%"}}>
+                <Form.Field >
                      <Form.TextArea label='Description' placeholder='Will be looking for jobs after graduation!' name="description" value={this.state.description} onChange={this.onChange}/>
                 </Form.Field>
 
-                <Form.Field style={{margin: "1% 35% 3% 35%"}}>
+                <Form.Field >
                     <label>Date</label>
                     <Calendar  onChange={this.dateSelect}/>
                 </Form.Field>
