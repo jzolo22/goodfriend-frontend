@@ -102,15 +102,22 @@ export default connect(msp, mdp)(Wishlist)
 
 const Container = styled.div`
     display: flex;
+    padding: 5px;
     justify-content: space-around;
-    border: solid pink;
+    border: solid black 2px;
+    background-color: black;
+    flex-wrap: wrap;
 `;
 
 const StyledImage = styled.img`
-    border: solid black;
+    border: solid black 2px;
+    margin: 5px;
     size: 30%;
     max-width:230px;
     max-height:95px;
     width: auto;
     height: auto; 
+        :hover {
+            opacity: 1;
+        }
 `;
