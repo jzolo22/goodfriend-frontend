@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, List, Icon } from 'semantic-ui-react'
+import { Checkbox, List, Icon, Image } from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';
@@ -69,6 +69,7 @@ class Wishlist extends React.Component {
                                 />
                             </>
                             : null }
+                            {item.image_link ? <Image src={item.image_link} size="small"/> : null}
                         </>
                     )
             })
@@ -77,6 +78,7 @@ class Wishlist extends React.Component {
 
 
     render() {
+
         return (
             <Container>
                 <h3>Wishlist</h3>
