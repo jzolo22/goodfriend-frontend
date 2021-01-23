@@ -11,3 +11,4 @@
 .pushable:not(body) > .pusher:after {
   position: fixed;
 }
+

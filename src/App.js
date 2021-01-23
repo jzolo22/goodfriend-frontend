@@ -28,7 +28,6 @@ class App extends React.Component {
     return (
       <>
       <NavBar />
-      {this.props.currentUser && this.props.currentUser.id ? <SideBar /> : null}
         <Switch>
         <Route exact path="/users/new" render={() => <SignUpForm />}/>
         <Route path="/users/:id" render={(routerProps) => {
