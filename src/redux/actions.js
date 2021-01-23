@@ -177,7 +177,7 @@ export const addItem = (itemObj) => {
 
 export const deleteItem = (id) => {
   return function(dispatch) {
-    fetch(`${url}/events/${id}`, {
+    fetch(`${url}/items/${id}`, {
         method: "DELETE",
         headers: myHeaders
     })
