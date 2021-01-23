@@ -115,6 +115,8 @@ const Container = styled.div`
 const StyledImage = styled.img`
     border: solid black 2px;
     margin: 5px;
+    margin-top: 7px;
+    margin-bottom: 7px;
     size: 30%;
     max-width:230px;
     max-height:95px;
