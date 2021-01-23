@@ -132,7 +132,7 @@ class HomeCalendar extends React.Component {
 
         return (
             <>
-            <div style={{height: "100%", marginTop: "7%"}}>
+            <div style={{height: "100%", marginTop: "7%", textAlign: "center"}}>
                 <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%", paddingBottom: "0%"}}>
                 {followedEvents.length > 0 && eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
@@ -146,28 +146,30 @@ class HomeCalendar extends React.Component {
                     </Item.Content>
                     </Item>
                 </div>
-                
-            <BigCalendar
-                // selectable
-                // localizer={localizer}
 
-                events={followedEvents.length > 0 || currentUser.own_events.length > 0?  
-                    filteredEventsForCal
-                    : this.defaultEvent()}
-                
-                defaultView="month"
-                views={["month", "week"]}
-                // min={new Date(2020, 0, 1, 8, 0)} // 8.00 AM
-                // max={new Date(2020, 0, 1, 17, 0)} // Max will be 6.00 PM!
-                defaultDate={new Date()}
-                popup={true}
-                // popupOffset={{x: 30, y: 20}}
-                startAccessor="start"
-                endAccessor="end"
-                drilldownView="week"
-                onSelectEvent={this.onSelectEvent}
-                style={{ margin: "0% 10% 0% 18%", height: 525, width: 900, paddingTop: "0" }}
-            />
+            <div style={{margin: "0% 0% 5% 20%"}}>  
+                <BigCalendar
+                    // selectable
+                    // localizer={localizer}
+
+                    events={followedEvents.length > 0 || currentUser.own_events.length > 0?  
+                        filteredEventsForCal
+                        : this.defaultEvent()}
+                    
+                    defaultView="month"
+                    views={["month", "week"]}
+                    // min={new Date(2020, 0, 1, 8, 0)} // 8.00 AM
+                    // max={new Date(2020, 0, 1, 17, 0)} // Max will be 6.00 PM!
+                    defaultDate={new Date()}
+                    popup={true}
+                    // popupOffset={{x: 30, y: 20}}
+                    startAccessor="start"
+                    endAccessor="end"
+                    drilldownView="week"
+                    onSelectEvent={this.onSelectEvent}
+                    style={{height: 525, width: 900, paddingTop: "0"}}
+                />
+                </div>  
             </div>
             </>
         )

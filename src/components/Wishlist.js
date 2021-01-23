@@ -72,7 +72,6 @@ class Wishlist extends React.Component {
         console.log(this.props)
         return (
             <>
-                <h3>Wishlist</h3>
                 <Container>
                     {this.wishlistItems()}
                 </Container>

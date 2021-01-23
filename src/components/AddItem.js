@@ -24,7 +24,7 @@ class AddItem extends React.Component {
     render () {
         return (
             <Modal 
-                trigger={<Icon link={true} style={{paddingLeft: "3px"}} name="add" onClick={this.addItem}/>}
+                trigger={<Icon link={true} style={{paddingLeft: "3px"}} name="add" onClick={this.addItem} size="big"/>}
                 as={Form}
                 onSubmit={this.onSubmit}
                 size="mini"
