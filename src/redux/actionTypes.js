@@ -18,4 +18,5 @@ export const DELETE_EVENT = "deleteEvent"
 export const UPDATE_EVENT = "updateEvent"
 export const ADD_ITEM = "addItem"
 export const ALL_ITEMS = "allItems"
+export const DELETE_ITEM = "deleteItem"
 

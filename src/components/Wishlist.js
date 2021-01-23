@@ -3,7 +3,7 @@ import { Checkbox, List, Icon } from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';
-import { getItems } from '../redux/actions'
+import { getItems, deleteItem } from '../redux/actions'
 
 
 class Wishlist extends React.Component {
@@ -14,6 +14,10 @@ class Wishlist extends React.Component {
 
     componentDidMount() {
         this.props.getItems()
+    }
+
+    deleteItem = (e) => {
+        this.props.deleteItem(parseInt(e.target.id))
     }
 
     wishlistItems = () => {
@@ -29,7 +33,7 @@ class Wishlist extends React.Component {
                                         link={true} 
                                         id={item.id} 
                                         name="trash alternate outline" 
-                                        onClick={this.deleteEvent} 
+                                        onClick={this.deleteItem} 
                                         inline
                                     /> 
                                 : 
@@ -74,7 +78,8 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        getItems: () => dispatch(getItems())
+        getItems: () => dispatch(getItems()),
+        deleteItem: (id) => dispatch(deleteItem(id))
     }
 }
 

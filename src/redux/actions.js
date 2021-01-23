@@ -13,6 +13,9 @@ function setAuthorizationToken(token) {
 
 setAuthorizationToken(localStorage.jwtToken);
 
+// ------------------------------------------------ Initial followed users/events ------------------------------------------------ //
+
+
 export const getFollowedEvents = (id) => {
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
@@ -32,15 +35,7 @@ export const getFollowedEvents = (id) => {
   };
 };
 
-export const getEvents = () => {
-  return function(dispatch) {
-    fetch(`${url}/events`, {
-      headers: myHeaders
-    })
-      .then(r => r.json())
-      .then(eventsArray => dispatch({type: actions.GET_ALL_EVENTS, payload: eventsArray}))
-  }
-}
+
 
 export const fetchUsers = (id) => {
   return function (dispatch) {
@@ -72,6 +67,8 @@ export const fetchAllUsers = () => {
 };
 
 
+// ------------------------------------------------ Follow ------------------------------------------------ //
+
 export const newFollow = (followObj) => {
     return function(dispatch) {
         fetch(`${url}/follows`, {
@@ -95,6 +92,18 @@ export const deleteFollow = (followerId, followeeId) => {
 }
 
 
+// ------------------------------------------------ Event ------------------------------------------------ //
+
+export const getEvents = () => {
+  return function(dispatch) {
+    fetch(`${url}/events`, {
+      headers: myHeaders
+    })
+      .then(r => r.json())
+      .then(eventsArray => dispatch({type: actions.GET_ALL_EVENTS, payload: eventsArray}))
+  }
+}
+
 export const newEvent = (eventObj) => {
   return function(dispatch){
     fetch(`${url}/events`, {
@@ -107,7 +116,6 @@ export const newEvent = (eventObj) => {
   }
 }
 
-// newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent})
 
 export const editEvent = (eventId, eventObj) => {
   return function(dispatch) {
@@ -131,6 +139,7 @@ export const deleteEvent = (eventId) => {
         .then(dispatch({type: actions.DELETE_EVENT, payload: eventId}))
   }
 }
+// ------------------------------------------------ User Profile ------------------------------------------------ //
 
 export const editProfile = (userId, userObj) => {
   return function (dispatch) {
@@ -141,6 +150,16 @@ export const editProfile = (userId, userObj) => {
       })
         .then(r => r.json())
         .then(console.log)
+  }
+}
+// ------------------------------------------------ Items ------------------------------------------------ //
+export const getItems = () => {
+  return function(dispatch) {
+    fetch(`${url}/items`, {
+      headers: myHeaders,
+    })
+      .then(r => r.json())
+      .then(itemsArray => dispatch({type: actions.ALL_ITEMS, payload: itemsArray}))
   }
 }
 
@@ -156,19 +175,21 @@ export const addItem = (itemObj) => {
   }
 }
 
-export const getItems = () => {
+export const deleteItem = (id) => {
   return function(dispatch) {
-    fetch(`${url}/items`, {
-      headers: myHeaders,
+    fetch(`${url}/events/${id}`, {
+        method: "DELETE",
+        headers: myHeaders
     })
-      .then(r => r.json())
-      .then(itemsArray => dispatch({type: actions.ALL_ITEMS, payload: itemsArray}))
+        .then(dispatch({type: actions.DELETE_ITEM, payload: id}))
   }
 }
 
 
 
-// auth actions
+
+// ------------------------------------------------ User Acct. Actions ------------------------------------------------ //
+
 export const logIn = (userData) => {
   return function (dispatch) {
     fetch(`${url}/login`, {

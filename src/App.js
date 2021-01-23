@@ -10,6 +10,7 @@ import './App.css';
 import UserProfile from './components/UserProfile'
 import NewEventForm from './components/NewEventForm'
 import SignUpForm from './components/SignUpForm'
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 class App extends React.Component {
 
@@ -37,11 +38,11 @@ class App extends React.Component {
                 user = this.props.allUsers.filter(user => user.id === id)
                 return <UserProfile user={user}/>
               } else {
-                return <div style={{margin: "15% 47% 0%"}} class="ui segment">
-                  <div class="ui active transition">
-                    <div class="content"><div class="ui loader"></div>
-                    </div>
-                    </div><img src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" class="ui image"/></div>
+                return (
+                  <Dimmer active inverted>
+                    <Loader inverted content='Loading' />
+                  </Dimmer>
+                )
               }
               }}/>
           <Route path="/events/new" render={() => <NewEventForm />}/>
