@@ -268,6 +268,13 @@ class UserProfile extends React.Component {
                         <Timeline align="alternate">
                             {this.eventDots()}
                         </Timeline>
+                        {user[0].id === currentUser.id ? 
+                            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                                <Item.Content style={{textAlign: "center"}}>
+                                    <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
+                                </Item.Content>
+                            </Item>
+                            : null }
                     </React.Fragment>
                 </StyledTimeline>
             )}
