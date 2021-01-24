@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { newUser } from '../redux/actions'
-import { Form, Button, Checkbox, Message } from 'semantic-ui-react'
+import { Form, Button, Checkbox, Segment } from 'semantic-ui-react'
 import moment from 'moment'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -140,10 +140,10 @@ class SignUpForm extends React.Component {
     render() {
         const { src, crop, croppedImageUrl } = this.state
         return(
-            <div style={{marginTop: "15%", textAlign: "center"}}>
-
-            <Form onSubmit={this.onSubmit} success>
-                <Form.Group widths='equal' style={{margin: "1% 10% 0% 10%"}}>
+            <div style={{marginTop: "6%", textAlign: "center"}}>
+                <Segment raised style={{margin: "0% 6%", textAlign: "center"}}>
+                <Form>
+                <Form.Group widths='equal' style={{margin: "1% 5% 0% 5%"}}>
                     <Form.Field required>
                         <Form.Input 
                             label='First Name' 
@@ -181,25 +181,6 @@ class SignUpForm extends React.Component {
                     </Form.Field>
                 </Form.Group>
 
-            <Form.Group inline widths="equal" style={{margin: "3% 12% 0% 12%"}}>
-                <Form.Field >
-                     <Form.Input 
-                        label='Venmo Handle' 
-                        placeholder={`@${this.state.first_name}-${this.state.last_name}`} 
-                        name="venmo_handle"
-                        value={this.state.venmo_handle} 
-                        onChange={this.onChange}/>
-                </Form.Field>
-                <Form.Field >
-                     <Checkbox 
-                        label='Like receiving flowers?' 
-                        name="flowers" 
-                        value={this.state.flowers} 
-                        onChange={this.onCheckboxChange}/>
-                </Form.Field>
-                
-            </Form.Group>
-
             <Form.Group widths="equal" style={{margin: "3% 10% 0% 10%"}}>
                 <Form.Field >
                      <Form.Input 
@@ -221,6 +202,27 @@ class SignUpForm extends React.Component {
                         required/>
                 </Form.Field>
             </Form.Group>
+
+            <Form.Group inline widths="equal" style={{margin: "3% 12% 0% 12%"}}>
+                <Form.Field >
+                     <Form.Input 
+                        label='Venmo Handle' 
+                        placeholder={`@${this.state.first_name}-${this.state.last_name}`} 
+                        name="venmo_handle"
+                        value={this.state.venmo_handle} 
+                        onChange={this.onChange}/>
+                </Form.Field>
+                <Form.Field >
+                     <Checkbox 
+                        label='Like receiving flowers?' 
+                        name="flowers" 
+                        value={this.state.flowers} 
+                        onChange={this.onCheckboxChange}/>
+                </Form.Field>
+                
+            </Form.Group>
+
+            
 
             <Form.Group widths="equal" style={{margin: "3% 20% 3% 20%"}}>
                 <Form.Field >
@@ -269,6 +271,7 @@ class SignUpForm extends React.Component {
                 {/* <Message success header="Success!" content="Head back to the login page to sign in"/> */}
                 <Button type='submit'>Sign Up</Button>
             </Form>
+            </Segment>
             </div>
         )
     }
