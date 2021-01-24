@@ -19,12 +19,18 @@ class AddItem extends React.Component {
     onSubmit = (e) => {
         e.preventDefault()
         this.props.addItem(this.state)
+        this.setState({
+            wishlist_id: this.props.user.wishlist.id,
+            name: "",
+            link: "",
+            purchased: false
+        })
     }
 
     render () {
         return (
             <Modal 
-                trigger={<Icon link={true} style={{paddingLeft: "3px"}} name="add" onClick={this.addItem} size="big"/>}
+                trigger={<Icon link={true} style={{paddingLeft: "3px", marginTop: "2%", marginBottom: "15%"}} name="add" onClick={this.addItem} size="big"/>}
                 as={Form}
                 onSubmit={this.onSubmit}
                 size="mini"

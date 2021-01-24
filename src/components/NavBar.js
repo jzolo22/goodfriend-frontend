@@ -72,6 +72,7 @@ class NavBar extends React.Component {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to={"/"}
                     name="goodFriend"
+                    style={{fontSize: "16px"}}
                 >
                     goodfriend
                 </Menu.Item>.
@@ -85,6 +86,7 @@ class NavBar extends React.Component {
                         results={this.matchingNames(this.state.search)} 
                         onSearchChange={this.handleSearch}
                         onResultSelect={this.handleClick}
+                        style={{fontSize: "14px"}}
                     />
                 </Menu.Item>
                 <Menu.Item as={NavLink} to={this.props.currentUser && this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>

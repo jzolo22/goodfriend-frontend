@@ -3,3 +3,17 @@
 *******************************/
 
 @pageBackground: #eff0f1;
+
+
+@emSize: 16px;
+@fontSize : 16px;
+@fontName : 'Playfair Display', serif;
+@importGoogleFonts : true;
+
+
+@blue: #80A6CD;
+@green: #78CB5B;
+@orange: #D26911;
+@black: #333333;
+@primaryColor: pink;
+@secondaryColor: @black;

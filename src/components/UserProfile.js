@@ -228,9 +228,16 @@ class UserProfile extends React.Component {
                     labelFontWeight='bold'
                     labelFontSize="30px"
                     onFocusOut={this.editedName}
-                /> </>
+                /> 
+            </>
                 :
                     <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> }
+            {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
+                    <button onClick={this.followClick}>Follow</button> : null
+                }
+
+                {this.alreadyFollowed() ? 
+                    <button onClick={this.unFollowClick}>Unfollow</button> : null}
 
             {this.ownBirthdayDisplay()}
             {this.partnerBirthdayDisplay()}
@@ -253,12 +260,6 @@ class UserProfile extends React.Component {
                 :
                 null} */}
 
-                {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
-                    <button onClick={this.followClick}>Follow</button> : null
-                }
-
-                {this.alreadyFollowed() ? 
-                    <button onClick={this.unFollowClick}>Unfollow</button> : null}
         </Container>
 
         <Transition.Group animation="slide left" duration="500">
