@@ -25,6 +25,7 @@ export const getFollowedEvents = (id) => {
       .then((r) => r.json())
       .then((userInfo) => {
         if (userInfo.followed_events.length > 0) {
+          console.log(userInfo)
            dispatch({
           type: actions.GET_FOLLOWED_EVENTS,
           payload: userInfo.followed_events.flat()
