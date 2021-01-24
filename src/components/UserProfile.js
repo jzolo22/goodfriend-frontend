@@ -243,7 +243,7 @@ class UserProfile extends React.Component {
             {this.partnerBirthdayDisplay()}
 
             <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
-                {this.state.visible ? "See Wishlist" : "See Timeline"}
+                {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
             </Button>
 
 
