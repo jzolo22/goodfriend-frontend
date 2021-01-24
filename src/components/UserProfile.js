@@ -182,7 +182,7 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot color="inherit"/>
+                            <TimelineDot color="secondary"/>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
@@ -211,7 +211,6 @@ class UserProfile extends React.Component {
 
     render(){
         const { user, currentUser } = this.props
-
         return(
         <WholeProfile>
             <Container>
@@ -267,12 +266,15 @@ class UserProfile extends React.Component {
                     :
                     null} */}
                 </Segment>
+                <ButtonContainer>
+                    <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
+                                {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
+                    </Button>
+                </ButtonContainer>
             </Container>
 
-            <div>
-                <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
-                            {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
-                </Button>
+            <ExtraStuffContainer>
+                
 
                 <Transition.Group animation="slide up" duration="500">
                     {this.state.visible && (
@@ -300,7 +302,7 @@ class UserProfile extends React.Component {
                     </WishlistContainer> 
                     )}
                 </Transition.Group>
-            </div>  
+            </ExtraStuffContainer>  
     </WholeProfile>
         )
     }
@@ -335,8 +337,9 @@ const Container = styled.div`
 
 const WishlistContainer = styled.div`
     text-align: center;
-    padding: 0% 18%;
+    padding: 0% 0%;
     padding-bottom: 5%;
+    padding-top: 50%;
 `;
 
 const WholeProfile = styled.div`
@@ -349,3 +352,12 @@ const StyledTimeline = styled.div`
     // display: block;
     padding-bottom: 5%
 `;
+
+const ExtraStuffContainer = styled.div`
+    padding-top: 100px;
+    margin-left: 15%;
+`;
+
+const ButtonContainer = styled.div`
+    text-align: center;
+`
