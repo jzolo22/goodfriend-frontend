@@ -318,11 +318,12 @@ const Container = styled.div`
     text-align: center;
     padding-top: 100px;
     justify-content: center;
+    
 `;
 
 const WishlistContainer = styled.div`
     text-align: center;
-    padding: 0% 15%
+    padding: 0% 18%
 `;
 
 const ProfileContainer = styled.div`

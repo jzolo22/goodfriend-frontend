@@ -55,12 +55,21 @@ class Wishlist extends React.Component {
                                 /> */}
                             </>
                             : null }
-                            {item.image_link ? 
-                                <StyledImage src={item.image_link} /> 
-                                : 
-                                <StyledImage src={"https://www.nashvillewraps.com/blog/wp-content/uploads/2014/02/Wedding-editorial1.jpg"} /> 
+                            <OuterContainer>
+                                <StyledImage 
+                                    src={item.image_link ? item.image_link : "https://www.nashvillewraps.com/blog/wp-content/uploads/2014/02/Wedding-editorial1.jpg"} 
+                                    alt={item.name} 
+                                /> 
+
+                                <Overlay>
+                                    <ImageInfo>
+                                        <p style={{color: "white"}}>{item.name}</p>
+                                    </ImageInfo>
+                                </Overlay>
+
+                            </OuterContainer>
+                               
                                 
-                            }
                         </>
                     )
             })
@@ -105,25 +114,54 @@ const Container = styled.div`
     display: flex;
     padding: 5px;
     justify-content: center;
-    // align-items
+    align-items: center;
     border: solid brown 5px;
-    background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg");
+    background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg") ;
     flex-wrap: wrap;
     margin-bottom: 0%;
     
 `;
 
 const StyledImage = styled.img`
-    border: solid black 2px;
+    border: solid white 2px;
     margin: 5px;
     margin-top: 7px;
     margin-bottom: 7px;
-    size: 30%;
     max-width:345px;
     max-height:142.5px;
     width: auto;
     height: auto; 
+`;
+
+
+const OuterContainer = styled.div`
+    position: relative;
+    // border: white solid;
+    // border-radius: 5px;
+`
+
+const Overlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+    transform: translateY(10px);
+    transition: transform 0.5s;
         :hover {
             opacity: 1;
+            transform: translateY(0)
         }
-`;
+`
+
+const ImageInfo = styled.div`
+
+`
