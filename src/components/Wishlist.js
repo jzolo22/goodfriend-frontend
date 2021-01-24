@@ -129,11 +129,14 @@ const Container = styled.div`
     flex-wrap: wrap;
     margin-bottom: 0%;
     min-height: 250px;
+    min-width: 500px;
+    max-width: 550px;
+    
 `;
 
 const StyledImage = styled.img`
     border: solid #8a5a44 2px;
-    margin: 5px;
+    margin: 6px;
     margin-top: 7px;
     margin-bottom: 7px;
     max-width:345px;

@@ -267,7 +267,7 @@ class UserProfile extends React.Component {
                     null} */}
                 </Segment>
                 <ButtonContainer>
-                    <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
+                    <Button color="black" onClick={this.toggleVisibility} style={{margin: "7px"}}>
                                 {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
                     </Button>
                 </ButtonContainer>
@@ -280,7 +280,7 @@ class UserProfile extends React.Component {
                     {this.state.visible && (
                         <StyledTimeline>
                             <React.Fragment>
-                                <Timeline style={{marginBottom: "20px"}} align="alternate">
+                                <Timeline style={{minWidth: "550px"}} align="alternate">
                                     {this.eventDots()}
                                 </Timeline>
                                 {user[0].id === currentUser.id ? 
@@ -330,7 +330,7 @@ export default connect(msp, mdp)(UserProfile)
 
 const Container = styled.div`
     text-align: center;
-    padding-top: 100px;
+    padding-top: 15%;
     justify-content: center;
     
 `;
@@ -339,12 +339,12 @@ const WishlistContainer = styled.div`
     text-align: center;
     padding: 0% 0%;
     padding-bottom: 5%;
-    padding-top: 50%;
+    padding-top: 5%;
 `;
 
 const WholeProfile = styled.div`
     display: flex;
-    margin-left: 10%;
+    margin-left: 14%;
     
 `;
 
@@ -354,7 +354,7 @@ const StyledTimeline = styled.div`
 `;
 
 const ExtraStuffContainer = styled.div`
-    padding-top: 100px;
+    padding-top: 15%;
     margin-left: 15%;
 `;
 
