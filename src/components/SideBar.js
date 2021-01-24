@@ -63,6 +63,7 @@ class SideBar extends React.Component {
                 key={user.id}
                 onMouseEnter={this.handleHover}
                 onMouseLeave={this.handleHover}
+                onClick={this.props.toggleOff}
             >
                 {this.state.userIds.includes(user.id) ? 
                     this.fullName(user)
