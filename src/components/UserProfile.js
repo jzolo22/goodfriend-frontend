@@ -43,7 +43,7 @@ class UserProfile extends React.Component {
             if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}>
-                        <Image inline={true} centered={true} src={"https://www.pinclipart.com/picdir/middle/67-672440_birthdays-family-icon-vector-birthday-cake-clipart.png"} circular={true} size="mini"/>
+                        🎂 
                          <EditableLabel 
                             text={`${this.state.birthday}`}
                             inputWidth='75px'
@@ -269,8 +269,8 @@ class UserProfile extends React.Component {
                             {this.eventDots()}
                         </Timeline>
                         {user[0].id === currentUser.id ? 
-                            <Item as={NavLink} to={`/events/new`} style={{textAlign: "right", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                                <Item.Content style={{textAlign: "center"}}>
+                            <Item as={NavLink} to={`/events/new`} style={{textAlign: "center", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                                <Item.Content style={{textAlign: "center", paddingLeft: ".5%"}}>
                                     <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
                                 </Item.Content>
                             </Item>

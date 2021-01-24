@@ -147,7 +147,7 @@ class HomeCalendar extends React.Component {
                     </Item>
                 </div>
 
-            <div style={{margin: "0% 0% 5% 20%"}}>  
+            <div style={{margin: "0% 0% 5% 16%"}}>  
                 <BigCalendar
                     // selectable
                     // localizer={localizer}
@@ -167,7 +167,7 @@ class HomeCalendar extends React.Component {
                     endAccessor="end"
                     drilldownView="week"
                     onSelectEvent={this.onSelectEvent}
-                    style={{height: 525, width: 900, paddingTop: "0"}}
+                    style={{height: 525, width: 1050, paddingTop: "0"}}
                 />
                 </div>  
             </div>
