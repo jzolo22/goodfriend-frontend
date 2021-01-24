@@ -124,7 +124,7 @@ const Container = styled.div`
     padding: 5px;
     justify-content: center;
     align-items: center;
-    border: solid brown 5px;
+    border: solid #8a5a44 5px;
     background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg") ;
     flex-wrap: wrap;
     margin-bottom: 0%;
