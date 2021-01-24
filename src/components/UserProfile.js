@@ -56,7 +56,7 @@ class UserProfile extends React.Component {
                 )
             } else {
                 return (
-                    <p>🎂 {moment(user[0].birthday).format('MMM Do')}</p>
+                    <p style={{fontSize: "20px", marginBottom: "5px"}}>🎂 {moment(user[0].birthday).format('MMM Do')}</p>
             )
             }
         }
@@ -323,7 +323,8 @@ const Container = styled.div`
 
 const WishlistContainer = styled.div`
     text-align: center;
-    padding: 0% 18%
+    padding: 0% 18%;
+    padding-bottom: 5%;
 `;
 
 const ProfileContainer = styled.div`
