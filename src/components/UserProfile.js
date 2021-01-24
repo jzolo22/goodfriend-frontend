@@ -233,11 +233,11 @@ class UserProfile extends React.Component {
                 :
                     <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> }
             {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
-                    <button onClick={this.followClick}>Follow</button> : null
+                    <Button color="pink" style={{marginBottom: "4px"}} compact onClick={this.followClick}>Follow</Button> : null
                 }
 
                 {this.alreadyFollowed() ? 
-                    <button onClick={this.unFollowClick}>Unfollow</button> : null}
+                    <Button inverted compact onClick={this.unFollowClick}>Unfollow</Button> : null}
 
             {this.ownBirthdayDisplay()}
             {this.partnerBirthdayDisplay()}
