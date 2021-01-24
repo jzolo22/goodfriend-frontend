@@ -76,7 +76,7 @@ class HomeCalendar extends React.Component {
             let followedUserAvatars = allUsers.filter(user => avatarArray.includes(user.id))
         return followedUserAvatars.map(user => {
             return (
-                (<Item style={{paddingBottom: "2%"}}>
+                (<Item >
                         <Item.Content style={{marginRight: "15%"}} onClick={this.onClick}>
                             {user.profile_picture ?
                             <Image 
@@ -140,7 +140,7 @@ class HomeCalendar extends React.Component {
                             <Icon name="checkmark" link={true} />Select All
                         </Label> 
                         : 
-                        <Label style={{height: "fit-content"}}>click heads to toggle events off calendar</Label> 
+                        <Label style={{height: "fit-content"}}>click icons to toggle events off calendar</Label> 
                     }
                 </div>
                 <div style={{display: "flex", justifyContent: "center", paddingLeft: "18%", paddingBottom: "0%"}}>
@@ -174,7 +174,7 @@ class HomeCalendar extends React.Component {
                     endAccessor="end"
                     drilldownView="week"
                     onSelectEvent={this.onSelectEvent}
-                    style={{height: 525, width: 1100, paddingTop: "0"}}
+                    style={{height: 525, width: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
             </div>
