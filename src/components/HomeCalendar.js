@@ -133,7 +133,7 @@ class HomeCalendar extends React.Component {
         return (
             <>
             <div style={{height: "100%", marginTop: "7%", textAlign: "center"}}>
-                <div style={{display: "flex", justifyContent: "center", paddingLeft: "20%", paddingBottom: "0%"}}>
+                <div style={{display: "flex", justifyContent: "center", paddingLeft: "18%", paddingBottom: "0%"}}>
                 {followedEvents.length > 0 && eventIds.length > 0 ? 
                     <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
                         <Icon name="checkmark" link={true} />Select All
@@ -147,7 +147,7 @@ class HomeCalendar extends React.Component {
                     </Item>
                 </div>
 
-            <div style={{margin: "0% 0% 5% 16%"}}>  
+            <div style={{margin: "0% 0% 5% 14%"}}>  
                 <BigCalendar
                     // selectable
                     // localizer={localizer}

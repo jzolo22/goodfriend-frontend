@@ -109,6 +109,7 @@ class SignUpForm extends React.Component {
     }
 
     onSubmit = (e) => {
+        console.log("working")
         e.preventDefault()
         const formData = new FormData()
         formData.append('user[first_name]', this.state.first_name)
@@ -141,8 +142,8 @@ class SignUpForm extends React.Component {
         const { src, crop, croppedImageUrl } = this.state
         return(
             <div style={{marginTop: "6%", textAlign: "center"}}>
-                <Segment raised style={{margin: "0% 6%", textAlign: "center"}}>
-                <Form>
+                <Segment raised style={{margin: "3% 6% 3%", textAlign: "center"}}>
+                <Form onSubmit={this.onSubmit}>
                 <Form.Group widths='equal' style={{margin: "1% 5% 0% 5%"}}>
                     <Form.Field required>
                         <Form.Input 
