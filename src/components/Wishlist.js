@@ -63,7 +63,16 @@ class Wishlist extends React.Component {
 
                                 <Overlay>
                                     <ImageInfo>
-                                        <p style={{color: "white"}}>{item.name}</p>
+                                        {/* <p style={{color: "white", fontWeight: "bold"}}>{item.name}</p> */}
+                                        <a style={{color: "white", fontWeight: "bold", fontSize: "15px"}} target="_blank" rel="noreferrer" href={item.link}>{item.name}</a><br />
+                                        {this.props.user.id === this.props.currentUser.id ?
+                                            <Icon 
+                                                link={true} 
+                                                id={item.id} 
+                                                name="trash alternate outline" 
+                                                onClick={this.deleteItem} 
+                                                inline
+                                            /> : null}
                                     </ImageInfo>
                                 </Overlay>
 
@@ -154,7 +163,7 @@ const Overlay = styled.div`
     justify-content: center;
     opacity: 0;
     transition: opacity 0.5s;
-    transform: translateY(10px);
+    transform: translateY(5px);
     transition: transform 0.5s;
         :hover {
             opacity: 1;
