@@ -216,11 +216,14 @@ class UserProfile extends React.Component {
         <WholeProfile>
             <Container>
                 <Segment raised>
-                {user[0].profile_picture ? 
+                {user[0].profile_picture 
+                    ? 
                     <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
-                    : null }
-                {user[0].id === currentUser.id ? 
-                <>
+                    : 
+                    null 
+                }
+                {user[0].id === currentUser.id 
+                    ? 
                     <EditableLabel 
                         text={`${user[0].first_name} ${user[0].last_name}`}
                         inputWidth='125px'
@@ -230,15 +233,23 @@ class UserProfile extends React.Component {
                         labelFontSize="30px"
                         onFocusOut={this.editedName}
                     /> 
-                </>
                     :
-                        <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> }
-                {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
-                        <Button color="pink" style={{marginBottom: "4px"}} compact onClick={this.followClick}>Follow</Button> : null
-                    }
+                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> 
+                }
 
-                    {this.alreadyFollowed() ? 
-                        <Button inverted compact onClick={this.unFollowClick}>Unfollow</Button> : null}
+                {user[0].id !== currentUser.id && !this.alreadyFollowed() 
+                    ? 
+                    <Button color="pink" style={{marginBottom: "4px"}} compact onClick={this.followClick}>Follow</Button> 
+                    : 
+                    null
+                }
+
+                {this.alreadyFollowed() 
+                    ? 
+                    <Button compact style={{marginBottom: "4px"}} onClick={this.unFollowClick}>Unfollow</Button> 
+                    :
+                    null
+                }
 
                 {this.ownBirthdayDisplay()}
                 {this.partnerBirthdayDisplay()}
@@ -255,7 +266,7 @@ class UserProfile extends React.Component {
                     user[0].venmo_handle 
                     :
                     null} */}
-            </Segment>
+                </Segment>
             </Container>
 
             <div>
