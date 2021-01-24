@@ -182,7 +182,7 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot />
+                            <TimelineDot color="secondary"/>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
@@ -262,7 +262,7 @@ class UserProfile extends React.Component {
 
         </Container>
 
-        <Transition.Group animation="slide left" duration="500">
+        <Transition.Group animation="slide up" duration="500">
             {this.state.visible && (
                 <StyledTimeline>
                     <React.Fragment>
@@ -281,7 +281,7 @@ class UserProfile extends React.Component {
             )}
         </Transition.Group>
 
-        <Transition.Group animation="slide left" duration="500">
+        <Transition.Group animation="slide up" duration="1000">
             {!this.state.visible && (
                <WishlistContainer>   
                     <Wishlist user={user[0]}/>
