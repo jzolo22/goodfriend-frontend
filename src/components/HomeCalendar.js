@@ -133,11 +133,18 @@ class HomeCalendar extends React.Component {
         return (
             <>
             <div style={{height: "100%", marginTop: "7%", textAlign: "center"}}>
+                <div>
+                    {followedEvents.length > 0 && eventIds.length > 0 
+                        ? 
+                        <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
+                            <Icon name="checkmark" link={true} />Select All
+                        </Label> 
+                        : 
+                        <Label style={{height: "fit-content"}}>click heads to toggle events off calendar</Label> 
+                    }
+                </div>
                 <div style={{display: "flex", justifyContent: "center", paddingLeft: "18%", paddingBottom: "0%"}}>
-                {followedEvents.length > 0 && eventIds.length > 0 ? 
-                    <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
-                        <Icon name="checkmark" link={true} />Select All
-                    </Label> : <Label style={{height: "fit-content"}}>click heads to toggle events off calendar</Label> }
+                
                     {this.makeAvatars()}
                     
                     <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
