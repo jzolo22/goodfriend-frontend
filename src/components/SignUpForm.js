@@ -125,10 +125,14 @@ class SignUpForm extends React.Component {
         formData.append('user[profile_picture]', this.state.croppedImage)
 
         if (this.state.birthday) {
+            let thisYearsBday = this.state.birthday.split(" ")
+            thisYearsBday.splice(2, 1)
+            thisYearsBday.push("2021")
+            thisYearsBday.join(" ")
             const birthday = {
                 user_id: "",
                 title: `${this.state.first_name}'s birthday!`,
-                date: new Date (this.state.birthday),
+                date: new Date (thisYearsBday),
                 annual: true
             }
             this.props.newUser(formData, this.props.history, birthday)
@@ -139,6 +143,7 @@ class SignUpForm extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         const { src, crop, croppedImageUrl } = this.state
         return(
             <div style={{marginTop: "6%", textAlign: "center"}}>

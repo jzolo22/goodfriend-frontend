@@ -275,7 +275,7 @@ export const newUser = (userObj, history, newEvent=null) => {
                 body: JSON.stringify(newEvent)
             })
               .then(r => r.json())
-              .then(console.log)
+              .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
         }
       } else {
         window.alert("Please try again. That username was already taken.")
