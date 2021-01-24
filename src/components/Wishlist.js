@@ -128,6 +128,7 @@ const Container = styled.div`
     background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg") ;
     flex-wrap: wrap;
     margin-bottom: 0%;
+    min-height: 250px;
 `;
 
 const StyledImage = styled.img`
@@ -139,6 +140,8 @@ const StyledImage = styled.img`
     max-height:142.5px;
     width: auto;
     height: auto; 
+    
+    // transform: rotate(-7deg);
 `;
 
 
@@ -167,6 +170,7 @@ const Overlay = styled.div`
         :hover {
             opacity: 1;
             transform: translateY(0)
+
         }
 `
 

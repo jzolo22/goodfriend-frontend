@@ -182,7 +182,7 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot color="secondary"/>
+                            <TimelineDot color="blue"/>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
@@ -266,7 +266,7 @@ class UserProfile extends React.Component {
             {this.state.visible && (
                 <StyledTimeline>
                     <React.Fragment>
-                        <Timeline align="alternate">
+                        <Timeline style={{marginBottom: "20px"}} align="alternate">
                             {this.eventDots()}
                         </Timeline>
                         {user[0].id === currentUser.id ? 
@@ -331,4 +331,5 @@ const ProfileContainer = styled.div`
 
 const StyledTimeline = styled.div`
     // display: block;
+    padding-bottom: 5%
 `;
