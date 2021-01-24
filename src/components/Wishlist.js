@@ -128,11 +128,10 @@ const Container = styled.div`
     background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg") ;
     flex-wrap: wrap;
     margin-bottom: 0%;
-    
 `;
 
 const StyledImage = styled.img`
-    border: solid white 2px;
+    border: solid #8a5a44 2px;
     margin: 5px;
     margin-top: 7px;
     margin-bottom: 7px;
