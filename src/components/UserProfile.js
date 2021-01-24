@@ -6,7 +6,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Image, Transition, Button } from 'semantic-ui-react'
+import { Icon, Item, Image, Transition, Button, Segment } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -182,7 +182,7 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot color="blue"/>
+                            <TimelineDot color="inherit"/>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
@@ -213,83 +213,84 @@ class UserProfile extends React.Component {
         const { user, currentUser } = this.props
 
         return(
-        <>
-        <Container>
-            {user[0].profile_picture ? 
-                <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
-                : null }
-            {user[0].id === currentUser.id ? 
-            <>
-                <EditableLabel 
-                    text={`${user[0].first_name} ${user[0].last_name}`}
-                    inputWidth='125px'
-                    inputHeight='25px'
-                    inputMaxLength='50'
-                    labelFontWeight='bold'
-                    labelFontSize="30px"
-                    onFocusOut={this.editedName}
+        <WholeProfile>
+            <Container>
+                <Segment raised>
+                {user[0].profile_picture ? 
+                    <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
+                    : null }
+                {user[0].id === currentUser.id ? 
+                <>
+                    <EditableLabel 
+                        text={`${user[0].first_name} ${user[0].last_name}`}
+                        inputWidth='125px'
+                        inputHeight='25px'
+                        inputMaxLength='50'
+                        labelFontWeight='bold'
+                        labelFontSize="30px"
+                        onFocusOut={this.editedName}
+                    /> 
+                </>
+                    :
+                        <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> }
+                {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
+                        <Button color="pink" style={{marginBottom: "4px"}} compact onClick={this.followClick}>Follow</Button> : null
+                    }
+
+                    {this.alreadyFollowed() ? 
+                        <Button inverted compact onClick={this.unFollowClick}>Unfollow</Button> : null}
+
+                {this.ownBirthdayDisplay()}
+                {this.partnerBirthdayDisplay()}
+
+                {/* <Image 
+                    inline={true} 
+                    centered={true} 
+                    style={{textAlign: "center"}} 
+                    src={"https://p7.hiclipart.com/preview/141/282/535/5bbb8b02e74ba.jpg"} 
+                    circular={true} 
+                    size="mini"
                 /> 
-            </>
-                :
-                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> }
-            {user[0].id !== currentUser.id && !this.alreadyFollowed() ? 
-                    <Button color="pink" style={{marginBottom: "4px"}} compact onClick={this.followClick}>Follow</Button> : null
-                }
+                {user[0].venmo_handle ? 
+                    user[0].venmo_handle 
+                    :
+                    null} */}
+            </Segment>
+            </Container>
 
-                {this.alreadyFollowed() ? 
-                    <Button inverted compact onClick={this.unFollowClick}>Unfollow</Button> : null}
+            <div>
+                <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
+                            {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
+                </Button>
 
-            {this.ownBirthdayDisplay()}
-            {this.partnerBirthdayDisplay()}
+                <Transition.Group animation="slide up" duration="500">
+                    {this.state.visible && (
+                        <StyledTimeline>
+                            <React.Fragment>
+                                <Timeline style={{marginBottom: "20px"}} align="alternate">
+                                    {this.eventDots()}
+                                </Timeline>
+                                {user[0].id === currentUser.id ? 
+                                    <Item as={NavLink} to={`/events/new`} style={{textAlign: "center", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
+                                        <Item.Content style={{textAlign: "center", paddingLeft: ".5%"}}>
+                                            <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
+                                        </Item.Content>
+                                    </Item>
+                                    : null }
+                            </React.Fragment>
+                        </StyledTimeline>
+                    )}
+                </Transition.Group>
 
-            <Button onClick={this.toggleVisibility} style={{margin: "7px"}}>
-                {this.state.visible ? "See Wishlist 🎁" : "See Timeline 🗓"}
-            </Button>
-
-
-            {/* <Image 
-                inline={true} 
-                centered={true} 
-                style={{textAlign: "center"}} 
-                src={"https://p7.hiclipart.com/preview/141/282/535/5bbb8b02e74ba.jpg"} 
-                circular={true} 
-                size="mini"
-            /> 
-            {user[0].venmo_handle ? 
-                user[0].venmo_handle 
-                :
-                null} */}
-
-        </Container>
-
-        <Transition.Group animation="slide up" duration="500">
-            {this.state.visible && (
-                <StyledTimeline>
-                    <React.Fragment>
-                        <Timeline style={{marginBottom: "20px"}} align="alternate">
-                            {this.eventDots()}
-                        </Timeline>
-                        {user[0].id === currentUser.id ? 
-                            <Item as={NavLink} to={`/events/new`} style={{textAlign: "center", paddingTop: "15%", paddingRight: "15%", paddingBottom: "2%"}}>
-                                <Item.Content style={{textAlign: "center", paddingLeft: ".5%"}}>
-                                    <Icon size="big" color='grey' name='calendar plus outline' link={true} /> 
-                                </Item.Content>
-                            </Item>
-                            : null }
-                    </React.Fragment>
-                </StyledTimeline>
-            )}
-        </Transition.Group>
-
-        <Transition.Group animation="slide up" duration="1000">
-            {!this.state.visible && (
-               <WishlistContainer>   
-                    <Wishlist user={user[0]}/>
-            </WishlistContainer> 
-            )}
-        </Transition.Group>
-        
-    </>
+                <Transition.Group animation="slide up" duration="1000">
+                    {!this.state.visible && (
+                    <WishlistContainer>   
+                            <Wishlist user={user[0]}/>
+                    </WishlistContainer> 
+                    )}
+                </Transition.Group>
+            </div>  
+    </WholeProfile>
         )
     }
 }
@@ -327,7 +328,10 @@ const WishlistContainer = styled.div`
     padding-bottom: 5%;
 `;
 
-const ProfileContainer = styled.div`
+const WholeProfile = styled.div`
+    display: flex;
+    margin-left: 10%;
+    
 `;
 
 const StyledTimeline = styled.div`
