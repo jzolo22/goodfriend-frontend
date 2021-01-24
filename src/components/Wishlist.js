@@ -104,11 +104,13 @@ export default connect(msp, mdp)(Wishlist)
 const Container = styled.div`
     display: flex;
     padding: 5px;
-    justify-content: space-around;
-    border: solid black 2px;
-    background-color: black;
+    justify-content: center;
+    // align-items
+    border: solid brown 5px;
+    background-image: url("https://www.publicdomainpictures.net/pictures/30000/velka/cork-board.jpg");
     flex-wrap: wrap;
     margin-bottom: 0%;
+    
 `;
 
 const StyledImage = styled.img`
@@ -117,8 +119,8 @@ const StyledImage = styled.img`
     margin-top: 7px;
     margin-bottom: 7px;
     size: 30%;
-    max-width:230px;
-    max-height:95px;
+    max-width:345px;
+    max-height:142.5px;
     width: auto;
     height: auto; 
         :hover {

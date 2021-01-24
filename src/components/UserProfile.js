@@ -322,7 +322,7 @@ const Container = styled.div`
 
 const WishlistContainer = styled.div`
     text-align: center;
-    padding: 0% 35%
+    padding: 0% 15%
 `;
 
 const ProfileContainer = styled.div`
