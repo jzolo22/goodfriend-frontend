@@ -16,6 +16,7 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 import styled from "styled-components";
+// import venmologo from '.../public/venmologo.png'
 
 
 // const {first_name, last_name, birthday} = this.props.user[0]
@@ -26,6 +27,7 @@ class UserProfile extends React.Component {
     state = {
         first_name: this.props.user[0].first_name,
         last_name: this.props.user[0].last_name,
+        venmo_handle: this.props.user[0].venmo_handle,
         birthday: moment(this.props.user[0].birthday).format('MMM Do'),
         partner_name: this.props.user[0].partner_name,
         partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do'),
@@ -206,6 +208,31 @@ class UserProfile extends React.Component {
         }
     }
 
+    venmoDisplay = () => {
+        const { user, currentUser } = this.props
+        if (user[0].venmo_handle){
+            if(user[0].id === currentUser.id) {
+                return (
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                         <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
+                         <EditableLabel 
+                            text={this.state.venmo_handle}
+                            inputWidth='75px'
+                            inputHeight='25px'
+                            inputMaxLength='50'
+                            labelFontSize="16px"
+                            // onFocusOut={this.editedBirthday}
+                        />
+                    </div>
+                )
+            } else {
+                return (
+                    <p style={{fontSize: "20px", marginBottom: "5px"}}>{this.state.venmo_handle}</p>
+            )
+            }
+        }
+    }
+
     toggleVisibility = () => {
         this.setState((prevState) => ({visible: !prevState.visible}))
     }
@@ -253,6 +280,8 @@ class UserProfile extends React.Component {
 
                 {this.ownBirthdayDisplay()}
                 {this.partnerBirthdayDisplay()}
+                {this.venmoDisplay()}
+
                 {user[0].id === currentUser.id 
                     ?
                     <Label style={{height: "fit-content", fontSize: "13px", marginTop: "5px"}}>click any field to edit</Label> 
