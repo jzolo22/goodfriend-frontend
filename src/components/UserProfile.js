@@ -284,7 +284,7 @@ class UserProfile extends React.Component {
                     {this.state.visible && (
                         <StyledTimeline>
                             <React.Fragment>
-                                <Timeline style={{minWidth: "550px"}} align="alternate">
+                                <Timeline style={{minWidth: "600px"}} align="alternate">
                                     {this.eventDots()}
                                 </Timeline>
                                 {user[0].id === currentUser.id ? 
