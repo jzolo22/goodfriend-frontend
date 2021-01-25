@@ -191,7 +191,7 @@ class HomeCalendar extends React.Component {
                         </Item>
                     </div>    */}
                 </div>
-        <div style={{display: "flex", justifyContent: "space-around"}}>
+        <div style={{display: "flex", justifyContent: "center", width: "95vw"}}>
             <div style={{margin: "0% 4% 5% 5%"}}>  
                 <BigCalendar
                     // selectable
@@ -215,7 +215,7 @@ class HomeCalendar extends React.Component {
                     style={{minHeight: 525, minWidth: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
-                <div style={{textAlign: "center", marginTop: "5%", marginRight: "10%"}}>
+                <div style={{marginTop: "5%"}}>
                     <Label 
                             style={{height: "fit-content", fontSize: "14px"}} 
                             onClick={this.toggleColorVisibility}>{this.state.visible ? "done editing" : "change colors"}</Label>

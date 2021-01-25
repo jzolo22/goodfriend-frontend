@@ -23,7 +23,8 @@ class Wishlist extends React.Component {
 
     checkItem = (e) => {
         let id = parseInt(e.target.id)
-        if (e.target.value === "false") {
+        console.log(e.target.checked)
+        if (e.target.checked) {
             this.props.purchaseItem(id)
         } else {
             this.props.returnItem(id)
@@ -33,45 +34,33 @@ class Wishlist extends React.Component {
     wishlistItems = () => {
         if (this.props.items.length > 0) {
             const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
-            usersWishlistItems.sort((a, b) => a.purchased - b.purchased)
+            // usersWishlistItems.sort((a, b) => a.purchased - b.purchased)
             return usersWishlistItems.map(item => {
+                console.log(item.purchased)
                     return (
                         <>
-                                {/* {this.props.user.id === this.props.currentUser.id 
-                                ?
-                                    <Icon 
-                                        link={true} 
-                                        id={item.id} 
-                                        name="trash alternate outline" 
-                                        onClick={this.deleteItem} 
-                                        inline
-                                /> : null} */}
-                               
-
-                            {item.link ? 
-                            <>
-                                {/* <List.Item
-                                    content={<a target="_blank" rel="noreferrer" href={item.link}>~link~</a>}
-                                /> */}
-                            </>
-                            : null }
                             <OuterContainer>
                                 <StyledImage 
                                     src={item.image_link ? item.image_link : "https://www.nashvillewraps.com/blog/wp-content/uploads/2014/02/Wedding-editorial1.jpg"} 
                                     alt={item.name} 
                                 /> 
 
-                                <Overlay>
+                                <Overlay checked={item.purchased}>
                                     <ImageInfo>
                                         {/* <p style={{color: "white", fontWeight: "bold"}}>{item.name}</p> */}
-                                        <a style={{color: "white", fontWeight: "bold", fontSize: "15px"}} target="_blank" rel="noreferrer" href={item.link}>{item.name}</a><br />
+                                        <Checkbox 
+                                            label={{children: <a style={{color: "white", fontWeight: "bold", fontSize: "15px"}} target="_blank" rel="noreferrer" href={item.link}>{item.name}</a>}}    
+                                            checked={item.purchased ? true : false}
+                                            onChange={this.checkItem}
+                                            id={item.id}
+                                        />
+                                        <br />
                                         {this.props.user.id === this.props.currentUser.id ?
                                             <Icon 
                                                 link={true} 
                                                 id={item.id} 
                                                 name="trash alternate outline" 
                                                 onClick={this.deleteItem} 
-                                                inline
                                             /> : null}
                                     </ImageInfo>
                                 </Overlay>
@@ -173,8 +162,9 @@ const Overlay = styled.div`
         :hover {
             opacity: 1;
             transform: translateY(0)
-
         }
+    opacity: ${props => (props.checked ? "1" : "0")}
+    // transform: ${props => (props.checked ? "translateY(0)" : null)}
 `
 
 const ImageInfo = styled.div`

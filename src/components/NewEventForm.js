@@ -44,7 +44,7 @@ class NewEventForm extends React.Component {
         return (
             <div style={{marginTop: "7%", textAlign: "center"}}>
 
-            <Form onSubmit={this.onSubmit} style={{margin: "1% 35% 5% 40%", paddingBottom: "5%"}}>
+            <Form onSubmit={this.onSubmit} style={{margin: "1% 35% 5% 40%", paddingBottom: "5%", maxWidth: "300px"}}>
                 <Form.Field >
                     <label>Title</label>
                     <input placeholder='Graduation, Promotion, Move-in' name="title" value={this.state.title} onChange={this.onChange}/>
