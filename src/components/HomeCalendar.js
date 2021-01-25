@@ -20,8 +20,8 @@ class HomeCalendar extends React.Component {
 
     state = {
         eventIds: [],
-        first_color: "pink",
-        second_color: "purple",
+        first_color: this.props.currentUser.first_color ? this.props.currentUser.first_color : "pink",
+        second_color: this.props.currentUser.second_color ? this.props.currentUser.second_color : "purple",
         visible: false
     }
 
