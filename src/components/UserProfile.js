@@ -225,7 +225,7 @@ class UserProfile extends React.Component {
                     ? 
                     <EditableLabel 
                         text={`${user[0].first_name} ${user[0].last_name}`}
-                        inputWidth='125px'
+                        inputWidth='200px'
                         inputHeight='25px'
                         inputMaxLength='50'
                         labelFontWeight='bold'
