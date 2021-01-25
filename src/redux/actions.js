@@ -150,7 +150,7 @@ export const editProfile = (userId, userObj) => {
         body: JSON.stringify(userObj)
       })
         .then(r => r.json())
-        .then(console.log)
+        .then(updatedUser => dispatch({type: actions.UPDATE_USER, payload: updatedUser}))
   }
 }
 // ------------------------------------------------ Items ------------------------------------------------ //

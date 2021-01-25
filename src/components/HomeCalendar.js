@@ -8,9 +8,9 @@ import moment from "moment";
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 // @import 'react-big-calendar/lib/sass/styles';
 
-import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
+import { getFollowedEvents, fetchAllUsers, newEvent, editProfile } from '../redux/actions'
 import { Icon, Item, Label, Image, Button } from 'semantic-ui-react'
-import { SketchPicker } from 'react-color'
+import { AlphaPicker, CompactPicker, HuePicker, SketchPicker } from 'react-color'
 
 moment.locale("en-US");
 BigCalendar.momentLocalizer(moment)
@@ -20,8 +20,8 @@ class HomeCalendar extends React.Component {
 
     state = {
         eventIds: [],
-        first_color: "",
-        second_color: ""
+        first_color: "pink",
+        second_color: "purple"
     }
 
     componentDidMount() {
@@ -114,11 +114,17 @@ class HomeCalendar extends React.Component {
     }
 
     handleChangeCompleteOne = (color) => {
-        this.setState({first_color: color.hex})
+        let userId = this.props.currentUser.id
+        this.setState({
+            first_color: color.hex
+        }, () => this.props.editProfile(userId, {first_color: color.hex}))
     }
 
     handleChangeCompleteTwo = (color) => {
-        this.setState({second_color: color.hex})
+        let userId = this.props.currentUser.id
+        this.setState({
+            second_color: color.hex
+        }, () => this.props.editProfile(userId, {second_color: color.hex}))
     }
 
     render() {
@@ -133,9 +139,9 @@ class HomeCalendar extends React.Component {
                 title: `${event.initials} - ${event.title}`,
                 bgColor: event.user_id === currentUser.id 
                     ? 
-                        event.first_color ? event.first_color : "pink"
+                        currentUser.first_color ? currentUser.first_color : "pink"
                     : 
-                        event.second_color ? event.second_color : "purple",
+                        currentUser.second_color ? currentUser.second_color : "purple",
                 start: moment(event.date),
                 end: moment(event.date),
                 allDay: true,
@@ -192,21 +198,21 @@ class HomeCalendar extends React.Component {
                 />
                 </div>  
                 <div style={{textAlign: "center"}}>
-                    <SketchPicker 
+                    <h4>Your Color</h4>
+                    <CompactPicker
                         id="1"
                         color={this.state.first_color}
                         onChangeComplete={this.handleChangeCompleteOne}
                     />
-                    <SketchPicker 
+                    <h4>Everyone Else's Color</h4>
+                    <CompactPicker
                         id="2"
                         color={this.state.second_color}
                         onChangeComplete={this.handleChangeCompleteTwo}
                     />
-                    <Button>Submit</Button>
-                </div>
-
                 </div>
             </div>
+        </div>
             </>
         )
     }
@@ -226,7 +232,8 @@ const mdp = (dispatch) => {
     return {
         fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
         fetchAllUsers: () => dispatch(fetchAllUsers()),
-        newEvent: (eventObj) => dispatch(newEvent(eventObj))
+        newEvent: (eventObj) => dispatch(newEvent(eventObj)),
+        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj))
     }
 }
 
