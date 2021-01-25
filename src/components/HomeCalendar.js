@@ -121,7 +121,11 @@ class HomeCalendar extends React.Component {
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
                 title: `${event.initials} - ${event.title}`,
-                bgColor: event.user_id === currentUser.id ? "pink" : "purple",
+                bgColor: event.user_id === currentUser.id 
+                    ? 
+                        event.first_color ? event.first_color : "pink"
+                    : 
+                        event.second_color ? event.second_color : "purple",
                 start: moment(event.date),
                 end: moment(event.date),
                 allDay: true,
