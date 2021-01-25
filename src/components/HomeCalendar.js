@@ -8,9 +8,9 @@ import moment from "moment";
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 // @import 'react-big-calendar/lib/sass/styles';
 
-import { getFollowedEvents, fetchAllUsers, newEvent, editProfile } from '../redux/actions'
-import { Icon, Item, Label, Image, Button, Transition } from 'semantic-ui-react'
-import { AlphaPicker, CompactPicker, HuePicker, SketchPicker } from 'react-color'
+import { getFollowedEvents, fetchAllUsers, newEvent, editProfile, getEvents } from '../redux/actions'
+import { Icon, Item, Label, Image, Transition } from 'semantic-ui-react'
+import {CompactPicker} from 'react-color'
 
 moment.locale("en-US");
 BigCalendar.momentLocalizer(moment)
@@ -26,25 +26,26 @@ class HomeCalendar extends React.Component {
     }
 
     componentDidMount() {
-        const { currentUser, fetchEvents, fetchAllUsers } = this.props
+        const { currentUser, fetchEvents, fetchAllUsers, getEvents } = this.props
         if (currentUser.id) {
             fetchEvents(currentUser.id)
             fetchAllUsers()
+            getEvents()
         }
     }
 
-    allEvents = () => {
-        return this.props.followedEvents.map(event => {
-            return {
-                title: event.title,
-                start: moment(event.date),
-                end: moment(event.date),
-                allDay: true,
-                resourceId: 10,
-                tooltip: event.title,
-            }
-        })
-    }
+    // allEvents = () => {
+    //     return this.props.followedEvents.map(event => {
+    //         return {
+    //             title: event.title,
+    //             start: moment(event.date),
+    //             end: moment(event.date),
+    //             allDay: true,
+    //             resourceId: 10,
+    //             tooltip: event.title,
+    //         }
+    //     })
+    // }
 
     defaultEvent = () => {
         return ([{
@@ -131,10 +132,14 @@ class HomeCalendar extends React.Component {
         }, () => this.props.editProfile(userId, {second_color: color.hex}))
     }
 
+    // style={{marginLeft: "auto"}}
+
     render() {
         const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
         console.log(followedEvents)
+        console.log(allEvents)
+        console.log(currentUser)
         let usersEvents = allEvents.filter(event => event.user_id === currentUser.id)
         let allCalEvents = followedEvents.concat(usersEvents)
         let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))
@@ -171,7 +176,7 @@ class HomeCalendar extends React.Component {
                     
                     {this.makeAvatars()}
 
-                    <div style={{marginLeft: "auto"}}>
+                    <div > 
                         <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
                             <Item.Content>
                                 <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
@@ -251,7 +256,8 @@ const mdp = (dispatch) => {
         fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
         fetchAllUsers: () => dispatch(fetchAllUsers()),
         newEvent: (eventObj) => dispatch(newEvent(eventObj)),
-        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj))
+        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj)),
+        getEvents: () => dispatch(getEvents())
     }
 }
 
