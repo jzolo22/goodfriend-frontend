@@ -274,8 +274,6 @@ class UserProfile extends React.Component {
             </Container>
 
             <ExtraStuffContainer>
-                
-
                 <Transition.Group animation="slide up" duration="500">
                     {this.state.visible && (
                         <StyledTimeline>

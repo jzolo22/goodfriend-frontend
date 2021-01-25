@@ -9,7 +9,7 @@ import moment from "moment";
 // @import 'react-big-calendar/lib/sass/styles';
 
 import { getFollowedEvents, fetchAllUsers, newEvent, editProfile } from '../redux/actions'
-import { Icon, Item, Label, Image, Button } from 'semantic-ui-react'
+import { Icon, Item, Label, Image, Button, Transition } from 'semantic-ui-react'
 import { AlphaPicker, CompactPicker, HuePicker, SketchPicker } from 'react-color'
 
 moment.locale("en-US");
@@ -21,7 +21,8 @@ class HomeCalendar extends React.Component {
     state = {
         eventIds: [],
         first_color: "pink",
-        second_color: "purple"
+        second_color: "purple",
+        visible: false
     }
 
     componentDidMount() {
@@ -66,7 +67,10 @@ class HomeCalendar extends React.Component {
         } else {
             this.setState({eventIds: [...eventIds, parseInt(e.target.id)]})
         }
-        
+    }
+
+    toggleColorVisibility = () => {
+        this.setState((prevState) => ({visible: !prevState.visible}))
     }
 
     makeAvatars = () => {
@@ -160,18 +164,24 @@ class HomeCalendar extends React.Component {
                             <Icon name="checkmark" link={true} />Select All
                         </Label> 
                         : 
-                        <Label style={{height: "fit-content"}}>click icons to toggle events off calendar</Label> 
+                        <Label style={{height: "fit-content", fontSize: "14px"}}>click icons to toggle events off calendar</Label> 
                     }
                 </div>
-                <div style={{display: "flex", justifyContent: "center", paddingLeft: "18%", paddingBottom: "0%"}}>
-                
-                    {this.makeAvatars()}
+                <div style={{display: "flex", justifyContent: "center", paddingBottom: "0%"}}>
                     
-                    <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
-                        <Item.Content style={{marginRight: "5%", paddingLeft: "200px"}}>
-                        <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
-                    </Item.Content>
-                    </Item>
+                    {this.makeAvatars()}
+
+                    <div style={{alignSelf: "flex-end"}}>
+                        <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
+                            <Item.Content>
+                                <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
+                            </Item.Content>
+                        </Item>
+                            
+                        <Label 
+                            style={{height: "fit-content", fontSize: "14px"}} 
+                            onClick={this.toggleColorVisibility}>choose colors</Label>
+                    </div>   
                 </div>
         <div style={{display: "flex", justifyContent: "space-around"}}>
             <div style={{margin: "0% 0% 5% 5%"}}>  
@@ -197,19 +207,27 @@ class HomeCalendar extends React.Component {
                     style={{height: 525, width: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
-                <div style={{textAlign: "center"}}>
-                    <h4>Your Color</h4>
-                    <CompactPicker
-                        id="1"
-                        color={this.state.first_color}
-                        onChangeComplete={this.handleChangeCompleteOne}
-                    />
-                    <h4>Everyone Else's Color</h4>
-                    <CompactPicker
-                        id="2"
-                        color={this.state.second_color}
-                        onChangeComplete={this.handleChangeCompleteTwo}
-                    />
+                <div style={{textAlign: "center", marginTop: "5%"}}>
+                    <Transition.Group animation="slide left" duration="500" >
+                        {this.state.visible && (
+                            <div>
+                                <p style={{marginBottom: "2px"}}>Yours</p>
+                                <CompactPicker
+                                    id="1"
+                                    color={this.state.first_color}
+                                    onChangeComplete={this.handleChangeCompleteOne}
+                                />
+                                
+                                <p style={{marginTop: "10px", marginBottom: "2px"}}>Everyone Else's</p>
+                                <CompactPicker
+                                    id="2"
+                                    color={this.state.second_color}
+                                    onChangeComplete={this.handleChangeCompleteTwo}
+                                />
+                            </div>
+                        )}
+                        
+                    </Transition.Group>
                 </div>
             </div>
         </div>
