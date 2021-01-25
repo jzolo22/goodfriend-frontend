@@ -173,6 +173,7 @@ class UserProfile extends React.Component {
 
     eventDots = () => {
         if (this.props.user[0].own_events.length > 0) {
+            console.log("in user profile", this.props.allEvents)
             let usersEvents = this.props.allEvents.filter(event => event.user_id === this.props.user[0].id)
             let sortedByDateEvents = usersEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
             return sortedByDateEvents.map(event => {

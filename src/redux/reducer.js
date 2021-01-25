@@ -25,6 +25,9 @@ function allEventsReducer(state = initialState.allEvents, action) {
         case actions.GET_ALL_EVENTS:
             return action.payload
         case actions.ADD_EVENT:
+            console.log(state)
+            console.log(action.payload)
+            console.log([...state, action.payload])
             return [...state, action.payload]
         case actions.UPDATE_EVENT:
             let updatedArray = [...state]

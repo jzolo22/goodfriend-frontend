@@ -145,7 +145,7 @@ class HomeCalendar extends React.Component {
         let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
-                title: `${event.initials} - ${event.title}`,
+                title: event.user_id === currentUser.id ? event.title : `${event.initials} - ${event.title}`,
                 bgColor: event.user_id === currentUser.id 
                     ? 
                         currentUser.first_color ? currentUser.first_color : "pink"
@@ -185,7 +185,7 @@ class HomeCalendar extends React.Component {
                             
                         <Label 
                             style={{height: "fit-content", fontSize: "14px"}} 
-                            onClick={this.toggleColorVisibility}>choose colors</Label>
+                            onClick={this.toggleColorVisibility}>change colors</Label>
                     </div>   
                 </div>
         <div style={{display: "flex", justifyContent: "space-around"}}>

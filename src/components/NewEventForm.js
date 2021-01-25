@@ -41,7 +41,6 @@ class NewEventForm extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div style={{marginTop: "7%", textAlign: "center"}}>
 
