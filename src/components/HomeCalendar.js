@@ -8,9 +8,9 @@ import moment from "moment";
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 // @import 'react-big-calendar/lib/sass/styles';
 
-import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
-import { Icon, Item, Label, Image } from 'semantic-ui-react'
-
+import { getFollowedEvents, fetchAllUsers, newEvent, editProfile } from '../redux/actions'
+import { Icon, Item, Label, Image, Button, Transition } from 'semantic-ui-react'
+import { AlphaPicker, CompactPicker, HuePicker, SketchPicker } from 'react-color'
 
 moment.locale("en-US");
 BigCalendar.momentLocalizer(moment)
@@ -20,6 +20,9 @@ class HomeCalendar extends React.Component {
 
     state = {
         eventIds: [],
+        first_color: "pink",
+        second_color: "purple",
+        visible: false
     }
 
     componentDidMount() {
@@ -64,7 +67,10 @@ class HomeCalendar extends React.Component {
         } else {
             this.setState({eventIds: [...eventIds, parseInt(e.target.id)]})
         }
-        
+    }
+
+    toggleColorVisibility = () => {
+        this.setState((prevState) => ({visible: !prevState.visible}))
     }
 
     makeAvatars = () => {
@@ -111,6 +117,20 @@ class HomeCalendar extends React.Component {
         this.setState({eventIds: []})
     }
 
+    handleChangeCompleteOne = (color) => {
+        let userId = this.props.currentUser.id
+        this.setState({
+            first_color: color.hex
+        }, () => this.props.editProfile(userId, {first_color: color.hex}))
+    }
+
+    handleChangeCompleteTwo = (color) => {
+        let userId = this.props.currentUser.id
+        this.setState({
+            second_color: color.hex
+        }, () => this.props.editProfile(userId, {second_color: color.hex}))
+    }
+
     render() {
         const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
@@ -121,7 +141,11 @@ class HomeCalendar extends React.Component {
         let filteredEventsForCal = filteredEvents.map(event => {
             return {
                 title: `${event.initials} - ${event.title}`,
-                bgColor: event.user_id === currentUser.id ? "pink" : "purple",
+                bgColor: event.user_id === currentUser.id 
+                    ? 
+                        currentUser.first_color ? currentUser.first_color : "pink"
+                    : 
+                        currentUser.second_color ? currentUser.second_color : "purple",
                 start: moment(event.date),
                 end: moment(event.date),
                 allDay: true,
@@ -140,21 +164,27 @@ class HomeCalendar extends React.Component {
                             <Icon name="checkmark" link={true} />Select All
                         </Label> 
                         : 
-                        <Label style={{height: "fit-content"}}>click icons to toggle events off calendar</Label> 
+                        <Label style={{height: "fit-content", fontSize: "14px"}}>click icons to toggle events off calendar</Label> 
                     }
                 </div>
-                <div style={{display: "flex", justifyContent: "center", paddingLeft: "18%", paddingBottom: "0%"}}>
-                
-                    {this.makeAvatars()}
+                <div style={{display: "flex", justifyContent: "center", paddingBottom: "0%"}}>
                     
-                    <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
-                        <Item.Content style={{marginRight: "5%", paddingLeft: "200px"}}>
-                        <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
-                    </Item.Content>
-                    </Item>
-                </div>
+                    {this.makeAvatars()}
 
-            <div style={{margin: "0% 0% 5% 12%"}}>  
+                    <div style={{alignSelf: "flex-end"}}>
+                        <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
+                            <Item.Content>
+                                <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
+                            </Item.Content>
+                        </Item>
+                            
+                        <Label 
+                            style={{height: "fit-content", fontSize: "14px"}} 
+                            onClick={this.toggleColorVisibility}>choose colors</Label>
+                    </div>   
+                </div>
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+            <div style={{margin: "0% 0% 5% 5%"}}>  
                 <BigCalendar
                     // selectable
                     // localizer={localizer}
@@ -177,7 +207,30 @@ class HomeCalendar extends React.Component {
                     style={{height: 525, width: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
+                <div style={{textAlign: "center", marginTop: "5%"}}>
+                    <Transition.Group animation="slide left" duration="500" >
+                        {this.state.visible && (
+                            <div>
+                                <p style={{marginBottom: "2px"}}>Yours</p>
+                                <CompactPicker
+                                    id="1"
+                                    color={this.state.first_color}
+                                    onChangeComplete={this.handleChangeCompleteOne}
+                                />
+                                
+                                <p style={{marginTop: "10px", marginBottom: "2px"}}>Everyone Else's</p>
+                                <CompactPicker
+                                    id="2"
+                                    color={this.state.second_color}
+                                    onChangeComplete={this.handleChangeCompleteTwo}
+                                />
+                            </div>
+                        )}
+                        
+                    </Transition.Group>
+                </div>
             </div>
+        </div>
             </>
         )
     }
@@ -197,7 +250,8 @@ const mdp = (dispatch) => {
     return {
         fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
         fetchAllUsers: () => dispatch(fetchAllUsers()),
-        newEvent: (eventObj) => dispatch(newEvent(eventObj))
+        newEvent: (eventObj) => dispatch(newEvent(eventObj)),
+        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj))
     }
 }
 

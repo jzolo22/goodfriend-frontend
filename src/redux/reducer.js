@@ -70,6 +70,8 @@ function currentUserReducer(state = initialState.currentUser, action) {
     switch(action.type) {
         case actions.SET_CURRENT_USER:
             return action.payload
+        case actions.UPDATE_USER:
+            return action.payload
         case actions.SIGN_UP:
             return action.payload 
         case actions.LOG_OUT:

@@ -29,7 +29,7 @@ class UserProfile extends React.Component {
         birthday: moment(this.props.user[0].birthday).format('MMM Do'),
         partner_name: this.props.user[0].partner_name,
         partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do'),
-        visible: true
+        visible: true,
     }
 
 
@@ -274,8 +274,6 @@ class UserProfile extends React.Component {
             </Container>
 
             <ExtraStuffContainer>
-                
-
                 <Transition.Group animation="slide up" duration="500">
                     {this.state.visible && (
                         <StyledTimeline>

@@ -17,6 +17,7 @@
     "react-big-calendar": "^0.30.0",
     "react-big-calendar-like-google": "^0.0.3",
     "react-calendar": "^3.3.0",
+    "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
     "react-image-crop": "^8.6.6",
     "react-inline-editing": "^1.0.10",

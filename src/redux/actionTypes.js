@@ -20,4 +20,5 @@ export const ADD_ITEM = "addItem"
 export const ALL_ITEMS = "allItems"
 export const DELETE_ITEM = "deleteItem"
 export const UPDATE_ITEM = "updateItem"
+export const UPDATE_USER = "updateUser"
 
