@@ -217,7 +217,7 @@ class UserProfile extends React.Component {
                          <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
                          <EditableLabel 
                             text={this.state.venmo_handle}
-                            inputWidth='75px'
+                            inputWidth='125px'
                             inputHeight='25px'
                             inputMaxLength='50'
                             labelFontSize="16px"

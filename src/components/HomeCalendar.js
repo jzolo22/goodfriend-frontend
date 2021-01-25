@@ -161,35 +161,38 @@ class HomeCalendar extends React.Component {
 
         return (
             <>
-            <div style={{height: "100%", marginTop: "7%", textAlign: "center"}}>
+            <div style={{height: "100%", marginTop: "6%", textAlign: "center"}}>
                 <div>
                     {followedEvents.length > 0 && eventIds.length > 0 
                         ? 
-                        <Label  onClick={this.selectAll} style={{height: "fit-content"}}>
-                            <Icon name="checkmark" link={true} />Select All
+                        <Label  onClick={this.selectAll} style={{height: "fit-content", fontSize: "14px", marginBottom: "3px"}}>
+                            <Icon name="checkmark" link={true} />select all
                         </Label> 
                         : 
-                        <Label style={{height: "fit-content", fontSize: "14px"}}>click icons to toggle events off calendar</Label> 
+                        <Label style={{height: "fit-content", fontSize: "14px", marginBottom: "3px"}}>click icons to toggle events off calendar</Label> 
                     }
                 </div>
-                <div style={{display: "flex", justifyContent: "center", paddingBottom: "0%"}}>
+                <div style={{display: "flex", justifyContent: "center", alignItems: "center", paddingBottom: "0%", width: "100vw"}}>
                     
-                    {this.makeAvatars()}
+                    <div style={{display: "flex", justifyContent: "center", width: "100vw", overflow: "auto"}}>
+                        {this.makeAvatars()}
+                        <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%", alignSelf: "center"}}>
+                            <Item.Content>
+                                <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
+                            </Item.Content>
+                        </Item>
+                    </div>
 
-                    <div > 
+                    {/* <div style={{justifySelf: "flex-end"}}> 
                         <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
                             <Item.Content>
                                 <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
                             </Item.Content>
                         </Item>
-                            
-                        <Label 
-                            style={{height: "fit-content", fontSize: "14px"}} 
-                            onClick={this.toggleColorVisibility}>change colors</Label>
-                    </div>   
+                    </div>    */}
                 </div>
         <div style={{display: "flex", justifyContent: "space-around"}}>
-            <div style={{margin: "0% 0% 5% 5%"}}>  
+            <div style={{margin: "0% 4% 5% 5%"}}>  
                 <BigCalendar
                     // selectable
                     // localizer={localizer}
@@ -209,13 +212,16 @@ class HomeCalendar extends React.Component {
                     endAccessor="end"
                     drilldownView="week"
                     onSelectEvent={this.onSelectEvent}
-                    style={{height: 525, width: 1100, paddingTop: "0", paddingBottom: "5%"}}
+                    style={{minHeight: 525, minWidth: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
-                <div style={{textAlign: "center", marginTop: "5%"}}>
+                <div style={{textAlign: "center", marginTop: "5%", marginRight: "10%"}}>
+                    <Label 
+                            style={{height: "fit-content", fontSize: "14px"}} 
+                            onClick={this.toggleColorVisibility}>{this.state.visible ? "done editing" : "change colors"}</Label>
                     <Transition.Group animation="slide left" duration="500" >
                         {this.state.visible && (
-                            <div>
+                            <div >
                                 <p style={{marginBottom: "2px"}}>Yours</p>
                                 <CompactPicker
                                     id="1"
