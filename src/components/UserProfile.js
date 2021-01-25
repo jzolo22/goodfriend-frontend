@@ -6,7 +6,7 @@ import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Image, Transition, Button, Segment } from 'semantic-ui-react'
+import { Icon, Item, Image, Transition, Button, Segment, Label } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -252,7 +252,13 @@ class UserProfile extends React.Component {
 
                 {this.ownBirthdayDisplay()}
                 {this.partnerBirthdayDisplay()}
-
+                {user[0].id === currentUser.id 
+                    ?
+                    <Label style={{height: "fit-content", fontSize: "13px", marginTop: "5px"}}>click any field to edit</Label> 
+                    :
+                    null
+                }
+                
                 {/* <Image 
                     inline={true} 
                     centered={true} 
@@ -330,7 +336,7 @@ const Container = styled.div`
     text-align: center;
     padding-top: 15%;
     justify-content: center;
-    
+    min-width: 280px;
 `;
 
 const WishlistContainer = styled.div`

@@ -171,7 +171,7 @@ class HomeCalendar extends React.Component {
                     
                     {this.makeAvatars()}
 
-                    <div style={{alignSelf: "flex-end"}}>
+                    <div style={{marginLeft: "auto"}}>
                         <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%"}}>
                             <Item.Content>
                                 <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
