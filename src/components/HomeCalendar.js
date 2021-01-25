@@ -9,8 +9,8 @@ import moment from "moment";
 // @import 'react-big-calendar/lib/sass/styles';
 
 import { getFollowedEvents, fetchAllUsers, newEvent } from '../redux/actions'
-import { Icon, Item, Label, Image } from 'semantic-ui-react'
-
+import { Icon, Item, Label, Image, Button } from 'semantic-ui-react'
+import { SketchPicker } from 'react-color'
 
 moment.locale("en-US");
 BigCalendar.momentLocalizer(moment)
@@ -20,6 +20,8 @@ class HomeCalendar extends React.Component {
 
     state = {
         eventIds: [],
+        first_color: "",
+        second_color: ""
     }
 
     componentDidMount() {
@@ -111,6 +113,14 @@ class HomeCalendar extends React.Component {
         this.setState({eventIds: []})
     }
 
+    handleChangeCompleteOne = (color) => {
+        this.setState({first_color: color.hex})
+    }
+
+    handleChangeCompleteTwo = (color) => {
+        this.setState({second_color: color.hex})
+    }
+
     render() {
         const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
@@ -157,8 +167,8 @@ class HomeCalendar extends React.Component {
                     </Item.Content>
                     </Item>
                 </div>
-
-            <div style={{margin: "0% 0% 5% 12%"}}>  
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+            <div style={{margin: "0% 0% 5% 5%"}}>  
                 <BigCalendar
                     // selectable
                     // localizer={localizer}
@@ -181,6 +191,21 @@ class HomeCalendar extends React.Component {
                     style={{height: 525, width: 1100, paddingTop: "0", paddingBottom: "5%"}}
                 />
                 </div>  
+                <div style={{textAlign: "center"}}>
+                    <SketchPicker 
+                        id="1"
+                        color={this.state.first_color}
+                        onChangeComplete={this.handleChangeCompleteOne}
+                    />
+                    <SketchPicker 
+                        id="2"
+                        color={this.state.second_color}
+                        onChangeComplete={this.handleChangeCompleteTwo}
+                    />
+                    <Button>Submit</Button>
+                </div>
+
+                </div>
             </div>
             </>
         )
