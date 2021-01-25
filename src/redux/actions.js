@@ -153,6 +153,18 @@ export const editProfile = (userId, userObj) => {
         .then(updatedUser => dispatch({type: actions.UPDATE_USER, payload: updatedUser}))
   }
 }
+
+export const editPicture = (userId, userObj) => {
+  return function (dispatch) {
+    fetch(`${url}/users/${userId}`, {
+      method: "PATCH",
+      headers: {Authorization: `Bearer ${localStorage.jwtToken}`},
+      body: userObj
+    })
+      .then(r => r.json())
+      .then(updatedUser => dispatch({type: actions.SET_CURRENT_USER, payload: updatedUser}))
+  }
+}
 // ------------------------------------------------ Items ------------------------------------------------ //
 export const getItems = () => {
   return function(dispatch) {
