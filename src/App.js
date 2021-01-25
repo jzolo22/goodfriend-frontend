@@ -3,7 +3,6 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Calendar from './components/HomeCalendar'
 import NavBar from './components/NavBar'
-import SideBar from './components/SideBar'
 import LoginPage from './components/LoginPage'
 import {checkLogin} from './redux/actions'
 import './App.css';
