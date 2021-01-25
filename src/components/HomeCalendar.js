@@ -48,6 +48,7 @@ class HomeCalendar extends React.Component {
     // }
 
     defaultEvent = () => {
+        console.log("default")
         return ([{
             title: "No Events!",
             start: new Date(),
@@ -137,9 +138,9 @@ class HomeCalendar extends React.Component {
     render() {
         const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
-        console.log(followedEvents)
-        console.log(allEvents)
-        console.log(currentUser)
+        // console.log(followedEvents)
+        // console.log(allEvents)
+        // console.log(currentUser)
         let usersEvents = allEvents.filter(event => event.user_id === currentUser.id)
         let allCalEvents = followedEvents.concat(usersEvents)
         let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))
@@ -178,7 +179,7 @@ class HomeCalendar extends React.Component {
                         {this.makeAvatars()}
                         <Item as={NavLink} to={`/events/new`} style={{paddingBottom: "2%", paddingTop: "2%", alignSelf: "center"}}>
                             <Item.Content>
-                                <Icon size="big" color='pink' name='calendar plus outline' link={true} /> 
+                                <Icon size="big" color="black" name='calendar plus outline' link={true} /> 
                             </Item.Content>
                         </Item>
                     </div>

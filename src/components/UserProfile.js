@@ -89,7 +89,7 @@ class UserProfile extends React.Component {
                         onFocusOut={this.editedPartnerBirthday}
                     /> </div>)
             }else {
-               return ( <p> 💞 {user[0].partner_name} -  🎂 {moment(user[0].partner_birthday).format('MMM Do')}</p>)
+               return ( <p style={{marginBottom: "3px"}}> 💞 {user[0].partner_name} -  🎂 {moment(user[0].partner_birthday).format('MMM Do')}</p>)
             }
         } else if (user[0].partner_name) {
             if(user[0].id === currentUser.id) {
@@ -227,7 +227,10 @@ class UserProfile extends React.Component {
                 )
             } else {
                 return (
-                    <p style={{fontSize: "20px", marginBottom: "5px"}}>{this.state.venmo_handle}</p>
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
+                        <p style={{fontSize: "16px", marginBottom: "5px"}}>{this.state.venmo_handle}</p>
+                    </div>
             )
             }
         }

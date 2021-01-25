@@ -47,9 +47,8 @@ class Wishlist extends React.Component {
 
                                 <Overlay checked={item.purchased}>
                                     <ImageInfo>
-                                        {/* <p style={{color: "white", fontWeight: "bold"}}>{item.name}</p> */}
                                         <Checkbox 
-                                            label={{children: <a style={{color: "white", fontWeight: "bold", fontSize: "15px"}} target="_blank" rel="noreferrer" href={item.link}>{item.name}</a>}}    
+                                            label={{children: <a style={{color: "white", fontWeight: "bold", fontSize: "15px", textDecoration: item.purchased ? "line-through" : null}} target="_blank" rel="noreferrer" href={item.link}>{item.name}</a>}}    
                                             checked={item.purchased ? true : false}
                                             onChange={this.checkItem}
                                             id={item.id}
@@ -125,7 +124,7 @@ const Container = styled.div`
 
 const StyledImage = styled.img`
     border: solid #8a5a44 2px;
-    margin: 6px;
+    margin: 7px;
     margin-top: 7px;
     margin-bottom: 7px;
     max-width:345px;
@@ -164,7 +163,6 @@ const Overlay = styled.div`
             transform: translateY(0)
         }
     opacity: ${props => (props.checked ? "1" : "0")}
-    // transform: ${props => (props.checked ? "translateY(0)" : null)}
 `
 
 const ImageInfo = styled.div`

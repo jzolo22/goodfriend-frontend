@@ -13,6 +13,7 @@ const initialState = {
 function followedEventsReducer(state = initialState.followedEvents, action) {
     switch(action.type){
         case actions.GET_FOLLOWED_EVENTS:
+            console.log("in reducer", action.payload)
             return action.payload
         default:
             return state
@@ -25,9 +26,6 @@ function allEventsReducer(state = initialState.allEvents, action) {
         case actions.GET_ALL_EVENTS:
             return action.payload
         case actions.ADD_EVENT:
-            console.log(state)
-            console.log(action.payload)
-            console.log([...state, action.payload])
             return [...state, action.payload]
         case actions.UPDATE_EVENT:
             let updatedArray = [...state]
