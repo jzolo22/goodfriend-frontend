@@ -93,10 +93,9 @@ class NavBar extends React.Component {
                 <Menu.Item as={NavLink} to={this.props.currentUser && this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
                     <Item.Content >
                         {this.props.currentUser.profile_picture ? 
-                            <Image src={this.props.currentUser.profile_picture.url} circular size="mini"/> :
-                            <>
-                                <Icon size="big" name='user outline' link={true} /> My profile
-                            </>
+                            <Image src={this.props.currentUser.profile_picture.url} circular size="mini"/> 
+                            :
+                            null
                         }
                     </Item.Content>
                 </Menu.Item>

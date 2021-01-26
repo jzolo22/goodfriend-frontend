@@ -204,7 +204,7 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary" style={{paddingTop: "4px"}}>{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot  style={{color: user[0].id === currentUser.id ? currentUser.first_color : user[0].first_color}}>
+                            <TimelineDot color="white" style={{color: user[0].id === currentUser.id ? currentUser.first_color : user[0].first_color}}>
                                 {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
                                 {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
                                 {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
