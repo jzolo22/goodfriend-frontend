@@ -346,7 +346,7 @@ class UserProfile extends React.Component {
                                 multiple={false}
                                 name="profile_picture" 
                                 onChange={this.onUpload}
-                                style={{width: "240px"}}
+                                style={{width: "200px", fontSize: "12px"}}
                                 />
                                 {src && (
                                     <ReactCrop
