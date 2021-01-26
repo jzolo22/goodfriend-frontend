@@ -223,7 +223,7 @@ class UserProfile extends React.Component {
             if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}>
-                         <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
+                         <img src="/images/venmologo.png" alt="venmo logo" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
                          <EditableLabel 
                             text={this.state.venmo_handle}
                             inputWidth='125px'
@@ -334,15 +334,11 @@ class UserProfile extends React.Component {
         <WholeProfile>
             <Container>
                 <Segment raised>
-                {user[0].profile_picture 
-                    ? 
-                    <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
-                    : 
-                    null 
-                }
+                
                 {user[0].id === currentUser.id 
                     ? 
                     <>
+                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={currentUser.profile_picture.url} circular size="small"/>
                         <Form.Field style={{margin: "3% 0% 3% 0%"}}>
                             <Form.Input 
                                 type="file"
@@ -372,6 +368,7 @@ class UserProfile extends React.Component {
                         :
                         null
                         }
+                        
                         <EditableLabel 
                             text={`${user[0].first_name} ${user[0].last_name}`}
                             inputWidth='200px'
@@ -383,7 +380,10 @@ class UserProfile extends React.Component {
                         /> 
                     </>
                     :
-                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> 
+                    <>
+                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
+                        <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> 
+                    </>
                 }
 
                 {user[0].id !== currentUser.id && !this.alreadyFollowed() 
@@ -487,7 +487,7 @@ export default connect(msp, mdp)(UserProfile)
 
 const Container = styled.div`
     text-align: center;
-    padding-top: 15%;
+    padding-top: 12%;
     justify-content: center;
     min-width: 280px;
 `;
