@@ -14,7 +14,15 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
+import CakeIcon from '@material-ui/icons/Cake';
+import SchoolIcon from '@material-ui/icons/School';
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
+import GamesIcon from '@material-ui/icons/Games';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import Typography from '@material-ui/core/Typography';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import styled from "styled-components";
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -194,7 +202,16 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot color="secondary"/>
+                            <TimelineDot  style={{color: this.props.user[0].first_color}}>
+                                {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
+                                {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
+                                {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
+                                {event.title.toLowerCase().includes("move") ? <HomeIcon /> : null}
+                                {event.title.toLowerCase().includes("baby") ? <ChildFriendlyIcon /> : null}
+                                {event.title.toLowerCase().includes("wedding" || "engagement" || "anniversary") ? <FavoriteIcon /> : null}
+                                {event.title.toLowerCase().includes("tournament" || "game" || "match") ? <GamesIcon /> : null}
+                                {event.title.toLowerCase().includes("new" || "promotion") ? <NewReleasesIcon /> : null}
+                            </TimelineDot>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
