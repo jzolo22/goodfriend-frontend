@@ -21,6 +21,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
 import GamesIcon from '@material-ui/icons/Games';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Typography from '@material-ui/core/Typography';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import styled from "styled-components";
@@ -199,7 +200,7 @@ class UserProfile extends React.Component {
                 return (
                     <TimelineItem>
                         <TimelineOppositeContent>
-                            <Typography color="textSecondary">{moment(event.date).format('MMM Do')}</Typography>
+                            <Typography color="textSecondary" style={{paddingTop: "4px"}}>{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
                             <TimelineDot  style={{color: this.props.user[0].first_color}}>
@@ -211,22 +212,21 @@ class UserProfile extends React.Component {
                                 {event.title.toLowerCase().includes("wedding" || "engagement" || "anniversary") ? <FavoriteIcon /> : null}
                                 {event.title.toLowerCase().includes("tournament" || "game" || "match") ? <GamesIcon /> : null}
                                 {event.title.toLowerCase().includes("new" || "promotion") ? <NewReleasesIcon /> : null}
+                                {event.title.toLowerCase().includes("vacation") ? <BeachAccessIcon /> : null}
                             </TimelineDot>
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
                             <Typography 
-                                style={{fontWeight: "bold"}}>
+                                style={{fontWeight: "bold", fontFamily: "serif", fontSize: "17px"}}>
                                     {event.title} 
                                     {this.props.user[0].id === this.props.currentUser.id ? 
                                     <> 
                                         <EditEventForm eventId={event.id}/>
-                                        {/* {this.editEventClick(event.id)} */}
-                                        {/* <Icon link={true} id={event.id} style={{paddingLeft: "3px"}} name="edit outline" onClick={this.editEventClick}/>   */}
                                         <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
                                     </> : null}
-                            </Typography>
-                            <Typography>{event.description}</Typography>
+                            </Typography >
+                            <Typography style={{fontFamily: "serif", fontSize: "15px"}}>{event.description}</Typography>
                         </TimelineContent>
                     </TimelineItem>
                 )
