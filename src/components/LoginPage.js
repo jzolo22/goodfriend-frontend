@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
         // console.log(this.state)
         return(
             <div style={{marginTop: "7%", textAlign: "center"}}>
-                <Image src="/images/goodfriendtransparent.png" size="medium" style={{textAlign: "center", margin: "auto", paddingBottom: "10px", }}/>
+                <Image src="/images/goodfriendtransparent.png" size="medium" style={{textAlign: "center", margin: "auto", paddingBottom: "5px"}}/>
                 <Segment raised style={{margin: "0% 40%"}}>
                     <h1>Log In</h1>
                     <form class="ui form" onSubmit={this.onSubmit}>
