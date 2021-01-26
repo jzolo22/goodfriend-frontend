@@ -192,9 +192,10 @@ class UserProfile extends React.Component {
     }
 
     eventDots = () => {
-        if (this.props.user[0].own_events.length > 0) {
-            console.log("in user profile", this.props.allEvents)
-            let usersEvents = this.props.allEvents.filter(event => event.user_id === this.props.user[0].id)
+        const { currentUser, user, allEvents } = this.props
+        if (user[0].own_events.length > 0) {
+            console.log("in user profile", allEvents)
+            let usersEvents = allEvents.filter(event => event.user_id === user[0].id)
             let sortedByDateEvents = usersEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
             return sortedByDateEvents.map(event => {
                 return (
@@ -203,15 +204,20 @@ class UserProfile extends React.Component {
                             <Typography color="textSecondary" style={{paddingTop: "4px"}}>{moment(event.date).format('MMM Do')}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                            <TimelineDot  style={{color: this.props.user[0].first_color}}>
+                            <TimelineDot  style={{color: user[0].id === currentUser.id ? currentUser.first_color : user[0].first_color}}>
                                 {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
                                 {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
                                 {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
                                 {event.title.toLowerCase().includes("move") ? <HomeIcon /> : null}
                                 {event.title.toLowerCase().includes("baby") ? <ChildFriendlyIcon /> : null}
-                                {event.title.toLowerCase().includes("wedding" || "engagement" || "anniversary") ? <FavoriteIcon /> : null}
-                                {event.title.toLowerCase().includes("tournament" || "game" || "match") ? <GamesIcon /> : null}
-                                {event.title.toLowerCase().includes("new" || "promotion") ? <NewReleasesIcon /> : null}
+                                {/* {event.title.toLowerCase().includes("wedding") ? <FavoriteIcon /> : null} */}
+                                {event.title.toLowerCase().includes("engagement") ? <FavoriteIcon /> : null}
+                                {event.title.toLowerCase().includes("anniversary") ? <FavoriteIcon /> : null}
+                                {event.title.toLowerCase().includes("tournament") ? <GamesIcon /> : null}
+                                {event.title.toLowerCase().includes("game") ? <GamesIcon /> : null}
+                                {event.title.toLowerCase().includes("match") ? <GamesIcon /> : null}
+                                {event.title.toLowerCase().includes("new") ? <NewReleasesIcon /> : null}
+                                {event.title.toLowerCase().includes("promotion") ? <NewReleasesIcon /> : null}
                                 {event.title.toLowerCase().includes("vacation") ? <BeachAccessIcon /> : null}
                             </TimelineDot>
                             <TimelineConnector />
@@ -220,7 +226,7 @@ class UserProfile extends React.Component {
                             <Typography 
                                 style={{fontWeight: "bold", fontFamily: "serif", fontSize: "17px"}}>
                                     {event.title} 
-                                    {this.props.user[0].id === this.props.currentUser.id ? 
+                                    {user[0].id === currentUser.id ? 
                                     <> 
                                         <EditEventForm eventId={event.id}/>
                                         <Icon link={true} id={event.id} name="trash alternate outline" onClick={this.deleteEvent} /> 
@@ -528,7 +534,7 @@ const StyledTimeline = styled.div`
 `;
 
 const ExtraStuffContainer = styled.div`
-    padding-top: 15%;
+    padding-top: 10%;
     margin-left: 15%;
 `;
 
