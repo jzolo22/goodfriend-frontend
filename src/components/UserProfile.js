@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile } from '../redux/actions'
+import { deleteFollow, newFollow, getEvents, deleteEvent, editProfile, editPicture } from '../redux/actions'
 import Wishlist from './Wishlist'
 import EditEventForm from './EditEventForm'
 import { NavLink } from 'react-router-dom'
 import EditableLabel from 'react-inline-editing';
 import moment from 'moment'
-import { Icon, Item, Image, Transition, Button, Segment, Label } from 'semantic-ui-react'
+import { Icon, Item, Image, Transition, Button, Segment, Label, Form } from 'semantic-ui-react'
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -16,10 +16,10 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 import styled from "styled-components";
-// import venmologo from '.../public/venmologo.png'
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 
 
-// const {first_name, last_name, birthday} = this.props.user[0]
 
 class UserProfile extends React.Component {
 
@@ -32,6 +32,15 @@ class UserProfile extends React.Component {
         partner_name: this.props.user[0].partner_name,
         partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do'),
         visible: true,
+        src: null,
+        crop: {
+            unit: "%",
+            width: 30,
+            aspect: 1/1
+        },
+        croppedImageUrl: null,
+        croppedImage: null,
+        cropBtn: false
     }
 
 
@@ -214,7 +223,7 @@ class UserProfile extends React.Component {
             if(user[0].id === currentUser.id) {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}>
-                         <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
+                         <img src="/images/venmologo.png" alt="venmo logo" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
                          <EditableLabel 
                             text={this.state.venmo_handle}
                             inputWidth='125px'
@@ -240,31 +249,141 @@ class UserProfile extends React.Component {
         this.setState((prevState) => ({visible: !prevState.visible}))
     }
 
+    onUpload = (e) => {
+        // this.setState({profile_picture: e.target.files[0]})
+        const fileReader = new FileReader()
+        fileReader.onloadend = () => {
+            this.setState({src: fileReader.result, cropBtn: true})
+        }
+        fileReader.readAsDataURL(e.target.files[0])
+    }
+
+    onImageLoaded = (image) => {
+        this.imageRef = image
+    }
+
+    onCropChange = (crop) => {
+        this.setState({crop})
+    }
+
+    onCropComplete = (crop) => {
+        if (this.imageRef && crop.width && crop.height) {
+            const croppedImageUrl = this.getCroppedImg(this.imageRef, crop)
+            this.setState({ croppedImageUrl })
+        }
+    }
+
+    getCroppedImg(image, crop) {
+        const canvas = document.createElement('canvas');
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+        canvas.width = crop.width;
+        canvas.height = crop.height;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(
+            image,
+            crop.x * scaleX,
+            crop.y * scaleY,
+            crop.width * scaleX,
+            crop.height * scaleY,
+            0,
+            0,
+            crop.width,
+            crop.height
+          );
+
+        const reader = new FileReader()
+        canvas.toBlob(blob => {
+            reader.readAsDataURL(blob)
+            reader.onloadend = () => {
+                this.dataURLtoFile(reader.result, 'cropped.jpg')
+            }
+        })
+    }
+
+
+    dataURLtoFile(dataurl, filename) {
+        let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        let croppedImage = new File([u8arr], filename, {type:mime});
+        this.setState({croppedImage: croppedImage }) 
+    }
+
+    submitCrop = (e) => {
+        e.preventDefault()
+        const userId = this.props.currentUser.id
+        const formData = new FormData()
+        formData.append('user[profile_picture]', this.state.croppedImage)
+        this.props.editPicture(userId, formData)
+        this.setState({cropBtn: false, croppedImage: null, src: null})
+    }
+
     render(){
         const { user, currentUser } = this.props
-        return(
+        const { src, crop, croppedImageUrl } = this.state
+    return(
         <WholeProfile>
             <Container>
                 <Segment raised>
-                {user[0].profile_picture 
-                    ? 
-                    <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
-                    : 
-                    null 
-                }
+                
                 {user[0].id === currentUser.id 
                     ? 
-                    <EditableLabel 
-                        text={`${user[0].first_name} ${user[0].last_name}`}
-                        inputWidth='200px'
-                        inputHeight='25px'
-                        inputMaxLength='50'
-                        labelFontWeight='bold'
-                        labelFontSize="30px"
-                        onFocusOut={this.editedName}
-                    /> 
+                    <>
+                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={currentUser.profile_picture.url} circular size="small"/>
+                        <Form.Field style={{margin: "3% 0% 3% 0%"}}>
+                            <Form.Input 
+                                type="file"
+                                accept="image/*"
+                                multiple={false}
+                                name="profile_picture" 
+                                onChange={this.onUpload}
+                                style={{width: "200px", fontSize: "12px"}}
+                                />
+                                {src && (
+                                    <ReactCrop
+                                        src={src}
+                                        crop={crop}
+                                        ruleOfThirds
+                                        onImageLoaded={this.onImageLoaded}
+                                        onComplete={this.onCropComplete}
+                                        onChange={this.onCropChange}
+                                    />
+                                    )}
+                                {croppedImageUrl && (
+                                <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
+                                )}
+                        </Form.Field>
+                        {this.state.cropBtn 
+                        ? 
+                        <Button onClick={this.submitCrop}>Done Cropping</Button>
+                        :
+                        null
+                        }
+                        
+                        <EditableLabel 
+                            text={`${user[0].first_name} ${user[0].last_name}`}
+                            inputWidth='200px'
+                            inputHeight='25px'
+                            inputMaxLength='50'
+                            labelFontWeight='bold'
+                            labelFontSize="30px"
+                            onFocusOut={this.editedName}
+                        /> 
+                    </>
                     :
-                    <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> 
+                    <>
+                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={user[0].profile_picture.url} circular size="small"/>
+                        <p style={{fontSize: "30px", fontWeight: "bold", marginBottom: "5px"}}>{user[0].first_name} {user[0].last_name}</p> 
+                    </>
                 }
 
                 {user[0].id !== currentUser.id && !this.alreadyFollowed() 
@@ -359,7 +478,8 @@ const mdp = (dispatch) => {
         deleteFollow: (followerId, followeeId) => dispatch(deleteFollow(followerId, followeeId)),
         getEvents: () => dispatch(getEvents()),
         deleteEvent: (eventId) => dispatch(deleteEvent(eventId)),
-        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj))
+        editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj)),
+        editPicture: (userId, userObj) => dispatch(editPicture(userId, userObj))
     }
 }
 
@@ -367,7 +487,7 @@ export default connect(msp, mdp)(UserProfile)
 
 const Container = styled.div`
     text-align: center;
-    padding-top: 15%;
+    padding-top: 12%;
     justify-content: center;
     min-width: 280px;
 `;
