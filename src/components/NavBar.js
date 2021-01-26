@@ -90,6 +90,8 @@ class NavBar extends React.Component {
                         style={{fontSize: "14px"}}
                     />
                 </Menu.Item>
+
+                {this.props.currentUser.id ?
                 <Menu.Item as={NavLink} to={this.props.currentUser && this.props.currentUser.id ? `/users/${this.props.currentUser.id}` : '/'}>
                     <Item.Content >
                         {this.props.currentUser.profile_picture ? 
@@ -99,6 +101,9 @@ class NavBar extends React.Component {
                         }
                     </Item.Content>
                 </Menu.Item>
+                :
+                null
+                }
 
                 {this.props.currentUser.id ? 
                     <Menu.Item onClick={this.logOut}>
