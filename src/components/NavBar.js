@@ -72,9 +72,10 @@ class NavBar extends React.Component {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to={"/"}
                     name="goodFriend"
-                    style={{fontSize: "16px"}}
                 >
-                    goodfriend
+                    <Item.Content >
+                            <img src="/images/goodfriendwhitetransparent.png"  style={{width: "56px"}}/> 
+                    </Item.Content>
                 </Menu.Item>.
 
 

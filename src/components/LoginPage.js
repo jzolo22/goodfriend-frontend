@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logIn } from '../redux/actions'
-import { Divider, Segment } from 'semantic-ui-react'
+import { Divider, Segment, Image } from 'semantic-ui-react'
 
 class LoginPage extends React.Component {
 
@@ -24,7 +24,8 @@ class LoginPage extends React.Component {
     render(){
         // console.log(this.state)
         return(
-            <div style={{marginTop: "15%", textAlign: "center"}}>
+            <div style={{marginTop: "7%", textAlign: "center"}}>
+                <Image src="/images/goodfriendtransparent.png" size="medium" style={{textAlign: "center", margin: "auto", paddingBottom: "10px", }}/>
                 <Segment raised style={{margin: "0% 40%"}}>
                     <h1>Log In</h1>
                     <form class="ui form" onSubmit={this.onSubmit}>
