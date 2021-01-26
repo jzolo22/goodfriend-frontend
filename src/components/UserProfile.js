@@ -323,8 +323,8 @@ class UserProfile extends React.Component {
         const userId = this.props.currentUser.id
         const formData = new FormData()
         formData.append('user[profile_picture]', this.state.croppedImage)
-        this.setState({cropBtn: false})
         this.props.editPicture(userId, formData)
+        this.setState({cropBtn: false, croppedImage: null, src: null})
     }
 
     render(){
