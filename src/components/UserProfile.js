@@ -229,20 +229,6 @@ class UserProfile extends React.Component {
     }
 
 
-    // {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
-    // {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
-    // {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
-    // {event.title.toLowerCase().includes("move") ? <HomeIcon /> : null}
-    // {event.title.toLowerCase().includes("baby") ? <ChildFriendlyIcon /> : null}
-    // {event.title.toLowerCase().includes("wedding") ? <FavoriteIcon /> : null}
-    // {event.title.toLowerCase().includes("engagement") ? <FavoriteIcon /> : null}
-    // {event.title.toLowerCase().includes("anniversary") ? <FavoriteIcon /> : null}
-    // {event.title.toLowerCase().includes("tournament") ? <GamesIcon /> : null}
-    // {event.title.toLowerCase().includes("game") ? <GamesIcon /> : null}
-    // {event.title.toLowerCase().includes("match") ? <GamesIcon /> : null}
-    // {event.title.toLowerCase().includes("new") ? <NewReleasesIcon /> : null}
-    // {event.title.toLowerCase().includes("promotion") ? <NewReleasesIcon /> : null}
-    // {event.title.toLowerCase().includes("vacation") ? <BeachAccessIcon /> : null}
 
     eventDots = () => {
         const { currentUser, user, allEvents } = this.props
