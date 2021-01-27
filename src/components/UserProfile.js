@@ -24,6 +24,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Typography from '@material-ui/core/Typography';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import TodayIcon from '@material-ui/icons/Today';
 import styled from "styled-components";
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -192,6 +193,57 @@ class UserProfile extends React.Component {
         }, () => this.props.editProfile(userId, {partner_birthday: newBirthdayDate}))
     }
 
+    timelineIcons = (event) => {
+        switch (true) {
+            case event.title.toLowerCase().includes("birthday"):
+                return <CakeIcon />
+            case event.title.toLowerCase().includes("graduation"):
+                return <SchoolIcon />
+            case event.title.toLowerCase().includes("search"):
+                return <SearchIcon />
+            case event.title.toLowerCase().includes("move"):
+                return <HomeIcon />
+            case event.title.toLowerCase().includes("baby"):
+                return <ChildFriendlyIcon />
+            case event.title.toLowerCase().includes("wedding"):
+                return <FavoriteIcon />
+            case event.title.toLowerCase().includes("engagement"):
+                return <FavoriteIcon />
+            case event.title.toLowerCase().includes("anniversary"):
+                return <FavoriteIcon />
+            case event.title.toLowerCase().includes("tournament"):
+                return <GamesIcon />
+            case event.title.toLowerCase().includes("game"):
+                return <GamesIcon />
+            case event.title.toLowerCase().includes("match"):
+                return <GamesIcon />
+            case event.title.toLowerCase().includes("new"):
+                return <NewReleasesIcon />
+            case event.title.toLowerCase().includes("promotion"):
+                return <NewReleasesIcon />
+            case event.title.toLowerCase().includes("vacation"):
+                return <BeachAccessIcon />
+            default:
+                return <TodayIcon />
+        }
+    }
+
+
+    // {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
+    // {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
+    // {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
+    // {event.title.toLowerCase().includes("move") ? <HomeIcon /> : null}
+    // {event.title.toLowerCase().includes("baby") ? <ChildFriendlyIcon /> : null}
+    // {event.title.toLowerCase().includes("wedding") ? <FavoriteIcon /> : null}
+    // {event.title.toLowerCase().includes("engagement") ? <FavoriteIcon /> : null}
+    // {event.title.toLowerCase().includes("anniversary") ? <FavoriteIcon /> : null}
+    // {event.title.toLowerCase().includes("tournament") ? <GamesIcon /> : null}
+    // {event.title.toLowerCase().includes("game") ? <GamesIcon /> : null}
+    // {event.title.toLowerCase().includes("match") ? <GamesIcon /> : null}
+    // {event.title.toLowerCase().includes("new") ? <NewReleasesIcon /> : null}
+    // {event.title.toLowerCase().includes("promotion") ? <NewReleasesIcon /> : null}
+    // {event.title.toLowerCase().includes("vacation") ? <BeachAccessIcon /> : null}
+
     eventDots = () => {
         const { currentUser, user, allEvents } = this.props
         if (user[0].own_events.length > 0) {
@@ -206,20 +258,7 @@ class UserProfile extends React.Component {
                         </TimelineOppositeContent>
                         <TimelineSeparator>
                             <TimelineDot color="white" style={{color: user[0].id === currentUser.id ? currentUser.first_color : user[0].first_color}}>
-                                {event.title.toLowerCase().includes("birthday") ? <CakeIcon /> : null}
-                                {event.title.toLowerCase().includes("graduation") ? <SchoolIcon /> : null}
-                                {event.title.toLowerCase().includes("search") ? <SearchIcon /> : null}
-                                {event.title.toLowerCase().includes("move") ? <HomeIcon /> : null}
-                                {event.title.toLowerCase().includes("baby") ? <ChildFriendlyIcon /> : null}
-                                {/* {event.title.toLowerCase().includes("wedding") ? <FavoriteIcon /> : null} */}
-                                {event.title.toLowerCase().includes("engagement") ? <FavoriteIcon /> : null}
-                                {event.title.toLowerCase().includes("anniversary") ? <FavoriteIcon /> : null}
-                                {event.title.toLowerCase().includes("tournament") ? <GamesIcon /> : null}
-                                {event.title.toLowerCase().includes("game") ? <GamesIcon /> : null}
-                                {event.title.toLowerCase().includes("match") ? <GamesIcon /> : null}
-                                {event.title.toLowerCase().includes("new") ? <NewReleasesIcon /> : null}
-                                {event.title.toLowerCase().includes("promotion") ? <NewReleasesIcon /> : null}
-                                {event.title.toLowerCase().includes("vacation") ? <BeachAccessIcon /> : null}
+                               {this.timelineIcons(event)}
                             </TimelineDot>
                             <TimelineConnector />
                         </TimelineSeparator>
@@ -261,7 +300,7 @@ class UserProfile extends React.Component {
             } else {
                 return (
                     <div style={{display: "flex", justifyContent: "center"}}>
-                        <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}}/>
+                        <img src="/images/venmologo.png" style={{maxHeight: "14px", marginTop: "3px", marginRight: "3px"}} alt="venmo icon"/>
                         <p style={{fontSize: "16px", marginBottom: "5px"}}>{this.state.venmo_handle}</p>
                     </div>
             )
