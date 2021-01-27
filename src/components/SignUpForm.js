@@ -163,7 +163,6 @@ class SignUpForm extends React.Component {
                     <Form.Field required>
                         <Form.Input 
                             label='Last Name' 
-                            // placeholder='Will be looking for jobs after graduation!' 
                             name="last_name" 
                             value={this.state.last_name} 
                             onChange={this.onChange}

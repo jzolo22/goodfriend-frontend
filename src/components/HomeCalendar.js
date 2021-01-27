@@ -92,7 +92,6 @@ class HomeCalendar extends React.Component {
                                 src={user.profile_picture.url} 
                                 circular 
                                 size="tiny" 
-                                link={true} 
                                 id={user.id}/> 
                             :
                             <Icon 
