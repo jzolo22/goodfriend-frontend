@@ -37,7 +37,7 @@ class UserProfile extends React.Component {
     state = {
         first_name: this.props.user[0].first_name,
         last_name: this.props.user[0].last_name,
-        venmo_handle: this.props.user[0].venmo_handle,
+        venmo_handle: this.props.currentUser.venmo_handle,
         birthday: moment(this.props.user[0].birthday).format('MMM Do'),
         partner_name: this.props.user[0].partner_name,
         partner_birthday: moment(this.props.user[0].partner_birthday).format('MMM Do'),
