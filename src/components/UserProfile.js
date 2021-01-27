@@ -49,7 +49,8 @@ class UserProfile extends React.Component {
         },
         croppedImageUrl: null,
         croppedImage: null,
-        cropBtn: false
+        cropBtn: false,
+        imageClicked: false
     }
 
 
@@ -347,12 +348,18 @@ class UserProfile extends React.Component {
         const formData = new FormData()
         formData.append('user[profile_picture]', this.state.croppedImage)
         this.props.editPicture(userId, formData)
-        this.setState({cropBtn: false, croppedImage: null, src: null})
+        this.setState({
+            cropBtn: false, 
+            croppedImage: null, 
+            src: null,
+            imageClicked: false
+        })
     }
 
     render(){
+        console.log(this.state)
         const { user, currentUser } = this.props
-        const { src, crop, croppedImageUrl } = this.state
+        const { src, crop, croppedImageUrl, imageClicked } = this.state
     return(
         <WholeProfile>
             <Container>
@@ -361,9 +368,10 @@ class UserProfile extends React.Component {
                 {user[0].id === currentUser.id 
                     ? 
                     <>
-                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={currentUser.profile_picture.url} circular size="small"/>
-                        <Form.Field style={{margin: "3% 0% 3% 0%"}}>
-                            <Form.Input 
+                        <Image style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "3%"}}  src={currentUser.profile_picture.url} circular size="small" alt={currentUser.first_name} onClick={(prevState) => this.setState({imageClicked: true})}/>
+                        {imageClicked ? 
+                            <Form.Field style={{margin: "3% 0% 3% 0%"}}>
+                            <Form.Input
                                 type="file"
                                 accept="image/*"
                                 multiple={false}
@@ -384,7 +392,10 @@ class UserProfile extends React.Component {
                                 {croppedImageUrl && (
                                 <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
                                 )}
-                        </Form.Field>
+                            </Form.Field>
+                        : null
+                    }
+                        
                         {this.state.cropBtn 
                         ? 
                         <Button onClick={this.submitCrop}>Done Cropping</Button>
