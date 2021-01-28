@@ -24,6 +24,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Typography from '@material-ui/core/Typography';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import ComputerIcon from '@material-ui/icons/Computer';
 import TodayIcon from '@material-ui/icons/Today';
 import styled from "styled-components";
 import ReactCrop from 'react-image-crop'
@@ -224,6 +225,8 @@ class UserProfile extends React.Component {
                 return <NewReleasesIcon />
             case event.title.toLowerCase().includes("vacation"):
                 return <BeachAccessIcon />
+            case event.title.toLowerCase().includes("presentation"):
+                return <ComputerIcon />
             default:
                 return <TodayIcon />
         }

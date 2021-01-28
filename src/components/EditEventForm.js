@@ -27,7 +27,6 @@ class EditEventForm extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("component did update", prevProps, this.props)
         if (prevProps !== this.props) {
             let currentEvent = this.props.allEvents.filter(event => event.id === this.props.eventId)
             this.setState({
