@@ -148,6 +148,7 @@ class UserProfile extends React.Component {
 
     deleteEvent = (e) => {
         let eventId = parseInt(e.target.id)
+        console.log("deleted event", eventId)
         this.props.deleteEvent(eventId)
     }  
 
