@@ -29,15 +29,16 @@ class NewEventForm extends React.Component {
     }
 
     onSubmit = (e) => {
+        const { newEvent, history } = this.props
         e.preventDefault()
-        this.props.newEvent(this.state)
+        newEvent(this.state, history)
         this.setState({
                 date: "",
                 title: "",
                 description: "",
                 annual: false
         })
-        this.props.history.push(`/users/${this.props.currentUser.id}`)
+        // this.props.history.push(`/users/${this.props.currentUser.id}`)
     }
 
     render() {
@@ -79,7 +80,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        newEvent: (eventObj) => dispatch(newEvent(eventObj))
+        newEvent: (eventObj, history) => dispatch(newEvent(eventObj, history))
     }
 }
 

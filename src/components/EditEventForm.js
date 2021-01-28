@@ -17,12 +17,26 @@ class EditEventForm extends React.Component {
 
     componentDidMount() {
         let currentEvent = this.props.allEvents.filter(event => event.id === this.props.eventId)
+        console.log("current event in edit form", currentEvent)
         this.setState({
             date: currentEvent[0].date,
             title: currentEvent[0].title,
             description: currentEvent[0].description,
             annual: currentEvent[0].annual
         })
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log("component did update", prevProps, this.props)
+        if (prevProps !== this.props) {
+            let currentEvent = this.props.allEvents.filter(event => event.id === this.props.eventId)
+            this.setState({
+            date: currentEvent[0].date,
+            title: currentEvent[0].title,
+            description: currentEvent[0].description,
+            annual: currentEvent[0].annual
+        })
+        }
     }
 
     dateSelect = (e) => {
@@ -43,6 +57,7 @@ class EditEventForm extends React.Component {
     }
 
     render() {
+        console.log("state in edit form", this.state)
         return (
             <>
                 <Modal 

@@ -105,7 +105,7 @@ export const getEvents = () => {
   }
 }
 
-export const newEvent = (eventObj) => {
+export const newEvent = (eventObj, history=null) => {
   return function(dispatch){
     fetch(`${url}/events`, {
         method: "POST",
@@ -113,7 +113,12 @@ export const newEvent = (eventObj) => {
         body: JSON.stringify(eventObj)
     })
       .then(r => r.json())
-      .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
+      .then(newEvent => {
+        dispatch({type: actions.ADD_EVENT, payload: newEvent})
+        if (history) {
+          history.push(`/users/${newEvent.user_id}`)
+        }
+      })
   }
 }
 
