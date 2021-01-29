@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, List, Icon, Image } from 'semantic-ui-react'
+import { Checkbox, Icon} from 'semantic-ui-react'
 import styled from "styled-components";
 import { connect } from 'react-redux'
 import AddItem from './AddItem';

@@ -74,7 +74,7 @@ class NavBar extends React.Component {
                     name="goodFriend"
                 >
                     <Item.Content >
-                            <img src="/images/goodfriendwhitetransparent.png"  style={{width: "56px"}}/> 
+                            <img src="/images/goodfriendwhitetransparent.png"  style={{width: "56px"}}alt="goodfriend logo" /> 
                     </Item.Content>
                 </Menu.Item>.
 

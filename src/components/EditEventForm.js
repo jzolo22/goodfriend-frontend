@@ -1,7 +1,7 @@
 import React from 'react'
 import { editEvent } from '../redux/actions'
 import { connect } from 'react-redux'
-import { Icon, Item, Modal, Form, Button, Checkbox } from 'semantic-ui-react'
+import { Icon, Modal, Form, Button, Checkbox } from 'semantic-ui-react'
 import Calendar from 'react-calendar'
 
 
