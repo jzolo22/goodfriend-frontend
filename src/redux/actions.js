@@ -1,7 +1,7 @@
 import * as actions from "./actionTypes";
 // import jwt from 'jsonwebtoken'
 
-const url = "http://localhost:4000/api/v1";
+const url = "http://good-friend.herokuapp.com/api/v1";
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
