@@ -270,36 +270,35 @@ export const newUser = (userObj, history, newEvent=null) => {
       body: userObj
     })
     .then(r => r.json())
-    .then(console.log)
-    //   newUser => {
-    //     if (newUser.user && newUser.jwt) {
-    //       const token = newUser.jwt;
-    //       localStorage.setItem("jwtToken", token);
-    //       dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
-    //       history.push('/')
+    .then(newUser => {
+        if (newUser.user && newUser.jwt) {
+          const token = newUser.jwt;
+          localStorage.setItem("jwtToken", token);
+          dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
+          history.push('/')
 
-    //         fetch(`${url}/wishlists`, {
-    //           method: "POST",
-    //           headers: myHeaders,
-    //           body: JSON.stringify({user_id: newUser.user.id})
-    //         })  
-    //           .then(r => r.json())
-    //           .then(console.log)
+            fetch(`${url}/wishlists`, {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify({user_id: newUser.user.id})
+            })  
+              .then(r => r.json())
+              .then(console.log)
 
-    //       if (newEvent){
-    //           newEvent["user_id"] = newUser.user.id
-    //           fetch(`${url}/events`, {
-    //             method: "POST",
-    //             headers: myHeaders,
-    //             body: JSON.stringify(newEvent)
-    //         })
-    //           .then(r => r.json())
-    //           .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
-    //     }
-    //   } else {
-    //     window.alert("Please try again. That username was already taken.")
-    //   }
-    // })
+          if (newEvent){
+              newEvent["user_id"] = newUser.user.id
+              fetch(`${url}/events`, {
+                method: "POST",
+                headers: myHeaders,
+                body: JSON.stringify(newEvent)
+            })
+              .then(r => r.json())
+              .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
+        }
+      } else {
+        window.alert("Please try again. That username was already taken.")
+      }
+    })
     .catch(console.log)
   }
 }
