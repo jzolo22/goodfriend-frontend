@@ -7,7 +7,9 @@ myHeaders.append("Content-Type", "application/json");
 
 function setAuthorizationToken(token) {
   if (token) {
-    myHeaders.append(`Authorization`, `Bearer ${token}`);
+    if (!myHeaders.includes("Authorization")) {
+      myHeaders.append(`Authorization`, `Bearer ${token}`);
+    }
   }
 }
 
@@ -24,7 +26,7 @@ export const getFollowedEvents = (id) => {
     })
       .then((r) => r.json())
       .then((userInfo) => {
-        if (userInfo.followed_events.length > 0) {
+        if (userInfo.followed_events && userInfo.followed_events.length > 0) {
           console.log(userInfo)
            dispatch({
           type: actions.GET_FOLLOWED_EVENTS,
