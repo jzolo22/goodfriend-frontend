@@ -7,9 +7,9 @@ myHeaders.append("Content-Type", "application/json");
 
 function setAuthorizationToken(token) {
   if (token) {
-    if (!myHeaders.includes("Authorization")) {
+    // if (!myHeaders.includes("Authorization")) {
       myHeaders.append(`Authorization`, `Bearer ${token}`);
-    }
+    // }
   }
 }
 
