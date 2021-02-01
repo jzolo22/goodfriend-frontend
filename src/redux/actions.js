@@ -41,6 +41,7 @@ export const getFollowedEvents = (id) => {
 
 
 export const fetchUsers = (id) => {
+  console.log(myHeaders)
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
     fetch(`${url}/users/${id}`, {
@@ -257,7 +258,7 @@ export const checkLogin = (token) => {
     return function (dispatch) {
         fetch(`${url}/profile`, {
             method: "GET",
-            headers: {Authorization: `Bearer ${token}`} 
+            headers: myHeaders
         })
             .then(r => r.json())
             .then((user) => dispatch({type: actions.SET_CURRENT_USER, payload: user.user}))
