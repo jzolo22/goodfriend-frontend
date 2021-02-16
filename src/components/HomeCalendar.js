@@ -48,7 +48,6 @@ class HomeCalendar extends React.Component {
     // }
 
     defaultEvent = () => {
-        console.log("default")
         return ([{
             title: "No Events!",
             start: new Date(),
@@ -61,7 +60,6 @@ class HomeCalendar extends React.Component {
     onClick = (e) => {
         const { eventIds } = this.state
         if (eventIds.includes(parseInt(e.target.id))) {
-            console.log("already on list")
             let updatedList = [...eventIds]
             let indexOfDeleted = updatedList.findIndex(eventId => eventId === parseInt(e.target.id))
             updatedList.splice(indexOfDeleted, 1)
@@ -137,9 +135,6 @@ class HomeCalendar extends React.Component {
     render() {
         const { currentUser, followedEvents, allEvents } = this.props
         const { eventIds } = this.state
-        // console.log(followedEvents)
-        // console.log(allEvents)
-        // console.log(currentUser)
         let usersEvents = allEvents.filter(event => event.user_id === currentUser.id)
         let allCalEvents = followedEvents.concat(usersEvents)
         let filteredEvents = allCalEvents.filter(event => !eventIds.includes(event.user_id))

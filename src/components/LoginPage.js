@@ -12,7 +12,6 @@ class LoginPage extends React.Component {
     }
 
     onChange = (e) => {
-        // console.log(e.target.value)
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -22,7 +21,6 @@ class LoginPage extends React.Component {
     }
 
     render(){
-        // console.log(this.state)
         return(
             <div style={{marginTop: "7%", textAlign: "center"}}>
                 <Image src="/images/goodfriendtransparent.png" size="medium" style={{textAlign: "center", margin: "auto", paddingBottom: "5px"}}/>

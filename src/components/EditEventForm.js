@@ -17,7 +17,6 @@ class EditEventForm extends React.Component {
 
     componentDidMount() {
         let currentEvent = this.props.allEvents.filter(event => event.id === this.props.eventId)
-        console.log("current event in edit form", currentEvent)
         this.setState({
             date: currentEvent[0].date,
             title: currentEvent[0].title,
@@ -56,7 +55,6 @@ class EditEventForm extends React.Component {
     }
 
     render() {
-        console.log("state in edit form", this.state)
         return (
             <>
                 <Modal 

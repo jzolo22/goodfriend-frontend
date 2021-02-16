@@ -23,7 +23,6 @@ class Wishlist extends React.Component {
 
     checkItem = (e) => {
         let id = parseInt(e.target.id)
-        console.log(e.target.checked)
         if (e.target.checked) {
             this.props.purchaseItem(id)
         } else {
@@ -36,7 +35,6 @@ class Wishlist extends React.Component {
             const usersWishlistItems = this.props.items.filter(item => item.wishlist_id === this.props.user.wishlist.id)
             // usersWishlistItems.sort((a, b) => a.purchased - b.purchased)
             return usersWishlistItems.map(item => {
-                console.log(item.purchased)
                     return (
                         <>
                             <OuterContainer>
@@ -75,7 +73,6 @@ class Wishlist extends React.Component {
 
 
     render() {
-        console.log(this.props)
         return (
             <>
                 <Container>

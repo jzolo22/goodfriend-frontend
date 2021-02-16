@@ -149,7 +149,6 @@ class UserProfile extends React.Component {
 
     deleteEvent = (e) => {
         let eventId = parseInt(e.target.id)
-        console.log("deleted event", eventId)
         this.props.deleteEvent(eventId)
     }  
 
@@ -177,7 +176,6 @@ class UserProfile extends React.Component {
 
     editedPartnerName = (text) => {
         let userId = this.props.user[0].id
-        console.log(text)
         this.setState({
             partner_name: text,
         }, () => this.props.editProfile(userId, {partner_name: text}))
@@ -237,7 +235,6 @@ class UserProfile extends React.Component {
     eventDots = () => {
         const { currentUser, user, allEvents } = this.props
         if (user[0].own_events.length > 0) {
-            console.log("in user profile", allEvents)
             let usersEvents = allEvents.filter(event => event.user_id === user[0].id)
             let sortedByDateEvents = usersEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
             return sortedByDateEvents.map(event => {
@@ -386,7 +383,6 @@ class UserProfile extends React.Component {
     }
 
     render(){
-        console.log(this.state)
         const { user, currentUser } = this.props
         const { src, crop, croppedImageUrl, imageClicked } = this.state
     return(

@@ -27,7 +27,6 @@ export const getFollowedEvents = (id) => {
       .then((r) => r.json())
       .then((userInfo) => {
         if (userInfo.followed_events && userInfo.followed_events.length > 0) {
-          console.log(userInfo)
            dispatch({
           type: actions.GET_FOLLOWED_EVENTS,
           payload: userInfo.followed_events.flat()
@@ -41,7 +40,6 @@ export const getFollowedEvents = (id) => {
 
 
 export const fetchUsers = (id) => {
-  console.log(myHeaders)
   return function (dispatch) {
     setAuthorizationToken(localStorage.jwtToken);
     fetch(`${url}/users/${id}`, {
@@ -242,7 +240,6 @@ export const logIn = (userData) => {
     })
       .then((r) => r.json())
       .then((userData) => {
-        console.log(userData)
         if (userData.user && userData.jwt) {
         const token = userData.jwt;
         localStorage.setItem("jwtToken", token);
@@ -266,7 +263,6 @@ export const checkLogin = (token) => {
 }
 
 export const newUser = (userObj, history, newEvent=null) => {
-  console.log(newEvent)
   return function(dispatch) {
     fetch(`${url}/users`, {
       method: "POST",
@@ -286,7 +282,6 @@ export const newUser = (userObj, history, newEvent=null) => {
               body: JSON.stringify({user_id: newUser.user.id})
             })  
               .then(r => r.json())
-              .then(console.log)
 
           if (newEvent){
               newEvent["user_id"] = newUser.user.id
@@ -302,7 +297,6 @@ export const newUser = (userObj, history, newEvent=null) => {
         window.alert("Please try again. That username was already taken.")
       }
     })
-    .catch(console.log)
   }
 }
 

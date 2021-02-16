@@ -13,7 +13,6 @@ const initialState = {
 function followedEventsReducer(state = initialState.followedEvents, action) {
     switch(action.type){
         case actions.GET_FOLLOWED_EVENTS:
-            console.log("in reducer", action.payload)
             return action.payload
         default:
             return state

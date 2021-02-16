@@ -109,7 +109,6 @@ class SignUpForm extends React.Component {
     }
 
     onSubmit = (e) => {
-        console.log("working")
         e.preventDefault()
         const formData = new FormData()
         formData.append('user[first_name]', this.state.first_name)
@@ -143,7 +142,6 @@ class SignUpForm extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         const { src, crop, croppedImageUrl } = this.state
         return(
             <div style={{marginTop: "6%", textAlign: "center"}}>
