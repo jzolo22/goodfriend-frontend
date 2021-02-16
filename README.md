@@ -16,7 +16,7 @@ Some potential improvements to come:
 * the option to allocate users to different categories (i.e. close friends, family, acquaintances, customers, and see events for a whole category at once)
 
 ## Special Thanks
-I couldn't have done it without these npm packages!
+I couldn't have done it without these react packages!
 
 [react-color](https://casesandberg.github.io/react-color/)  
 [react-inline-editing](https://www.npmjs.com/package/react-inline-editing)  
