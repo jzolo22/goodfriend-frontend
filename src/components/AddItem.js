@@ -1,33 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { addItem } from '../redux/actions'
 import { Icon, Modal, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-class AddItem extends React.Component {
+function AddItem ({user}) {
 
-    state = {
-        wishlist_id: this.props.user.wishlist.id,
-        name: "",
-        link: "",
-        purchased: false
-    }
+    // state = {
+    //     wishlist_id: this.props.user.wishlist.id,
+    //     name: "",
+    //     link: "",
+    //     purchased: false
+    // }
 
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
+    const [wishlist_id, setWishlistId] = useState()
 
-    onSubmit = (e) => {
-        e.preventDefault()
-        this.props.addItem(this.state)
-        this.setState({
-            wishlist_id: this.props.user.wishlist.id,
-            name: "",
-            link: "",
-            purchased: false
-        })
-    }
+    // onChange = (e) => {
+    //     this.setState({[e.target.name]: e.target.value})
+    // }
 
-    render () {
+    // onSubmit = (e) => {
+    //     e.preventDefault()
+    //     this.props.addItem(this.state)
+    //     this.setState({
+    //         wishlist_id: this.props.user.wishlist.id,
+    //         name: "",
+    //         link: "",
+    //         purchased: false
+    //     })
+    // }
+
         return (
             <Modal 
                 trigger={<Icon link={true} style={{paddingLeft: "3px", marginTop: "2%", marginBottom: "15%"}} name="add" onClick={this.addItem} size="big"/>}
@@ -46,7 +47,6 @@ class AddItem extends React.Component {
             </Modal>
         )
     }
-}
 
 const mdp = (dispatch) => {
     return {
