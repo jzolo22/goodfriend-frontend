@@ -2,36 +2,28 @@ import React, { useState } from 'react'
 import { addItem } from '../redux/actions'
 import { Icon, Modal, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import styled from "styled-components";
+
+const styledIcon = styled(Icon)`
+    padding-left: 3px; 
+    margin-top: 2%; 
+    margin-bottom: 15;
+`
+
+function reducer(state, { field, value }) {
+    
+}
 
 function AddItem ({user}) {
 
-    // state = {
-    //     wishlist_id: this.props.user.wishlist.id,
-    //     name: "",
-    //     link: "",
-    //     purchased: false
-    // }
-
-    const [wishlist_id, setWishlistId] = useState()
-
-    // onChange = (e) => {
-    //     this.setState({[e.target.name]: e.target.value})
-    // }
-
-    // onSubmit = (e) => {
-    //     e.preventDefault()
-    //     this.props.addItem(this.state)
-    //     this.setState({
-    //         wishlist_id: this.props.user.wishlist.id,
-    //         name: "",
-    //         link: "",
-    //         purchased: false
-    //     })
-    // }
+    const [wishlist_id, setWishlistId] = useState(user.wishlist.id)
+    const [wishlist_id, setWishlistId] = useState(user.wishlist.id)
+    const [wishlist_id, setWishlistId] = useState(user.wishlist.id)
+    const [wishlist_id, setWishlistId] = useState(user.wishlist.id)
 
         return (
             <Modal 
-                trigger={<Icon link={true} style={{paddingLeft: "3px", marginTop: "2%", marginBottom: "15%"}} name="add" onClick={this.addItem} size="big"/>}
+                trigger={<styledIcon link={true} name="add" onClick={this.addItem} size="big"/>}
                 as={Form}
                 onSubmit={this.onSubmit}
                 size="mini"
@@ -46,12 +38,16 @@ function AddItem ({user}) {
                 </Modal.Actions>
             </Modal>
         )
-    }
-
-const mdp = (dispatch) => {
-    return {
-        addItem: (itemObj) => dispatch(addItem(itemObj))
-    }
 }
 
-export default connect(null, mdp)(AddItem)
+
+function mdp(dispatch) {
+    return 
+        {
+            addItem: (itemObj) => dispatch(addItem(itemObj))
+        };
+}
+
+export default AddItem;
+
+
