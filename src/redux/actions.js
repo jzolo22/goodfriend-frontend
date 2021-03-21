@@ -1,14 +1,14 @@
-import * as actions from "./actionTypes";
+import * as actions from './actionTypes';
 // import jwt from 'jsonwebtoken'
 
-const url = "https://good-friend.herokuapp.com/api/v1";
+const url = 'https://good-friend.herokuapp.com/api/v1';
 const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+myHeaders.append('Content-Type', 'application/json');
 
 function setAuthorizationToken(token) {
   if (token) {
     // if (!myHeaders.includes("Authorization")) {
-      myHeaders.append(`Authorization`, `Bearer ${token}`);
+    myHeaders.append(`Authorization`, `Bearer ${token}`);
     // }
   }
 }
@@ -16,7 +16,6 @@ function setAuthorizationToken(token) {
 setAuthorizationToken(localStorage.jwtToken);
 
 // ------------------------------------------------ Initial followed users/events ------------------------------------------------ //
-
 
 export const getFollowedEvents = (id) => {
   return function (dispatch) {
@@ -26,18 +25,18 @@ export const getFollowedEvents = (id) => {
     })
       .then((r) => r.json())
       .then((userInfo) => {
-        if (userInfo.followed_events && userInfo.followed_events.length > 0) {
-           dispatch({
-          type: actions.GET_FOLLOWED_EVENTS,
-          payload: userInfo.followed_events.flat()
-        })
+        if (
+          userInfo.followed_events &&
+          userInfo.followed_events.length > 0
+        ) {
+          dispatch({
+            type: actions.GET_FOLLOWED_EVENTS,
+            payload: userInfo.followed_events.flat(),
+          });
         }
-      }
-      );
+      });
   };
 };
-
-
 
 export const fetchUsers = (id) => {
   return function (dispatch) {
@@ -50,7 +49,7 @@ export const fetchUsers = (id) => {
         dispatch({
           type: actions.GET_FOLLOWED_USERS,
           payload: userInfo.you_follow,
-        })
+        }),
       );
   };
 };
@@ -63,246 +62,294 @@ export const fetchAllUsers = () => {
     })
       .then((r) => r.json())
       .then((usersArray) =>
-        dispatch({ type: actions.GET_ALL_USERS, payload: usersArray })
+        dispatch({
+          type: actions.GET_ALL_USERS,
+          payload: usersArray,
+        }),
       );
   };
 };
 
-
 // ------------------------------------------------ Follow ------------------------------------------------ //
 
 export const newFollow = (followObj) => {
-    return function(dispatch) {
-        fetch(`${url}/follows`, {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(followObj)
-        })
-            .then(r => r.json())
-            .then(newFollow => dispatch({type: actions.ADD_FOLLOWER, payload: newFollow.follow.followee}))
-    }
-}
+  return function (dispatch) {
+    fetch(`${url}/follows`, {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(followObj),
+    })
+      .then((r) => r.json())
+      .then((newFollow) =>
+        dispatch({
+          type: actions.ADD_FOLLOWER,
+          payload: newFollow.follow.followee,
+        }),
+      );
+  };
+};
 
 export const deleteFollow = (followerId, followeeId) => {
-    return function(dispatch) {
-      fetch(`${url}/follows/${followerId}&${followeeId}`, {
-          method: "DELETE",
-          headers: myHeaders
-      })
-          .then(dispatch({type: actions.DELETE_FOLLOW, payload: followeeId}))
-    }
-}
-
+  return function (dispatch) {
+    fetch(`${url}/follows/${followerId}&${followeeId}`, {
+      method: 'DELETE',
+      headers: myHeaders,
+    }).then(
+      dispatch({ type: actions.DELETE_FOLLOW, payload: followeeId }),
+    );
+  };
+};
 
 // ------------------------------------------------ Event ------------------------------------------------ //
 
 export const getEvents = () => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/events`, {
-      headers: myHeaders
+      headers: myHeaders,
     })
-      .then(r => r.json())
-      .then(eventsArray => dispatch({type: actions.GET_ALL_EVENTS, payload: eventsArray}))
-  }
-}
+      .then((r) => r.json())
+      .then((eventsArray) =>
+        dispatch({
+          type: actions.GET_ALL_EVENTS,
+          payload: eventsArray,
+        }),
+      );
+  };
+};
 
-export const newEvent = (eventObj, history=null) => {
-  return function(dispatch){
+export const newEvent = (eventObj, history = null) => {
+  return function (dispatch) {
     fetch(`${url}/events`, {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(eventObj)
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(eventObj),
     })
-      .then(r => r.json())
-      .then(newEvent => {
-        dispatch({type: actions.ADD_EVENT, payload: newEvent})
+      .then((r) => r.json())
+      .then((newEvent) => {
+        dispatch({ type: actions.ADD_EVENT, payload: newEvent });
         if (history) {
-          history.push(`/users/${newEvent.user_id}`)
+          history.push(`/users/${newEvent.user_id}`);
         }
-      })
-  }
-}
-
+      });
+  };
+};
 
 export const editEvent = (eventId, eventObj) => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/events/${eventId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: myHeaders,
-      body: JSON.stringify(eventObj)
+      body: JSON.stringify(eventObj),
     })
-      .then(r => r.json())
-      .then(updatedEvent => dispatch({type: actions.UPDATE_EVENT, payload: updatedEvent}))
-  }
-}
-
+      .then((r) => r.json())
+      .then((updatedEvent) =>
+        dispatch({
+          type: actions.UPDATE_EVENT,
+          payload: updatedEvent,
+        }),
+      );
+  };
+};
 
 export const deleteEvent = (eventId) => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/events/${eventId}`, {
-        method: "DELETE",
-        headers: myHeaders
-    })
-        .then(dispatch({type: actions.DELETE_EVENT, payload: eventId}))
-  }
-}
+      method: 'DELETE',
+      headers: myHeaders,
+    }).then(
+      dispatch({ type: actions.DELETE_EVENT, payload: eventId }),
+    );
+  };
+};
 // ------------------------------------------------ User Profile ------------------------------------------------ //
 
 export const editProfile = (userId, userObj) => {
   return function (dispatch) {
-      fetch(`${url}/users/${userId}`, {
-        method: "PATCH",
-        headers: myHeaders,
-        body: JSON.stringify(userObj)
-      })
-        .then(r => r.json())
-        .then(updatedUser => dispatch({type: actions.UPDATE_USER, payload: updatedUser}))
-  }
-}
+    fetch(`${url}/users/${userId}`, {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: JSON.stringify(userObj),
+    })
+      .then((r) => r.json())
+      .then((updatedUser) =>
+        dispatch({ type: actions.UPDATE_USER, payload: updatedUser }),
+      );
+  };
+};
 
 export const editPicture = (userId, userObj) => {
   return function (dispatch) {
     fetch(`${url}/users/${userId}`, {
-      method: "PATCH",
-      headers: {Authorization: `Bearer ${localStorage.jwtToken}`},
-      body: userObj
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${localStorage.jwtToken}` },
+      body: userObj,
     })
-      .then(r => r.json())
-      .then(updatedUser => dispatch({type: actions.SET_CURRENT_USER, payload: updatedUser}))
-  }
-}
+      .then((r) => r.json())
+      .then((updatedUser) =>
+        dispatch({
+          type: actions.SET_CURRENT_USER,
+          payload: updatedUser,
+        }),
+      );
+  };
+};
 // ------------------------------------------------ Items ------------------------------------------------ //
 export const getItems = () => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/items`, {
       headers: myHeaders,
     })
-      .then(r => r.json())
-      .then(itemsArray => dispatch({type: actions.ALL_ITEMS, payload: itemsArray}))
-  }
-}
+      .then((r) => r.json())
+      .then((itemsArray) =>
+        dispatch({ type: actions.ALL_ITEMS, payload: itemsArray }),
+      );
+  };
+};
 
 export const addItem = (itemObj) => {
-  return function(dispatch) {
-      fetch(`${url}/items`, {
-          method: "POST",
-          headers: myHeaders, 
-          body: JSON.stringify(itemObj)
-      })
-          .then(r => r.json())
-          .then(itemObj => dispatch({type: actions.ADD_ITEM, payload: itemObj.item}))
-  }
-}
+  return function (dispatch) {
+    fetch(`${url}/items`, {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(itemObj),
+    })
+      .then((r) => r.json())
+      .then((itemObj) =>
+        dispatch({ type: actions.ADD_ITEM, payload: itemObj.item }),
+      );
+  };
+};
 
 export const deleteItem = (id) => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/items/${id}`, {
-        method: "DELETE",
-        headers: myHeaders
-    })
-        .then(dispatch({type: actions.DELETE_ITEM, payload: id}))
-  }
-}
+      method: 'DELETE',
+      headers: myHeaders,
+    }).then(dispatch({ type: actions.DELETE_ITEM, payload: id }));
+  };
+};
 
 export const purchaseItem = (id) => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/items/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: myHeaders,
-      body: JSON.stringify({purchased: true})
+      body: JSON.stringify({ purchased: true }),
     })
-      .then(r => r.json())
-      .then(updatedItem => dispatch({type: actions.UPDATE_ITEM, payload: updatedItem}))
-  }
-}
+      .then((r) => r.json())
+      .then((updatedItem) =>
+        dispatch({ type: actions.UPDATE_ITEM, payload: updatedItem }),
+      );
+  };
+};
 
 export const returnItem = (id) => {
-  return function(dispatch) {
+  return function (dispatch) {
     fetch(`${url}/items/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: myHeaders,
-      body: JSON.stringify({purchased: false})
+      body: JSON.stringify({ purchased: false }),
     })
-      .then(r => r.json())
-      .then(updatedItem => dispatch({type: actions.UPDATE_ITEM, payload: updatedItem}))
-  }
-}
-
+      .then((r) => r.json())
+      .then((updatedItem) =>
+        dispatch({ type: actions.UPDATE_ITEM, payload: updatedItem }),
+      );
+  };
+};
 
 // ------------------------------------------------ User Acct. Actions ------------------------------------------------ //
 
 export const logIn = (userData) => {
   return function (dispatch) {
     fetch(`${url}/login`, {
-      method: "POST",
+      method: 'POST',
       headers: myHeaders,
       body: JSON.stringify(userData),
     })
       .then((r) => r.json())
       .then((userData) => {
         if (userData.user && userData.jwt) {
-        const token = userData.jwt;
-        localStorage.setItem("jwtToken", token);
-        return dispatch({type: actions.SET_CURRENT_USER, payload: userData.user})
-      } else {
-        window.alert("Please try again. The username or password was incorrect.")
-      }
+          const token = userData.jwt;
+          localStorage.setItem('jwtToken', token);
+          return dispatch({
+            type: actions.SET_CURRENT_USER,
+            payload: userData.user,
+          });
+        } else {
+          window.alert(
+            'Please try again. The username or password was incorrect.',
+          );
+        }
       });
   };
 };
 
 export const checkLogin = (token) => {
-    return function (dispatch) {
-        fetch(`${url}/profile`, {
-            method: "GET",
-            headers: myHeaders
-        })
-            .then(r => r.json())
-            .then((user) => dispatch({type: actions.SET_CURRENT_USER, payload: user.user}))
-    }
-}
-
-export const newUser = (userObj, history, newEvent=null) => {
-  return function(dispatch) {
-    fetch(`${url}/users`, {
-      method: "POST",
-      body: userObj
+  return function (dispatch) {
+    fetch(`${url}/profile`, {
+      method: 'GET',
+      headers: myHeaders,
     })
-    .then(r => r.json())
-    .then(newUser => {
+      .then((r) => r.json())
+      .then((user) =>
+        dispatch({
+          type: actions.SET_CURRENT_USER,
+          payload: user.user,
+        }),
+      );
+  };
+};
+
+export const newUser = (userObj, history, newEvent = null) => {
+  return function (dispatch) {
+    fetch(`${url}/users`, {
+      method: 'POST',
+      body: userObj,
+    })
+      .then((r) => r.json())
+      .then((newUser) => {
         if (newUser.user && newUser.jwt) {
           const token = newUser.jwt;
-          localStorage.setItem("jwtToken", token);
-          dispatch({type: actions.SET_CURRENT_USER, payload: newUser.user})
-          history.push('/')
+          localStorage.setItem('jwtToken', token);
+          dispatch({
+            type: actions.SET_CURRENT_USER,
+            payload: newUser.user,
+          });
+          history.push('/');
 
-            fetch(`${url}/wishlists`, {
-              method: "POST",
+          fetch(`${url}/wishlists`, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({ user_id: newUser.user.id }),
+          }).then((r) => r.json());
+
+          if (newEvent) {
+            newEvent['user_id'] = newUser.user.id;
+            fetch(`${url}/events`, {
+              method: 'POST',
               headers: myHeaders,
-              body: JSON.stringify({user_id: newUser.user.id})
-            })  
-              .then(r => r.json())
-
-          if (newEvent){
-              newEvent["user_id"] = newUser.user.id
-              fetch(`${url}/events`, {
-                method: "POST",
-                headers: myHeaders,
-                body: JSON.stringify(newEvent)
+              body: JSON.stringify(newEvent),
             })
-              .then(r => r.json())
-              .then(newEvent => dispatch({type: actions.ADD_EVENT, payload: newEvent}))
+              .then((r) => r.json())
+              .then((newEvent) =>
+                dispatch({
+                  type: actions.ADD_EVENT,
+                  payload: newEvent,
+                }),
+              );
+          }
+        } else {
+          window.alert(
+            'Please try again. That username was already taken.',
+          );
         }
-      } else {
-        window.alert("Please try again. That username was already taken.")
-      }
-    })
-  }
-}
+      });
+  };
+};
 
 export const logOut = () => {
-  return function(dispatch) {
-    localStorage.removeItem("jwtToken")
-    dispatch({type: actions.LOG_OUT, payload: {}})
-  }
-}
+  return function (dispatch) {
+    localStorage.removeItem('jwtToken');
+    dispatch({ type: actions.LOG_OUT, payload: {} });
+  };
+};
