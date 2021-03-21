@@ -310,7 +310,7 @@ class HomeCalendar extends React.Component {
               <Transition.Group animation="slide left" duration="500">
                 {this.state.visible && (
                   <div>
-                    <p style={{ marginBottom: '2px' }}>Yours</p>
+                    <p style={{ marginBottom: '2px' }}>Mine</p>
                     <CompactPicker
                       id="1"
                       color={this.state.first_color}
