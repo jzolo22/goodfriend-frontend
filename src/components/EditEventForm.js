@@ -1,13 +1,7 @@
 import React from 'react';
 import { editEvent } from '../redux/actions';
 import { connect } from 'react-redux';
-import {
-  Icon,
-  Modal,
-  Form,
-  Button,
-  Checkbox,
-} from 'semantic-ui-react';
+import { Icon, Modal, Form, Button, Checkbox } from 'semantic-ui-react';
 import Calendar from 'react-calendar';
 
 class EditEventForm extends React.Component {
@@ -130,8 +124,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return {
-    editEvent: (eventId, eventObj) =>
-      dispatch(editEvent(eventId, eventObj)),
+    editEvent: (eventId, eventObj) => dispatch(editEvent(eventId, eventObj)),
   };
 };
 

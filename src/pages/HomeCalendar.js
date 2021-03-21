@@ -15,19 +15,11 @@ import {
   editProfile,
   getEvents,
 } from '../redux/actions';
-import {
-  Icon,
-  Item,
-  Label,
-  Image,
-  Transition,
-} from 'semantic-ui-react';
+import { Icon, Item, Label, Image, Transition } from 'semantic-ui-react';
 import { CompactPicker } from 'react-color';
 
 moment.locale('en-US');
 BigCalendar.momentLocalizer(moment);
-
-
 
 class HomeCalendar extends React.Component {
   state = {
@@ -42,12 +34,7 @@ class HomeCalendar extends React.Component {
   };
 
   componentDidMount() {
-    const {
-      currentUser,
-      fetchEvents,
-      fetchAllUsers,
-      getEvents,
-    } = this.props;
+    const { currentUser, fetchEvents, fetchAllUsers, getEvents } = this.props;
     if (currentUser.id) {
       fetchEvents(currentUser.id);
       fetchAllUsers();
@@ -106,16 +93,11 @@ class HomeCalendar extends React.Component {
     let avatarArray = followedUsers.map((user) => user.id);
     avatarArray.push(currentUser.id);
     if (allUsers.length > 0) {
-      let followedUserAvatars = allUsers.filter((user) =>
-        avatarArray.includes(user.id),
-      );
+      let followedUserAvatars = allUsers.filter((user) => avatarArray.includes(user.id));
       return followedUserAvatars.map((user) => {
         return (
           <Item>
-            <Item.Content
-              style={{ marginRight: '15%' }}
-              onClick={this.onClick}
-            >
+            <Item.Content style={{ marginRight: '15%' }} onClick={this.onClick}>
               {user.profile_picture ? (
                 <Image
                   disabled={eventIds.includes(user.id) ? true : false}
@@ -156,8 +138,7 @@ class HomeCalendar extends React.Component {
       {
         first_color: color.hex,
       },
-      () =>
-        this.props.editProfile(userId, { first_color: color.hex }),
+      () => this.props.editProfile(userId, { first_color: color.hex }),
     );
   };
 
@@ -167,8 +148,7 @@ class HomeCalendar extends React.Component {
       {
         second_color: color.hex,
       },
-      () =>
-        this.props.editProfile(userId, { second_color: color.hex }),
+      () => this.props.editProfile(userId, { second_color: color.hex }),
     );
   };
 
@@ -177,9 +157,7 @@ class HomeCalendar extends React.Component {
   render() {
     const { currentUser, followedEvents, allEvents } = this.props;
     const { eventIds } = this.state;
-    let usersEvents = allEvents.filter(
-      (event) => event.user_id === currentUser.id,
-    );
+    let usersEvents = allEvents.filter((event) => event.user_id === currentUser.id);
     let allCalEvents = followedEvents.concat(usersEvents);
     let filteredEvents = allCalEvents.filter(
       (event) => !eventIds.includes(event.user_id),
@@ -299,8 +277,7 @@ class HomeCalendar extends React.Component {
                 // localizer={localizer}
 
                 events={
-                  followedEvents.length > 0 ||
-                  currentUser.own_events.length > 0
+                  followedEvents.length > 0 || currentUser.own_events.length > 0
                     ? filteredEventsForCal
                     : this.defaultEvent()
                 }
@@ -328,9 +305,7 @@ class HomeCalendar extends React.Component {
                 style={{ height: 'fit-content', fontSize: '14px' }}
                 onClick={this.toggleColorVisibility}
               >
-                {this.state.visible
-                  ? 'done editing'
-                  : 'change colors'}
+                {this.state.visible ? 'done editing' : 'change colors'}
               </Label>
               <Transition.Group animation="slide left" duration="500">
                 {this.state.visible && (
@@ -381,8 +356,7 @@ const mdp = (dispatch) => {
     fetchEvents: (userId) => dispatch(getFollowedEvents(userId)),
     fetchAllUsers: () => dispatch(fetchAllUsers()),
     newEvent: (eventObj) => dispatch(newEvent(eventObj)),
-    editProfile: (userId, userObj) =>
-      dispatch(editProfile(userId, userObj)),
+    editProfile: (userId, userObj) => dispatch(editProfile(userId, userObj)),
     getEvents: () => dispatch(getEvents()),
   };
 };
